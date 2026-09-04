@@ -7,284 +7,67 @@
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #e31e24;
-            --accent: #ffd700;
-            --dark: #0a0a1a;
-            --secondary: #1a1a2e;
-            --glass: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.15);
-            --gradient-primary: linear-gradient(135deg, #e31e24 0%, #ff6b6b 100%);
-            --gradient-gold: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
-            --gradient-bg: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 25%, #2d1b4e 50%, #1a1a3e 75%, #0a0a1a 100%);
-        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Prompt', sans-serif;
-            background: var(--gradient-bg);
-            color: #fff;
-            min-height: 100vh;
-            padding: 2rem 1rem;
-        }
+        body { font-family: 'Prompt', sans-serif; background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0a0a1a 100%); color: #fff; min-height: 100vh; padding: 2rem 1rem; }
         
-        /* Login Screen */
-        #loginScreen {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .login-box {
-            max-width: 400px;
-            width: 100%;
-            background: rgba(26, 26, 46, 0.95);
-            padding: 3rem;
-            border-radius: 24px;
-            text-align: center;
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-        }
-        .login-box h2 { 
-            color: var(--accent); 
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
-        }
+        #loginScreen { display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .login-box { max-width: 400px; width: 100%; background: rgba(26,26,46,0.95); padding: 3rem; border-radius: 24px; text-align: center; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+        .login-box h2 { color: #ffd700; margin-bottom: 1.5rem; font-size: 1.8rem; }
         .login-box h2 i { margin-right: 10px; }
-        .login-box input {
-            width: 100%;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            background: rgba(10, 10, 26, 0.8);
-            border: 1px solid var(--glass-border);
-            color: #fff;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-family: 'Prompt', sans-serif;
-        }
-        .login-box input:focus { 
-            outline: none; 
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
-        }
-        .login-box button {
-            width: 100%;
-            padding: 1rem;
-            background: var(--gradient-primary);
-            color: #fff;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 1.05rem;
-            font-family: 'Prompt', sans-serif;
-            transition: all 0.3s;
-        }
-        .login-box button:hover { 
-            transform: translateY(-2px); 
-            box-shadow: 0 10px 30px rgba(227, 30, 36, 0.5); 
-        }
-        .login-box .hint {
-            margin-top: 1rem;
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.6);
-        }
-        .login-box .hint code {
-            color: var(--accent);
-            background: rgba(255, 215, 0, 0.1);
-            padding: 0.2rem 0.5rem;
-            border-radius: 5px;
-        }
+        .login-box input { width: 100%; padding: 1rem; margin-bottom: 1rem; background: rgba(10,10,26,0.8); border: 1px solid rgba(255,255,255,0.15); color: #fff; border-radius: 12px; font-size: 1rem; font-family: 'Prompt', sans-serif; }
+        .login-box input:focus { outline: none; border-color: #ffd700; }
+        .login-box button { width: 100%; padding: 1rem; background: linear-gradient(135deg, #e31e24, #ff6b6b); color: #fff; border: none; border-radius: 12px; cursor: pointer; font-weight: 700; font-size: 1.05rem; font-family: 'Prompt', sans-serif; }
+        .login-box .hint { margin-top: 1rem; font-size: 0.85rem; color: rgba(255,255,255,0.6); }
+        .login-box .hint code { color: #ffd700; background: rgba(255,215,0,0.1); padding: 0.2rem 0.5rem; border-radius: 5px; }
         
-        /* Admin Panel */
         #adminPanel { display: none; }
-        .admin-container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: rgba(26, 26, 46, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 2.5rem;
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-        }
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--glass-border);
-        }
-        .admin-header h2 {
-            color: var(--accent);
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-        .admin-header h2 i { margin-right: 10px; }
-        .admin-close {
-            background: var(--gradient-primary);
-            color: #fff;
-            border: none;
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: all 0.3s;
-        }
-        .admin-close:hover { transform: rotate(90deg); }
+        .admin-container { max-width: 900px; margin: 0 auto; background: rgba(26,26,46,0.95); border-radius: 24px; padding: 2.5rem; border: 1px solid rgba(255,255,255,0.15); }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.15); }
+        .admin-header h2 { color: #ffd700; font-size: 1.8rem; }
+        .admin-close { background: linear-gradient(135deg, #e31e24, #ff6b6b); color: #fff; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; }
         
-        /* Tabs */
-        .admin-tabs {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid var(--glass-border);
-            padding-bottom: 1rem;
-            flex-wrap: wrap;
-        }
-        .admin-tab {
-            background: transparent;
-            color: rgba(255,255,255,0.7);
-            border: none;
-            padding: 0.7rem 1.2rem;
-            cursor: pointer;
-            font-size: 1rem;
-            border-radius: 10px;
-            transition: all 0.3s;
-            font-weight: 500;
-            font-family: 'Prompt', sans-serif;
-        }
-        .admin-tab:hover { background: var(--glass); color: #fff; }
-        .admin-tab.active {
-            background: var(--gradient-primary);
-            color: #fff;
-        }
+        .admin-tabs { display: flex; gap: 0.5rem; margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 1rem; flex-wrap: wrap; }
+        .admin-tab { background: transparent; color: rgba(255,255,255,0.7); border: none; padding: 0.7rem 1.2rem; cursor: pointer; font-size: 1rem; border-radius: 10px; font-family: 'Prompt', sans-serif; }
+        .admin-tab.active { background: linear-gradient(135deg, #e31e24, #ff6b6b); color: #fff; }
         
         .admin-section { display: none; }
-        .admin-section.active { display: block; animation: fadeIn 0.4s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .admin-section.active { display: block; }
         
         .form-group { margin-bottom: 1.5rem; }
-        .form-group label {
-            display: block;
-            margin-bottom: 0.6rem;
-            color: var(--accent);
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%;
-            padding: 0.9rem 1rem;
-            background: rgba(10, 10, 26, 0.8);
-            border: 1px solid var(--glass-border);
-            color: #fff;
-            border-radius: 12px;
-            font-family: 'Prompt', sans-serif;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
-        }
+        .form-group label { display: block; margin-bottom: 0.6rem; color: #ffd700; font-weight: 600; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.9rem 1rem; background: rgba(10,10,26,0.8); border: 1px solid rgba(255,255,255,0.15); color: #fff; border-radius: 12px; font-family: 'Prompt', sans-serif; font-size: 1rem; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: #ffd700; }
         .form-group textarea { min-height: 120px; resize: vertical; }
         
-        .btn-save {
-            background: var(--gradient-primary);
-            color: #fff;
-            border: none;
-            padding: 1rem 2.5rem;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 1.05rem;
-            transition: all 0.3s;
-            font-family: 'Prompt', sans-serif;
-            margin-top: 1rem;
-        }
-        .btn-save:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(227, 30, 36, 0.5); }
-        
+        .btn-save { background: linear-gradient(135deg, #e31e24, #ff6b6b); color: #fff; border: none; padding: 1rem 2.5rem; border-radius: 12px; cursor: pointer; font-weight: 700; font-size: 1.05rem; font-family: 'Prompt', sans-serif; margin-top: 1rem; }
         .image-list, .video-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
-        .list-item {
-            background: rgba(10, 10, 26, 0.6);
-            padding: 1rem;
-            border-radius: 12px;
-            display: flex;
-            gap: 0.8rem;
-            align-items: center;
-            border: 1px solid var(--glass-border);
-        }
+        .list-item { background: rgba(10,10,26,0.6); padding: 1rem; border-radius: 12px; display: flex; gap: 0.8rem; align-items: center; border: 1px solid rgba(255,255,255,0.15); }
         .list-item input { flex: 1; background: rgba(5,5,16,0.8); }
-        .btn-delete {
-            background: linear-gradient(135deg, #ff4444, #cc0000);
-            color: #fff;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-family: 'Prompt', sans-serif;
-        }
-        .btn-add {
-            background: linear-gradient(135deg, #4CAF50, #2e7d32);
-            color: #fff;
-            border: none;
-            padding: 0.7rem 1.5rem;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            font-family: 'Prompt', sans-serif;
-        }
+        .btn-delete { background: #ff4444; color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; font-family: 'Prompt', sans-serif; }
+        .btn-add { background: #4CAF50; color: #fff; border: none; padding: 0.7rem 1.5rem; border-radius: 10px; cursor: pointer; font-weight: 600; margin-bottom: 1rem; font-family: 'Prompt', sans-serif; }
         
         .export-import { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
         .export-import button { flex: 1; min-width: 200px; padding: 1rem; border-radius: 12px; border: none; cursor: pointer; font-weight: 600; font-family: 'Prompt', sans-serif; }
-        .btn-export { background: linear-gradient(135deg, #2196F3, #1565c0); color: #fff; }
-        .btn-import { background: linear-gradient(135deg, #FF9800, #e65100); color: #fff; }
-        .btn-apply { background: linear-gradient(135deg, #9C27B0, #6A1B9A); color: #fff; }
+        .btn-export { background: #2196F3; color: #fff; }
+        .btn-import { background: #FF9800; color: #fff; }
+        .btn-apply { background: #9C27B0; color: #fff; }
         
-        .success-msg {
-            background: linear-gradient(135deg, #4CAF50, #2e7d32);
-            padding: 1rem;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            display: none;
-            text-align: center;
-            font-weight: 600;
-        }
-        
-        .info-box {
-            background: rgba(33, 150, 243, 0.15);
-            border-left: 4px solid #2196F3;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-        
-        @media (max-width: 768px) {
-            .admin-container { padding: 1.5rem; }
-            .admin-header h2 { font-size: 1.3rem; }
-            .list-item { flex-direction: column; align-items: stretch; }
-        }
+        .success-msg { background: #4CAF50; padding: 1rem; border-radius: 12px; margin-bottom: 1rem; display: none; text-align: center; font-weight: 600; }
+        .info-box { background: rgba(33,150,243,0.15); border-left: 4px solid #2196F3; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.9rem; line-height: 1.6; }
     </style>
 </head>
 <body>
-    <!-- Login Screen -->
+    <!-- หน้า Login -->
     <div id="loginScreen">
         <div class="login-box">
             <h2><i class="fas fa-lock"></i> เข้าสู่ระบบแอดมิน</h2>
             <input type="password" id="adminPass" placeholder="กรอกรหัสผ่าน">
             <button onclick="doLogin()">เข้าสู่ระบบ</button>
-            <p class="hint">
-                รหัสผ่าน: <code>ripley2024</code>
-            </p>
+            <p class="hint">รหัสผ่าน: <code>ripley2024</code></p>
         </div>
     </div>
 
-    <!-- Admin Panel -->
+    <!-- หน้า Admin Panel -->
     <div id="adminPanel">
         <div class="admin-container">
             <div class="admin-header">
@@ -297,18 +80,18 @@
             <div class="info-box">
                 <strong>📌 วิธีใช้งาน:</strong><br>
                 1. แก้ไขข้อมูลในหน้านี้<br>
-                2. กดปุ่ม <strong>"บันทึก"</strong> (ข้อมูลจะบันทึกในเบราว์เซอร์ของคุณ)<br>
+                2. กดปุ่ม <strong>"บันทึก"</strong> (ข้อมูลจะบันทึกในเบราว์เซอร์)<br>
                 3. กดปุ่ม <strong>"Export JSON"</strong> เพื่อดาวน์โหลดไฟล์ data.json<br>
                 4. อัพโหลดไฟล์ data.json ใหม่ขึ้น GitHub หรือ Cloudflare
             </div>
 
             <div class="admin-tabs">
-                <button class="admin-tab active" onclick="showTab('content')">📝 เนื้อหา</button>
-                <button class="admin-tab" onclick="showTab('images')">🖼️ รูปภาพ</button>
-                <button class="admin-tab" onclick="showTab('videos')">🎬 วิดีโอ</button>
+                <button class="admin-tab active" onclick="showTab('content', event)">📝 เนื้อหา</button>
+                <button class="admin-tab" onclick="showTab('images', event)">🖼️ รูปภาพ</button>
+                <button class="admin-tab" onclick="showTab('videos', event)"> วิดีโอ</button>
             </div>
 
-            <!-- Content Tab -->
+            <!-- แท็บเนื้อหา -->
             <div class="admin-section active" id="tab-content">
                 <div class="form-group">
                     <label>🎢 เลือกเครื่องเล่น</label>
@@ -316,45 +99,21 @@
                         <option value="">-- เลือกเครื่องเล่น --</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>📌 ชื่อ (ภาษาไทย)</label>
-                    <input type="text" id="titleTh">
-                </div>
-                <div class="form-group">
-                    <label>📌 ชื่อ (ภาษาอังกฤษ)</label>
-                    <input type="text" id="titleEn">
-                </div>
-                <div class="form-group">
-                    <label>️ คำบรรยายสั้น (ไทย)</label>
-                    <input type="text" id="subtitleTh">
-                </div>
-                <div class="form-group">
-                    <label>🏷️ คำบรรยายสั้น (อังกฤษ)</label>
-                    <input type="text" id="subtitleEn">
-                </div>
-                <div class="form-group">
-                    <label>📄 รายละเอียด (ไทย)</label>
-                    <textarea id="descTh"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>📄 รายละเอียด (อังกฤษ)</label>
-                    <textarea id="descEn"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>️ รูปหลัก (URL)</label>
-                    <input type="text" id="heroImage">
-                </div>
-                <div class="form-group">
-                    <label>📍 ลิงก์แผนที่ (Google Maps)</label>
-                    <input type="text" id="mapUrl" placeholder="https://maps.app.goo.gl/...">
-                </div>
-                <button class="btn-save" onclick="saveContent()"> บันทึกเนื้อหา</button>
+                <div class="form-group"><label>📌 ชื่อ (ภาษาไทย)</label><input type="text" id="titleTh"></div>
+                <div class="form-group"><label>📌 ชื่อ (ภาษาอังกฤษ)</label><input type="text" id="titleEn"></div>
+                <div class="form-group"><label>🏷️ คำบรรยายสั้น (ไทย)</label><input type="text" id="subtitleTh"></div>
+                <div class="form-group"><label>🏷️ คำบรรยายสั้น (อังกฤษ)</label><input type="text" id="subtitleEn"></div>
+                <div class="form-group"><label>📄 รายละเอียด (ไทย)</label><textarea id="descTh"></textarea></div>
+                <div class="form-group"><label>📄 รายละเอียด (อังกฤษ)</label><textarea id="descEn"></textarea></div>
+                <div class="form-group"><label>🖼️ รูปหลัก (URL)</label><input type="text" id="heroImage"></div>
+                <div class="form-group"><label>📍 ลิงก์แผนที่</label><input type="text" id="mapUrl"></div>
+                <button class="btn-save" onclick="saveContent()">💾 บันทึกเนื้อหา</button>
             </div>
 
-            <!-- Images Tab -->
+            <!-- แท็บรูปภาพ -->
             <div class="admin-section" id="tab-images">
                 <div class="form-group">
-                    <label> เลือกเครื่องเล่น</label>
+                    <label>🎢 เลือกเครื่องเล่น</label>
                     <select id="selectAttractionImg" onchange="loadImages()">
                         <option value="">-- เลือกเครื่องเล่น --</option>
                     </select>
@@ -364,7 +123,7 @@
                 <button class="btn-save" onclick="saveImages()">💾 บันทึกรูปภาพ</button>
             </div>
 
-            <!-- Videos Tab -->
+            <!-- แท็บวิดีโอ -->
             <div class="admin-section" id="tab-videos">
                 <div class="form-group">
                     <label>🎢 เลือกเครื่องเล่น</label>
@@ -377,47 +136,35 @@
                 <button class="btn-save" onclick="saveVideos()">💾 บันทึกวิดีโอ</button>
             </div>
 
-            <!-- Export/Import -->
             <div class="export-import">
-                <button class="btn-export" onclick="exportJSON()">📤 Export JSON (ดาวน์โหลด)</button>
-                <button class="btn-import" onclick="document.getElementById('importFile').click()"> Import JSON (นำเข้า)</button>
-                <button class="btn-apply" onclick="applyToSite()">✨ ใช้ข้อมูลทันที (Preview)</button>
+                <button class="btn-export" onclick="exportJSON()">📤 Export JSON</button>
+                <button class="btn-import" onclick="document.getElementById('importFile').click()"> Import JSON</button>
+                <button class="btn-apply" onclick="applyToSite()">✨ ใช้ข้อมูลทันที</button>
                 <input type="file" id="importFile" style="display:none" accept=".json" onchange="importJSON(event)">
             </div>
         </div>
     </div>
 
     <script>
-        const ADMIN_PASSWORD = 'ripley2024'; // เปลี่ยนรหัสตรงนี้
+        const ADMIN_PASSWORD = 'ripley2024';
         let attractions = [];
         let currentIndex = -1;
 
-        // ข้อมูลเริ่มต้น (ถ้าไม่มีใน localStorage)
-        const defaultData = [
-            {"id": "museum", "title": {"th": "🏛️ พิพิธภัณฑ์ เชื่อหรือไม่!", "en": "Ripley's Museum"}, "subtitle": {"th": "ความจริงที่ต้องพิสูจน์ด้วยตาคุณเอง", "en": "Truth you must see"}, "desc": {"th": "พิพิธภัณฑ์ริบลีส์ เชื่อหรือไม่! หนึ่งในพิพิธภัณฑ์ที่มีชื่อเสียงของโลก", "en": "One of the world's most famous museums."}, "heroImage": "https://via.placeholder.com/800x400?text=Museum", "images": [], "videos": [], "mapUrl": "https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5"},
-            {"id": "scream", "title": {"th": "😱 Scream in the Dark", "en": "Scream in the Dark"}, "subtitle": {"th": "สวนสนุกสุดสยอง", "en": "Ultimate Horror"}, "desc": {"th": "เครื่องเล่นใหม่ล่าสุด", "en": "The latest ride"}, "heroImage": "https://via.placeholder.com/800x400?text=Scream", "images": [], "videos": [], "mapUrl": "https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5"},
-            {"id": "haunted", "title": {"th": "👻 โกดังผีสิง", "en": "Haunted Adventure"}, "subtitle": {"th": "เมื่อฝันร้ายมาเยือน", "en": "When Nightmares Come"}, "desc": {"th": "โกดังเก็บโลงศพที่ใหญ่ที่สุด", "en": "One of the world's largest"}, "heroImage": "https://via.placeholder.com/800x400?text=Haunted", "images": [], "videos": [], "mapUrl": "https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5"}
-        ];
-
-        // Check if already logged in
+        // เช็คว่า login แล้วหรือยัง
         window.onload = function() {
-            const isLoggedIn = sessionStorage.getItem('adminLoggedIn');
-            if (isLoggedIn === 'true') {
+            if (sessionStorage.getItem('adminLoggedIn') === 'true') {
                 showAdminPanel();
             }
         };
 
-        // Login Function
         function doLogin() {
             const pass = document.getElementById('adminPass').value;
             if (pass === ADMIN_PASSWORD) {
-                // บันทึกสถานะการ login
                 sessionStorage.setItem('adminLoggedIn', 'true');
                 showAdminPanel();
             } else {
-                alert('❌ รหัสผ่านไม่ถูกต้อง!\n\nรหัสผ่านคือ: ripley2024');
+                alert('❌ รหัสผ่านไม่ถูกต้อง!');
                 document.getElementById('adminPass').value = '';
-                document.getElementById('adminPass').focus();
             }
         }
 
@@ -428,62 +175,49 @@
         }
 
         function logout() {
-            if (confirm('ต้องการออกจากระบบใช่หรือไม่?')) {
+            if (confirm('ต้องการออกจากระบบ?')) {
                 sessionStorage.removeItem('adminLoggedIn');
-                document.getElementById('adminPanel').style.display = 'none';
-                document.getElementById('loginScreen').style.display = 'flex';
-                document.getElementById('adminPass').value = '';
+                location.reload();
             }
         }
 
-        // โหลดข้อมูล
         async function loadData() {
-            // พยายามโหลดจาก localStorage ก่อน
             const saved = localStorage.getItem('ripleyAttractions');
             if (saved) {
-                try {
-                    attractions = JSON.parse(saved);
-                } catch(e) {
-                    attractions = JSON.parse(JSON.stringify(defaultData));
-                }
+                try { attractions = JSON.parse(saved); } catch(e) { await loadFromJson(); }
             } else {
-                // ถ้าไม่มีใน localStorage ให้โหลดจาก data.json
-                try {
-                    const response = await fetch('data.json');
-                    if (response.ok) {
-                        attractions = await response.json();
-                    } else {
-                        attractions = JSON.parse(JSON.stringify(defaultData));
-                    }
-                } catch(e) {
-                    attractions = JSON.parse(JSON.stringify(defaultData));
-                }
+                await loadFromJson();
             }
             populateSelects();
         }
 
+        async function loadFromJson() {
+            try {
+                const response = await fetch('data.json');
+                if (response.ok) attractions = await response.json();
+            } catch(e) { attractions = []; }
+        }
+
         function populateSelects() {
-            const selects = ['selectAttraction', 'selectAttractionImg', 'selectAttractionVid'];
-            selects.forEach(id => {
+            ['selectAttraction', 'selectAttractionImg', 'selectAttractionVid'].forEach(id => {
                 const select = document.getElementById(id);
                 select.innerHTML = '<option value="">-- เลือกเครื่องเล่น --</option>';
                 attractions.forEach((a, i) => {
                     const option = document.createElement('option');
                     option.value = i;
-                    option.textContent = (a.title?.th || a.title?.en || `เครื่องเล่น ${i+1}`);
+                    option.textContent = a.title?.th || a.title?.en || `เครื่องเล่น ${i+1}`;
                     select.appendChild(option);
                 });
             });
         }
 
-        function showTab(tab) {
+        function showTab(tab, event) {
             document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
             event.target.classList.add('active');
             document.getElementById('tab-' + tab).classList.add('active');
         }
 
-        // Content
         function loadContent() {
             const index = document.getElementById('selectAttraction').value;
             if (index === '') return;
@@ -518,7 +252,6 @@
             populateSelects();
         }
 
-        // Images
         function loadImages() {
             const index = document.getElementById('selectAttractionImg').value;
             if (index === '') return;
@@ -529,7 +262,7 @@
             attractions[currentIndex].images.forEach((img, i) => {
                 const row = document.createElement('div');
                 row.className = 'list-item';
-                row.innerHTML = `<input type="text" value="${img}" placeholder="URL รูปภาพ"><button class="btn-delete" onclick="deleteImage(${i})">ลบ</button>`;
+                row.innerHTML = `<input type="text" value="${img}"><button class="btn-delete" onclick="deleteImage(${i})">ลบ</button>`;
                 list.appendChild(row);
             });
         }
@@ -550,14 +283,12 @@
         function saveImages() {
             if (currentIndex === -1) { alert('กรุณาเลือกเครื่องเล่น'); return; }
             const inputs = document.querySelectorAll('#imageList input');
-            const newImages = [];
-            inputs.forEach(input => { if (input.value.trim()) newImages.push(input.value.trim()); });
-            attractions[currentIndex].images = newImages;
+            attractions[currentIndex].images = [];
+            inputs.forEach(input => { if (input.value.trim()) attractions[currentIndex].images.push(input.value.trim()); });
             saveToLocalStorage();
             showSuccess('บันทึกรูปภาพสำเร็จ!');
         }
 
-        // Videos
         function loadVideos() {
             const index = document.getElementById('selectAttractionVid').value;
             if (index === '') return;
@@ -568,11 +299,7 @@
             attractions[currentIndex].videos.forEach((v, i) => {
                 const row = document.createElement('div');
                 row.className = 'list-item';
-                row.innerHTML = `
-                    <input type="text" value="${v.url || ''}" placeholder="URL วิดีโอ (YouTube embed)">
-                    <input type="text" value="${v.title?.th || ''}" placeholder="ชื่อวิดีโอ">
-                    <button class="btn-delete" onclick="deleteVideo(${i})">ลบ</button>
-                `;
+                row.innerHTML = `<input type="text" value="${v.url || ''}" placeholder="URL วิดีโอ"><input type="text" value="${v.title?.th || ''}" placeholder="ชื่อวิดีโอ"><button class="btn-delete" onclick="deleteVideo(${i})">ลบ</button>`;
                 list.appendChild(row);
             });
         }
@@ -581,11 +308,7 @@
             const list = document.getElementById('videoList');
             const row = document.createElement('div');
             row.className = 'list-item';
-            row.innerHTML = `
-                <input type="text" placeholder="URL วิดีโอ">
-                <input type="text" placeholder="ชื่อวิดีโอ">
-                <button class="btn-delete" onclick="this.parentElement.remove()">ลบ</button>
-            `;
+            row.innerHTML = `<input type="text" placeholder="URL วิดีโอ"><input type="text" placeholder="ชื่อวิดีโอ"><button class="btn-delete" onclick="this.parentElement.remove()">ลบ</button>`;
             list.appendChild(row);
         }
 
@@ -597,21 +320,17 @@
         function saveVideos() {
             if (currentIndex === -1) { alert('กรุณาเลือกเครื่องเล่น'); return; }
             const rows = document.querySelectorAll('#videoList .list-item');
-            const newVideos = [];
+            attractions[currentIndex].videos = [];
             rows.forEach(row => {
                 const inputs = row.querySelectorAll('input');
                 const url = inputs[0].value.trim();
                 const title = inputs[1].value.trim();
-                if (url) {
-                    newVideos.push({ url, title: { th: title, en: title } });
-                }
+                if (url) attractions[currentIndex].videos.push({ url, title: { th: title, en: title } });
             });
-            attractions[currentIndex].videos = newVideos;
             saveToLocalStorage();
             showSuccess('บันทึกวิดีโอสำเร็จ!');
         }
 
-        // Utilities
         function saveToLocalStorage() {
             localStorage.setItem('ripleyAttractions', JSON.stringify(attractions));
         }
@@ -646,12 +365,8 @@
                         saveToLocalStorage();
                         populateSelects();
                         showSuccess('นำเข้าข้อมูลสำเร็จ!');
-                    } else {
-                        alert('ไฟล์ไม่ถูกต้อง (ต้องเป็น Array)');
-                    }
-                } catch(err) {
-                    alert('ไฟล์ JSON ไม่ถูกต้อง: ' + err.message);
-                }
+                    } else { alert('ไฟล์ไม่ถูกต้อง'); }
+                } catch(err) { alert('ไฟล์ JSON ไม่ถูกต้อง: ' + err.message); }
             };
             reader.readAsText(file);
             event.target.value = '';
@@ -659,11 +374,10 @@
 
         function applyToSite() {
             saveToLocalStorage();
-            alert('✅ ข้อมูลถูกบันทึกแล้ว!\n\nเมื่อคุณเปิดหน้าหลัก (index.html) ระบบจะแสดงข้อมูลใหม่นี้ทันที\n\nอย่าลืม Export JSON และอัพโหลดขึ้น GitHub/Cloudflare เพื่อให้ทุกคนเห็นข้อมูลใหม่ด้วยครับ');
+            alert('✅ ข้อมูลถูกบันทึกแล้ว!\n\nกด OK เพื่อเปิดหน้าหลักดูผลลัพธ์');
             window.open('index.html', '_blank');
         }
 
-        // Enter key to login
         document.getElementById('adminPass').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') doLogin();
         });
