@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ripley's Believe It or Not! Pattaya</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --primary: #e31e24; --secondary: #1a1a2e; --accent: #ffd700; --dark: #0a0a1a; --card-bg: rgba(255,255,255,0.05); --glass: rgba(255,255,255,0.1); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Prompt', sans-serif; background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0a0a1a 100%); color: #fff; min-height: 100vh; }
+        header { position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(10,10,26,0.9); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .header-container { max-width: 1400px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 900; color: var(--accent); }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a { color: #fff; text-decoration: none; font-weight: 600; cursor: pointer; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--accent); }
+        .lang-selector { background: var(--glass); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 0.5rem 1rem; border-radius: 25px; cursor: pointer; }
+        .btn-edit { background: var(--accent); color: var(--dark); border: none; padding: 0.5rem 1rem; border-radius: 25px; cursor: pointer; font-weight: 700; text-decoration: none; font-size: 0.9rem; }
+        .btn-edit:hover { transform: scale(1.05); }
+        main { margin-top: 80px; min-height: calc(100vh - 80px); }
+        .page { display: none; animation: fadeIn 0.5s; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .hero { text-align: center; padding: 4rem 2rem; background: radial-gradient(ellipse at center, rgba(227,30,36,0.2) 0%, transparent 70%); }
+        .hero h1 { font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(45deg, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.2rem; color: rgba(255,255,255,0.8); }
+        .attractions-grid { max-width: 1400px; margin: 0 auto; padding: 2rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem; }
+        .attraction-card { background: var(--card-bg); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s; cursor: pointer; }
+        .attraction-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(227,30,36,0.3); border-color: var(--accent); }
+        .card-image { width: 100%; height: 220px; object-fit: cover; }
+        .card-content { padding: 1.5rem; }
+        .card-content h3 { font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--accent); }
+        .card-content p { color: rgba(255,255,255,0.7); font-size: 0.95rem; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .card-tags { display: flex; gap: 0.5rem; margin-top: 1rem; }
+        .tag { background: rgba(227,30,36,0.3); color: var(--accent); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem; }
+        .detail-hero { position: relative; height: 400px; overflow: hidden; }
+        .detail-hero img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.4); }
+        .detail-hero-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 3rem; background: linear-gradient(transparent, var(--dark)); }
+        .detail-hero-content h1 { font-size: 2.5rem; color: var(--accent); }
+        .detail-container { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
+        .detail-section { margin-bottom: 3rem; }
+        .detail-section h2 { font-size: 1.8rem; margin-bottom: 1.5rem; color: var(--accent); }
+        .detail-section p { line-height: 1.8; color: rgba(255,255,255,0.85); font-size: 1.05rem; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+        .gallery-item { aspect-ratio: 1; border-radius: 15px; overflow: hidden; cursor: pointer; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+        .video-card { background: var(--card-bg); border-radius: 15px; overflow: hidden; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; background: #000; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .video-info { padding: 1rem; }
+        .video-info h4 { color: var(--accent); margin-bottom: 0.3rem; }
+        .map-container { border-radius: 15px; overflow: hidden; margin-top: 1rem; border: 1px solid rgba(255,255,255,0.1); }
+        .map-container iframe { width: 100%; height: 400px; border: 0; }
+        .btn-directions { background: var(--accent); color: var(--dark); border: none; padding: 1rem 2rem; border-radius: 10px; cursor: pointer; font-weight: 700; width: 100%; margin-top: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+        .btn-back { background: var(--primary); color: #fff; border: none; padding: 1rem 2rem; border-radius: 10px; cursor: pointer; font-weight: 600; margin-top: 2rem; }
+        footer { text-align: center; padding: 2rem; background: rgba(0,0,0,0.5); color: rgba(255,255,255,0.6); margin-top: 4rem; }
+        @media (max-width: 768px) { .nav-links { display: none; } .hero h1 { font-size: 2rem; } .attractions-grid { grid-template-columns: 1fr; padding: 1rem; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">Ripley's Pattaya</div>
+            <nav class="nav-links">
+                <a onclick="showPage('home')">🏠 หน้าแรก</a>
+                <a onclick="showPage('attractions')">🎢 เครื่องเล่น</a>
+                <select class="lang-selector" id="langSelector" onchange="changeLang(this.value)">
+                    <option value="th">🇹🇭 TH</option>
+                    <option value="en">🇬🇧 EN</option>
+                </select>
+                <!-- ปุ่มนี้จะลิงก์ไปหน้าแก้ไขไฟล์ data.json บน GitHub โดยตรง -->
+                <a href="https://github.com/YOUR_GITHUB_USERNAME/ripley-brochure/edit/main/data.json" target="_blank" class="btn-edit">✏️ แก้ไขข้อมูล (Admin)</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div id="page-home" class="page active">
+            <div class="hero">
+                <h1>Ripley's Believe It or Not! Pattaya</h1>
+                <p>สัมผัสประสบการณ์สุดระทึกใจ กับ 10 เครื่องเล่นสุดมันส์</p>
+            </div>
+            <div class="attractions-grid" id="homeAttractions"></div>
+        </div>
+        <div id="page-attractions" class="page">
+            <div class="hero">
+                <h1>เครื่องเล่นทั้งหมด</h1>
+                <p>เลือกสัมผัสประสบการณ์ที่คุณชื่นชอบ</p>
+            </div>
+            <div class="attractions-grid" id="allAttractions"></div>
+        </div>
+        <div id="page-detail" class="page">
+            <div class="detail-hero">
+                <img id="detailHeroImage" src="" alt="">
+                <div class="detail-hero-content">
+                    <h1 id="detailTitle"></h1>
+                    <p id="detailSubtitle"></p>
+                </div>
+            </div>
+            <div class="detail-container">
+                <div class="detail-section">
+                    <h2>📖 เกี่ยวกับ</h2>
+                    <p id="detailDesc"></p>
+                </div>
+                <div class="detail-section">
+                    <h2>📸 แกลเลอรี่ภาพ</h2>
+                    <div class="gallery-grid" id="detailGallery"></div>
+                </div>
+                <div class="detail-section">
+                    <h2>🎬 วิดีโอ</h2>
+                    <div class="video-grid" id="detailVideos"></div>
+                </div>
+                <div class="detail-section">
+                    <h2>📍 ที่ตั้ง</h2>
+                    <div class="map-container">
+                        <iframe id="detailMap" src="" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                    <button id="mapDirectionBtn" class="btn-directions" onclick="openMapDirection()">
+                        <i class="fas fa-directions"></i> ดูเส้นทางใน Google Maps
+                    </button>
+                </div>
+                <button class="btn-back" onclick="showPage('attractions')">⬅️ กลับไปหน้าเครื่องเล่น</button>
+            </div>
+        </div>
+    </main>
+    <footer>© 2026 Ripley's Believe It or Not! Pattaya. All Rights Reserved.</footer>
+
+<script>
+let currentLang = localStorage.getItem('ripleyLang') || 'th';
+let attractions = [];
+
+// โหลดข้อมูลจากไฟล์ data.json
+async function loadData() {
+    try {
+        const response = await fetch('data.json');
+        if (response.ok) {
+            attractions = await response.json();
+            init();
+        } else {
+            console.error('ไม่สามารถโหลดไฟล์ data.json ได้');
+        }
+    } catch (e) {
+        console.error('เกิดข้อผิดพลาด:', e);
+    }
+}
+
+function init() {
+    document.getElementById('langSelector').value = currentLang;
+    renderAttractions();
+}
+
+function changeLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('ripleyLang', lang);
+    renderAttractions();
+    if (document.getElementById('page-detail').classList.contains('active')) {
+        const id = document.getElementById('detailTitle').dataset.id;
+        if (id) showDetail(id);
+    }
+}
+
+function t(obj) { return obj[currentLang] || obj['en'] || obj['th'] || ''; }
+
+function renderAttractions() {
+    const html = attractions.map(a => `
+        <div class="attraction-card" onclick="showDetail('${a.id}')">
+            <img class="card-image" src="${a.heroImage}" alt="${t(a.title)}" onerror="this.src='https://via.placeholder.com/400x220?text=Ripley'">
+            <div class="card-content">
+                <h3>${t(a.title)}</h3>
+                <p>${t(a.desc)}</p>
+                <div class="card-tags">
+                    <span class="tag">📸 ${a.images.length} รูป</span>
+                    <span class="tag">🎬 ${a.videos.length} วิดีโอ</span>
+                </div>
+            </div>
+        </div>
+    `).join('');
+    document.getElementById('homeAttractions').innerHTML = html;
+    document.getElementById('allAttractions').innerHTML = html;
+}
+
+function showPage(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + page).classList.add('active');
+    window.scrollTo(0, 0);
+}
+
+function showDetail(id) {
+    const a = attractions.find(x => x.id === id);
+    if (!a) return;
+    document.getElementById('detailHeroImage').src = a.heroImage;
+    document.getElementById('detailTitle').textContent = t(a.title);
+    document.getElementById('detailTitle').dataset.id = id;
+    document.getElementById('detailSubtitle').textContent = t(a.subtitle);
+    document.getElementById('detailDesc').textContent = t(a.desc);
+
+    const galleryHtml = a.images.map((img, i) => `
+        <div class="gallery-item">
+            <img src="${img}" alt="${t(a.title)}" onerror="this.src='https://via.placeholder.com/200?text=Image'">
+        </div>
+    `).join('');
+    document.getElementById('detailGallery').innerHTML = galleryHtml;
+
+    const videoHtml = a.videos.map(v => `
+        <div class="video-card">
+            <div class="video-wrapper"><iframe src="${v.url}" allowfullscreen></iframe></div>
+            <div class="video-info"><h4>${t(v.title)}</h4></div>
+        </div>
+    `).join('');
+    document.getElementById('detailVideos').innerHTML = videoHtml;
+
+    // ตั้งค่าแผนที่
+    document.getElementById('detailMap').src = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3885.547499847876!2d100.8767083153126!3d12.928577990346636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310268f0b0b0b0b0%3A0x0!2sRipley\'s%20Believe%20It%20or%20Not!%20Pattaya!5e0!3m2!1sen!2sth!4v1600000000000';
+    document.getElementById('mapDirectionBtn').dataset.mapUrl = a.mapUrl || 'https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5';
+
+    showPage('detail');
+}
+
+function openMapDirection() {
+    const mapUrl = document.getElementById('mapDirectionBtn').dataset.mapUrl;
+    if (mapUrl) window.open(mapUrl, '_blank');
+}
+
+document.addEventListener('DOMContentLoaded', loadData);
+</script>
+</body>
+</html>

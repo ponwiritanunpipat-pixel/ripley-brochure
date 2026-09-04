@@ -1,0 +1,102 @@
+[
+  {
+    "id": "museum",
+    "title": {"th": "🏛️ พิพิธภัณฑ์ เชื่อหรือไม่!", "en": "🏛️ Ripley's Museum"},
+    "subtitle": {"th": "ความจริงที่ต้องพิสูจน์ด้วยตาคุณเอง", "en": "Truth you must see with your own eyes"},
+    "desc": {"th": "พิพิธภัณฑ์ริบลีส์ เชื่อหรือไม่! หนึ่งในพิพิธภัณฑ์ที่มีชื่อเสียงของโลก ต้นกำเนิดจากประเทศสหรัฐอเมริกา รวบรวมความมหัศจรรย์จากทั่วทุกมุมโลก กว่า 350 ประเภท", "en": "Ripley's Believe It or Not! One of the world's most famous museums, originating from the USA, collecting over 350 real exhibits that will amaze you."},
+    "heroImage": "https://kimi-web-img.kimi.ai/img/media-cdn.tripadvisor.com/a1833167d141abadda5ebff4a78290a2f80f0405.jpg",
+    "images": ["https://kimi-web-img.kimi.ai/img/media-cdn.tripadvisor.com/a1833167d141abadda5ebff4a78290a2f80f0405.jpg", "https://kimi-web-img.kimi.ai/img/chillpainai.com/6b6ca55bf23d39e1c10f3d998c584e554a8a3b57.jpg"],
+    "videos": [{"url": "https://www.youtube.com/embed/dQw4w9WgXcQ", "title": {"th": "แนะนำพิพิธภัณฑ์", "en": "Museum Introduction"}}],
+    "mapUrl": "https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5"
+  },
+  {
+    "id": "scream",
+    "title": {"th": "😱 Scream in the Dark", "en": "😱 Scream in the Dark"},
+    "subtitle": {"th": "สวนสนุกสุดสยอง", "en": "Ultimate Horror Amusement"},
+    "desc": {"th": "เครื่องเล่นใหม่ล่าสุดของ Ripley World Pattaya เครื่องเล่นสุดมันส์อันดับที่ 6 ที่จะมาต้อนรับเหล่าบรรดาคนรักความท้าทายแบบสยองขวัญ", "en": "The latest ride at Ripley World Pattaya, ranked #6 most thrilling ride welcoming horror challenge lovers."},
+    "heroImage": "https://kimi-web-img.kimi.ai/img/www.renown-travel.com/f6c691678a5907f4b190eea56c681331ecc3732f.jpg",
+    "images": ["https://kimi-web-img.kimi.ai/img/www.renown-travel.com/f6c691678a5907f4b190eea56c681331ecc3732f.jpg"],
+    "videos": [{"url": "https://www.youtube.com/embed/dQw4w9WgXcQ", "title": {"th": "ตัวอย่าง Scream in the Dark", "en": "Scream in the Dark Preview"}}],
+    "mapUrl": "https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5"
+  },
+  {
+    "id": "haunted",
+    "title": {"th": "👻 โกดังผีสิง", "en": "👻 Haunted Adventure"},
+    "subtitle": {"th": "เมื่อฝันร้ายมาเยือน", "en": "When Nightmares Come True"},
+    "desc": {"th": "โกดังเก็บโลงศพที่ใหญ่ที่สุดในจำนวน 5 แห่งในโลก ที่มีตำนานอันน่ากลัวและความหฤโหดที่ถูกกล่าวขานมากว่า 80 ปี", "en": "One of the world's 5 largest coffin warehouses with terrifying legends and horrors told for over 80 years."},
+    "heroImage": "https://kimi-web-img.kimi.ai/img/www.renown-travel.com/ee2487528046ba93492c01c3d675890011590d50.jpg",
+    "images": ["https://kimi-web-img.kimi.ai/img/www.renown-travel.com/ee2487528046ba93492c01c3d675890011590d50.jpg"],
+    "videos": [{"url": "https://www.youtube.com/embed/dQw4w9WgXcQ", "title": {"th": "โกดังผีสิง", "en": "Haunted Adventure"}}],
+    "mapUrl": "https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5"
+  },
+  {
+    "id": "waxworks",
+    "title": {"th": "🎭 พิพิธภัณฑ์หุ่นขี้ผึ้งหลุยส์ ทุสโซด์ส", "en": "🎭 Louis Tussaud's Waxworks"},
+    "subtitle": {"th": "ความอัศจรรย์ที่คุณต้องตะลึง", "en": "Wonders That Will Amaze You"},
+    "desc": {"th": "เป็นสาขาที่ 5 ของโลก ครั้งแรกของประเทศไทย สำหรับพิพิธภัณฑ์หุ่นขี้ผึ้งที่จัดแสดงหุ่นขี้ผึ้งเสมือนจริงของบุคคลสำคัญและคนดังระดับโลก", "en": "The world's 5th branch, first in Thailand. A wax museum displaying lifelike wax figures of important people and world-class celebrities."},
+    "heroImage": "https://kimi-web-img.kimi.ai/img/www.royalgardenplaza.co.th/9d0d2ecede95dea4e1c9045d7a15a76f1e7c95fe.jpg",
+    "images": ["https://kimi-web-img.kimi.ai/img/www.royalgardenplaza.co.th/9d0d2ecede95dea4e1c9045d7a15a76f1e7c95fe.jpg"],
+    "videos": [{"url": "https://www.youtube.com/embed/dQw4w9WgXcQ", "title": {"th": "หุ่นขี้ผึ้งหลุยส์ ทุสโซด์ส", "en": "Louis Tussaud's Waxworks"}}],
+    "mapUrl": "https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5"
+  },
+  {
+    "id": "infinity",
+    "title": {"th": "🌀 มหัศจรรย์เขาวงกต", "en": "🌀 Infinity Maze"},
+    "subtitle": {"th": "เปิดโลกแห่งจินตนาการ", "en": "Open the World of Imagination"},
+    "desc": {"th": "ที่สุดของความบันเทิงที่ต้องพิสูจน์ด้วยสายตา ตลอด 20 นาทีของการเดินทางใน 'อินฟินนิตี้' เพลินเพลินกับแว่นสุดพิเศษ", "en": "The ultimate entertainment that must be seen to be believed. A 20-minute journey through 'Infinity' with special glasses."},
+    "heroImage": "https://kimi-web-img.kimi.ai/img/www.renown-travel.com/ef422a4440a823195b6cbcc06b3dbd27cdf73ab1.jpg",
+    "images": ["https://kimi-web-img.kimi.ai/img/www.renown-travel.com/ef422a4440a823195b6cbcc06b3dbd27cdf73ab1.jpg"],
+    "videos": [{"url": "https://www.youtube.com/embed/dQw4w9WgXcQ", "title": {"th": "มหัศจรรย์เขาวงกต", "en": "Infinity Maze"}}],
+    "mapUrl": "https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5"
+  },
+  {
+    "id": "laser",
+    "title": {"th": "🔦 เกมส์ตะลุยเลเซอร์", "en": "🔦 The Vault Laser Maze"},
+    "subtitle": {"th": "ภารกิจสุดระทึก", "en": "Thrilling Mission"},
+    "desc": {"th": "เกมที่ทำให้คุณต้องสวมวิญญาณนักจารกรรมเหมือนในภาพยนตร์ เพียงย่างก้าวแรกเข้าสู่ห้องปฏิบัติภารกิจที่สุดแสนจะลึกลับ", "en": "A game that makes you feel like a movie spy. Step into a mysterious mission room where a green laser beam maze appears before you."},
+    "heroImage": "https://kimi-web-img.kimi.ai/img/www.renown-travel.com/4aaf70ec9e9b88cadb1c53498b9bf759dc1a0d44.jpg",
+    "images": ["https://kimi-web-img.kimi.ai/img/www.renown-travel.com/4aaf70ec9e9b88cadb1c53498b9bf759dc1a0d44.jpg"],
+    "videos": [{"url": "https://www.youtube.com/embed/dQw4w9WgXcQ", "title": {"th": "ตะลุยเลเซอร์", "en": "Laser Maze Challenge"}}],
+    "mapUrl": "https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5"
+  },
+  {
+    "id": "hospital",
+    "title": {"th": "🏥 โรงพยาบาลหลอน", "en": "🏥 The Horror Hospital"},
+    "subtitle": {"th": "สุดเฮี้ยน ไม่เหมาะสำหรับคนขวัญอ่อน", "en": "Extremely Haunted - Not for the Faint-hearted"},
+    "desc": {"th": "ณ เมืองหนึ่งทางตอนใต้อันห่างไกลของประเทศอังกฤษ สืบเนื่องจากคำเล่าขานของญาติและผู้ใกล้ชิดของผู้ป่วยมากมายที่เข้ารับการรักษาในโรงพยาบาลแห่งนี้", "en": "In a town in the remote south of England, following tales from relatives of many patients who received treatment at this hospital."},
+    "heroImage": "https://kimi-web-img.kimi.ai/img/thepattayanews.com/3a58c10c63179d60dc2d856ec557b39f6dc79ec0.webp",
+    "images": ["https://kimi-web-img.kimi.ai/img/thepattayanews.com/3a58c10c63179d60dc2d856ec557b39f6dc79ec0.webp"],
+    "videos": [{"url": "https://www.youtube.com/embed/dQw4w9WgXcQ", "title": {"th": "โรงพยาบาลหลอน", "en": "The Horror Hospital"}}],
+    "mapUrl": "https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5"
+  },
+  {
+    "id": "pyramid",
+    "title": {"th": "🔺 พีระมิดที่สาบสูญ", "en": "🔺 The Lost Pyramid"},
+    "subtitle": {"th": "Edutainment จากอียิปต์โบราณ", "en": "Ancient Egypt Edutainment"},
+    "desc": {"th": "ยกความลึกลับมาจากอียิปต์เมื่อกว่า 4,700 ปีที่แล้ว เป็นหนึ่งใน 7 สิ่งมหัศจรรย์ของโลก ดินแดนของกษัตริย์ฟาโรห์", "en": "Bringing mystery from Egypt over 4,700 years ago. One of the 7 Wonders of the World, the land of the Pharaohs."},
+    "heroImage": "https://kimi-web-img.kimi.ai/img/www.royalgardenplaza.co.th/de998875599620173057496e15bb3e1463ad799f.jpg",
+    "images": ["https://kimi-web-img.kimi.ai/img/www.royalgardenplaza.co.th/de998875599620173057496e15bb3e1463ad799f.jpg"],
+    "videos": [{"url": "https://www.youtube.com/embed/dQw4w9WgXcQ", "title": {"th": "พีระมิดที่สาบสูญ", "en": "The Lost Pyramid"}}],
+    "mapUrl": "https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5"
+  },
+  {
+    "id": "interactive",
+    "title": {"th": "🎮 Play Neo (เกมอินเตอร์แอคทีฟ)", "en": "🎮 Play Neo"},
+    "subtitle": {"th": "สนุก ตื่นเต้น ทุกวินาที", "en": "Fun and Exciting Every Second"},
+    "desc": {"th": "เกมอินเตอร์แอคทีฟสุดล้ำที่จะทำให้คุณต้องขยับ สนุก และตื่นเต้นทุกวินาที รวมการเคลื่อนไหวเข้ากับภาพกราฟิกสุดมันส์", "en": "A cutting-edge interactive game that will make you move, have fun, and excite you every second."},
+    "heroImage": "https://kimi-web-img.kimi.ai/img/thethaitourism.com/eb26aad509896244c365b0b274baedbb2b56e847.webp",
+    "images": ["https://kimi-web-img.kimi.ai/img/thethaitourism.com/eb26aad509896244c365b0b274baedbb2b56e847.webp"],
+    "videos": [{"url": "https://www.youtube.com/embed/dQw4w9WgXcQ", "title": {"th": "เกมอินเตอร์แอคทีฟ", "en": "Interactive Game"}}],
+    "mapUrl": "https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5"
+  },
+  {
+    "id": "escape",
+    "title": {"th": "🌳 The Garden Escape(หนีตายสวนสยอง)", "en": "🌳 The Garden Escape"},
+    "subtitle": {"th": "ปี 1945 สงครามโลกครั้งที่สอง", "en": "1945 - World War II"},
+    "desc": {"th": "ปี ค.ศ. 1945 ท่ามกลางสงครามโลกครั้งที่สอง โรงพยาบาลแห่งหนึ่งบนเกาะทางตอนใต้ของอังกฤษ ตั้งอยู่เคียงข้างสวนสาธารณะที่เต็มไปด้วยเสียงหัวเราะ", "en": "In 1945, during World War II, a hospital on an island in southern England stood next to a public park filled with laughter."},
+    "heroImage": "https://kimi-web-img.kimi.ai/img/static.ticket2attraction.com/a6360aa29e26b849de4505fc38e3bdb494f71c88.webp",
+    "images": ["https://kimi-web-img.kimi.ai/img/static.ticket2attraction.com/a6360aa29e26b849de4505fc38e3bdb494f71c88.webp"],
+    "videos": [{"url": "https://www.youtube.com/embed/dQw4w9WgXcQ", "title": {"th": "หนีตายสวนสยอง", "en": "Escape from the Haunted Park"}}],
+    "mapUrl": "https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5"
+  }
+]
