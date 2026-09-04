@@ -3,127 +3,309 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - Ripley's Pattaya</title>
+    <title>ระบบจัดการ - Ripley's Pattaya</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #1a1a2e; color: white; padding: 20px; }
-        .container { max-width: 1000px; margin: 0 auto; }
-        h1 { color: #ffd700; margin-bottom: 10px; }
-        .success { background: #4CAF50; padding: 15px; border-radius: 5px; margin-bottom: 20px; display: none; }
-        .attraction { background: rgba(255,255,255,0.1); padding: 25px; margin-bottom: 25px; border-radius: 10px; border-left: 4px solid #ffd700; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; color: #ffd700; }
-        input, textarea { width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #333; background: #0a0a1a; color: white; font-family: inherit; }
-        textarea { min-height: 80px; resize: vertical; }
-        button { background: #e31e24; color: white; padding: 12px 25px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 16px; margin-right: 10px; }
-        button:hover { background: #ff6b6b; }
-        .btn-download { background: #2196F3; }
-        .btn-download:hover { background: #64b5f6; }
-        a { color: #ffd700; text-decoration: none; margin-left: 10px; }
-        a:hover { text-decoration: underline; }
-        .info { background: rgba(33,150,243,0.2); padding: 15px; border-radius: 5px; margin-bottom: 20px; border-left: 4px solid #2196F3; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #1a1a2e; color: #fff; min-height: 100vh; padding: 20px; }
+        .admin-container { max-width: 900px; margin: 0 auto; background: #16213e; border-radius: 15px; padding: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid #e31e24; }
+        .admin-header h1 { color: #ffd700; font-size: 1.8rem; }
+        .admin-header h1 i { margin-right: 10px; }
+        .close-btn { background: #e31e24; color: #fff; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; }
+        .close-btn:hover { background: #ff6b6b; }
+        
+        /* Tabs */
+        .tabs { display: flex; gap: 10px; margin-bottom: 25px; }
+        .tab { padding: 12px 25px; background: #0f3460; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; font-weight: 600; transition: all 0.3s; }
+        .tab.active { background: #e31e24; }
+        .tab:hover { background: #e31e24; }
+        
+        /* Form */
+        .form-section { display: none; }
+        .form-section.active { display: block; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; color: #ffd700; font-weight: 600; font-size: 0.95rem; }
+        .form-group select, .form-group input, .form-group textarea { width: 100%; padding: 12px; background: #0f3460; border: 1px solid #1a1a2e; color: #fff; border-radius: 8px; font-size: 1rem; font-family: inherit; }
+        .form-group select:focus, .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #ffd700; }
+        .form-group textarea { min-height: 100px; resize: vertical; }
+        
+        /* Image/Video List */
+        .item-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
+        .item-row { display: flex; gap: 10px; align-items: center; background: #0f3460; padding: 10px; border-radius: 8px; }
+        .item-row input { flex: 1; background: #1a1a2e; border: 1px solid #333; color: #fff; padding: 10px; border-radius: 5px; }
+        .btn-delete { background: #ff4444; color: #fff; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
+        .btn-delete:hover { background: #ff6666; }
+        .btn-add { background: #4CAF50; color: #fff; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; margin-bottom: 15px; }
+        .btn-add:hover { background: #66bb6a; }
+        
+        /* Buttons */
+        .btn-save { background: linear-gradient(45deg, #e31e24, #ff6b6b); color: #fff; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 1.1rem; width: 100%; margin-top: 10px; }
+        .btn-save:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(227,30,36,0.4); }
+        .btn-export { background: #2196F3; color: #fff; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 15px; }
+        .btn-import { background: #FF9800; color: #fff; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 15px; margin-left: 10px; }
+        
+        .success-msg { background: #4CAF50; padding: 15px; border-radius: 8px; margin-bottom: 20px; display: none; text-align: center; font-weight: 600; }
+        
+        @media (max-width: 768px) {
+            .admin-container { padding: 15px; }
+            .tabs { flex-wrap: wrap; }
+            .tab { padding: 10px 15px; font-size: 0.9rem; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🔧 Admin Panel - แก้ไขข้อมูล Ripley's Pattaya</h1>
-        <div class="info">
-            <strong>📝 วิธีใช้งาน:</strong>
-            <ol style="margin: 10px 0 0 20px;">
-                <li>แก้ไขข้อมูลในฟอร์มด้านล่าง</li>
-                <li>กดปุ่ม "💾 บันทึกและดาวน์โหลดไฟล์"</li>
-                <li>อัพโหลดไฟล์ data.json ใหม่ขึ้น GitHub หรือ Cloudflare</li>
-            </ol>
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>⚙️ ระบบจัดการ</h1>
+            <button class="close-btn" onclick="window.location.href='index.html'">✕</button>
         </div>
-        <div id="success" class="success">✅ บันทึกข้อมูลสำเร็จ! กรุณาอัพโหลดไฟล์ data.json ใหม่</div>
         
-        <div id="attractions"></div>
+        <div id="successMsg" class="success-msg">✅ บันทึกสำเร็จ! กรุณาอัพโหลดไฟล์ data.json ใหม่</div>
         
-        <button onclick="saveAll()">💾 บันทึกและดาวน์โหลดไฟล์</button>
-        <button onclick="downloadJSON()" class="btn-download">📥 ดาวน์โหลด JSON</button>
-        <a href="index.html">← กลับหน้าหลัก</a>
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('content')">เนื้อหา</button>
+            <button class="tab" onclick="switchTab('images')">รูปภาพ</button>
+            <button class="tab" onclick="switchTab('videos')">วิดีโอ</button>
+        </div>
+        
+        <!-- Content Tab -->
+        <div id="tab-content" class="form-section active">
+            <div class="form-group">
+                <label>🎢 เลือกเครื่องเล่น</label>
+                <select id="selectAttraction" onchange="loadAttractionData()">
+                    <option value="">-- เลือกเครื่องเล่น --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>📌 ชื่อ (ภาษาไทย)</label>
+                <input type="text" id="titleTh" placeholder="ชื่อเครื่องเล่นภาษาไทย">
+            </div>
+            <div class="form-group">
+                <label>📌 ชื่อ (ภาษาอังกฤษ)</label>
+                <input type="text" id="titleEn" placeholder="ชื่อเครื่องเล่นภาษาอังกฤษ">
+            </div>
+            <div class="form-group">
+                <label>️ คำบรรยายสั้น (ไทย)</label>
+                <input type="text" id="subtitleTh" placeholder="คำบรรยายสั้น">
+            </div>
+            <div class="form-group">
+                <label>🏷️ คำบรรยายสั้น (อังกฤษ)</label>
+                <input type="text" id="subtitleEn" placeholder="Short subtitle">
+            </div>
+            <div class="form-group">
+                <label>📄 รายละเอียด (ไทย)</label>
+                <textarea id="descTh" placeholder="รายละเอียดเครื่องเล่น"></textarea>
+            </div>
+            <div class="form-group">
+                <label>📄 รายละเอียด (อังกฤษ)</label>
+                <textarea id="descEn" placeholder="Description in English"></textarea>
+            </div>
+            <div class="form-group">
+                <label>🖼️ รูปหลัก (URL)</label>
+                <input type="text" id="heroImage" placeholder="https://example.com/image.jpg">
+            </div>
+            <div class="form-group">
+                <label>📍 ลิงก์แผนที่ (Google Maps)</label>
+                <input type="text" id="mapUrl" placeholder="https://maps.app.goo.gl/...">
+            </div>
+            <button class="btn-save" onclick="saveContent()">💾 บันทึกเนื้อหา</button>
+        </div>
+        
+        <!-- Images Tab -->
+        <div id="tab-images" class="form-section">
+            <div class="form-group">
+                <label>🎢 เลือกเครื่องเล่น</label>
+                <select id="selectAttractionImg" onchange="loadImages()">
+                    <option value="">-- เลือกเครื่องเล่น --</option>
+                </select>
+            </div>
+            <button class="btn-add" onclick="addImage()"> เพิ่มรูปภาพ</button>
+            <div id="imageList" class="item-list"></div>
+            <button class="btn-save" onclick="saveImages()">💾 บันทึกรูปภาพ</button>
+        </div>
+        
+        <!-- Videos Tab -->
+        <div id="tab-videos" class="form-section">
+            <div class="form-group">
+                <label>🎢 เลือกเครื่องเล่น</label>
+                <select id="selectAttractionVid" onchange="loadVideos()">
+                    <option value="">-- เลือกเครื่องเล่น --</option>
+                </select>
+            </div>
+            <button class="btn-add" onclick="addVideo()">➕ เพิ่มวิดีโอ</button>
+            <div id="videoList" class="item-list"></div>
+            <button class="btn-save" onclick="saveVideos()">💾 บันทึกวิดีโอ</button>
+        </div>
+        
+        <!-- Export/Import -->
+        <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #333;">
+            <button class="btn-export" onclick="exportJSON()">📤 Export JSON (สำรองข้อมูล)</button>
+            <button class="btn-import" onclick="document.getElementById('importFile').click()">📥 Import JSON (นำเข้าข้อมูล)</button>
+            <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
+        </div>
     </div>
 
     <script>
         let attractions = [];
+        let currentIndex = -1;
 
         async function loadData() {
             try {
                 const response = await fetch('data.json');
                 attractions = await response.json();
-                renderForm();
+                populateSelects();
             } catch (e) {
-                alert('ไม่สามารถโหลดไฟล์ data.json ได้');
+                alert('ไม่สามารถโหลดข้อมูลได้');
             }
         }
 
-        function renderForm() {
-            const html = attractions.map((a, index) => `
-                <div class="attraction">
-                    <h2>🎢 ${a.title.th || a.title.en} (#${index + 1})</h2>
-                    
-                    <div class="form-group">
-                        <label>ชื่อ (ไทย)</label>
-                        <input type="text" id="title-th-${index}" value="${a.title.th || ''}">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>ชื่อ (อังกฤษ)</label>
-                        <input type="text" id="title-en-${index}" value="${a.title.en || ''}">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>คำบรรยายสั้น (ไทย)</label>
-                        <input type="text" id="subtitle-th-${index}" value="${a.subtitle?.th || ''}">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>คำบรรยายสั้น (อังกฤษ)</label>
-                        <input type="text" id="subtitle-en-${index}" value="${a.subtitle?.en || ''}">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>รายละเอียด (ไทย)</label>
-                        <textarea id="desc-th-${index}">${a.desc.th || ''}</textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>รายละเอียด (อังกฤษ)</label>
-                        <textarea id="desc-en-${index}">${a.desc.en || ''}</textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>รูปหลัก (URL)</label>
-                        <input type="text" id="heroImage-${index}" value="${a.heroImage || ''}">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>ลิงก์แผนที่</label>
-                        <input type="text" id="mapUrl-${index}" value="${a.mapUrl || ''}">
-                    </div>
-                </div>
-            `).join('');
-            
-            document.getElementById('attractions').innerHTML = html;
+        function populateSelects() {
+            const selects = ['selectAttraction', 'selectAttractionImg', 'selectAttractionVid'];
+            selects.forEach(id => {
+                const select = document.getElementById(id);
+                select.innerHTML = '<option value="">-- เลือกเครื่องเล่น --</option>';
+                attractions.forEach((a, i) => {
+                    const option = document.createElement('option');
+                    option.value = i;
+                    option.textContent = a.title.th || a.title.en || `เครื่องเล่น ${i+1}`;
+                    select.appendChild(option);
+                });
+            });
         }
 
-        function saveAll() {
-            attractions.forEach((a, index) => {
-                a.title.th = document.getElementById(`title-th-${index}`).value;
-                a.title.en = document.getElementById(`title-en-${index}`).value;
-                a.subtitle.th = document.getElementById(`subtitle-th-${index}`).value;
-                a.subtitle.en = document.getElementById(`subtitle-en-${index}`).value;
-                a.desc.th = document.getElementById(`desc-th-${index}`).value;
-                a.desc.en = document.getElementById(`desc-en-${index}`).value;
-                a.heroImage = document.getElementById(`heroImage-${index}`).value;
-                a.mapUrl = document.getElementById(`mapUrl-${index}`).value;
-            });
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById('tab-' + tab).classList.add('active');
+        }
 
-            document.getElementById('success').style.display = 'block';
+        function loadAttractionData() {
+            const index = document.getElementById('selectAttraction').value;
+            if (index === '') return;
+            currentIndex = parseInt(index);
+            const a = attractions[currentIndex];
+            document.getElementById('titleTh').value = a.title.th || '';
+            document.getElementById('titleEn').value = a.title.en || '';
+            document.getElementById('subtitleTh').value = a.subtitle?.th || '';
+            document.getElementById('subtitleEn').value = a.subtitle?.en || '';
+            document.getElementById('descTh').value = a.desc.th || '';
+            document.getElementById('descEn').value = a.desc.en || '';
+            document.getElementById('heroImage').value = a.heroImage || '';
+            document.getElementById('mapUrl').value = a.mapUrl || '';
+        }
+
+        function saveContent() {
+            if (currentIndex === -1) { alert('กรุณาเลือกเครื่องเล่น'); return; }
+            const a = attractions[currentIndex];
+            a.title.th = document.getElementById('titleTh').value;
+            a.title.en = document.getElementById('titleEn').value;
+            a.subtitle.th = document.getElementById('subtitleTh').value;
+            a.subtitle.en = document.getElementById('subtitleEn').value;
+            a.desc.th = document.getElementById('descTh').value;
+            a.desc.en = document.getElementById('descEn').value;
+            a.heroImage = document.getElementById('heroImage').value;
+            a.mapUrl = document.getElementById('mapUrl').value;
+            showSuccess();
             downloadJSON();
-            
-            setTimeout(() => {
-                document.getElementById('success').style.display = 'none';
-            }, 5000);
+            populateSelects();
+        }
+
+        function loadImages() {
+            const index = document.getElementById('selectAttractionImg').value;
+            if (index === '') return;
+            currentIndex = parseInt(index);
+            const list = document.getElementById('imageList');
+            list.innerHTML = '';
+            attractions[currentIndex].images.forEach((img, i) => {
+                const row = document.createElement('div');
+                row.className = 'item-row';
+                row.innerHTML = `<input type="text" value="${img}" data-index="${i}"><button class="btn-delete" onclick="deleteImage(${i})">ลบ</button>`;
+                list.appendChild(row);
+            });
+        }
+
+        function addImage() {
+            const list = document.getElementById('imageList');
+            const row = document.createElement('div');
+            row.className = 'item-row';
+            row.innerHTML = `<input type="text" placeholder="URL รูปภาพ" class="new-img"><button class="btn-delete" onclick="this.parentElement.remove()">ลบ</button>`;
+            list.appendChild(row);
+        }
+
+        function deleteImage(index) {
+            attractions[currentIndex].images.splice(index, 1);
+            loadImages();
+        }
+
+        function saveImages() {
+            if (currentIndex === -1) { alert('กรุณาเลือกเครื่องเล่น'); return; }
+            const inputs = document.querySelectorAll('#imageList input');
+            const newImages = [];
+            inputs.forEach(input => {
+                if (input.value.trim()) newImages.push(input.value.trim());
+            });
+            attractions[currentIndex].images = newImages;
+            showSuccess();
+            downloadJSON();
+        }
+
+        function loadVideos() {
+            const index = document.getElementById('selectAttractionVid').value;
+            if (index === '') return;
+            currentIndex = parseInt(index);
+            const list = document.getElementById('videoList');
+            list.innerHTML = '';
+            attractions[currentIndex].videos.forEach((v, i) => {
+                const row = document.createElement('div');
+                row.className = 'item-row';
+                row.innerHTML = `
+                    <input type="text" value="${v.url}" placeholder="URL วิดีโอ" class="vid-url">
+                    <input type="text" value="${v.title.th || ''}" placeholder="ชื่อวิดีโอ" class="vid-title">
+                    <button class="btn-delete" onclick="deleteVideo(${i})">ลบ</button>
+                `;
+                list.appendChild(row);
+            });
+        }
+
+        function addVideo() {
+            const list = document.getElementById('videoList');
+            const row = document.createElement('div');
+            row.className = 'item-row';
+            row.innerHTML = `
+                <input type="text" placeholder="URL วิดีโอ (YouTube embed)" class="vid-url">
+                <input type="text" placeholder="ชื่อวิดีโอ" class="vid-title">
+                <button class="btn-delete" onclick="this.parentElement.remove()">ลบ</button>
+            `;
+            list.appendChild(row);
+        }
+
+        function deleteVideo(index) {
+            attractions[currentIndex].videos.splice(index, 1);
+            loadVideos();
+        }
+
+        function saveVideos() {
+            if (currentIndex === -1) { alert('กรุณาเลือกเครื่องเล่น'); return; }
+            const rows = document.querySelectorAll('#videoList .item-row');
+            const newVideos = [];
+            rows.forEach(row => {
+                const url = row.querySelector('.vid-url').value.trim();
+                const title = row.querySelector('.vid-title').value.trim();
+                if (url) {
+                    newVideos.push({ url, title: { th: title, en: title } });
+                }
+            });
+            attractions[currentIndex].videos = newVideos;
+            showSuccess();
+            downloadJSON();
+        }
+
+        function showSuccess() {
+            const msg = document.getElementById('successMsg');
+            msg.style.display = 'block';
+            setTimeout(() => msg.style.display = 'none', 3000);
         }
 
         function downloadJSON() {
@@ -134,6 +316,26 @@
             a.download = 'data.json';
             a.click();
             URL.revokeObjectURL(url);
+        }
+
+        function exportJSON() {
+            downloadJSON();
+        }
+
+        function importJSON(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    attractions = JSON.parse(e.target.result);
+                    populateSelects();
+                    alert('นำเข้าข้อมูลสำเร็จ!');
+                } catch (err) {
+                    alert('ไฟล์ไม่ถูกต้อง');
+                }
+            };
+            reader.readAsText(file);
         }
 
         loadData();
