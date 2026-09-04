@@ -60,7 +60,13 @@
         .btn-directions { background: var(--accent); color: var(--dark); border: none; padding: 1rem 2rem; border-radius: 10px; cursor: pointer; font-weight: 700; width: 100%; margin-top: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
         .btn-back { background: var(--primary); color: #fff; border: none; padding: 1rem 2rem; border-radius: 10px; cursor: pointer; font-weight: 600; margin-top: 2rem; }
         footer { text-align: center; padding: 2rem; background: rgba(0,0,0,0.5); color: rgba(255,255,255,0.6); margin-top: 4rem; }
-        .update-badge { position: fixed; bottom: 20px; right: 20px; background: #4CAF50; color: white; padding: 10px 20px; border-radius: 25px; display: none; z-index: 9999; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .update-badge { position: fixed; bottom: 20px; right: 20px; background: #4CAF50; color: white; padding: 10px 20px; border-radius: 25px; display: none; z-index: 9999; box-shadow: 0 4px 15px rgba(0,0,0,0.3); animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { transform: translateX(400px); } to { transform: translateX(0); } }
+        .loading { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 10000; }
+        .loading.active { display: flex; }
+        .loading-spinner { border: 4px solid rgba(255,255,255,0.3); border-top: 4px solid var(--accent); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .error-message { background: #f44336; color: white; padding: 15px; border-radius: 5px; margin: 20px; display: none; }
         @media (max-width: 768px) { .nav-links { display: none; } .hero h1 { font-size: 2rem; } .attractions-grid { grid-template-columns: 1fr; padding: 1rem; } }
     </style>
 </head>
@@ -69,16 +75,16 @@
         <div class="header-container">
             <div class="logo">Ripley's Pattaya</div>
             <nav class="nav-links">
-                <a onclick="showPage('home')"> หน้าแรก</a>
+                <a onclick="showPage('home')">🏠 หน้าแรก</a>
                 <a onclick="showPage('attractions')">🎢 เครื่องเล่น</a>
                 <select class="lang-selector" id="langSelector" onchange="changeLang(this.value)">
-                    <option value="th">🇹 TH</option>
+                    <option value="th">🇹🇭 TH</option>
                     <option value="en">🇬🇧 EN</option>
                     <option value="zh">🇨 CN</option>
                     <option value="jp">🇯🇵 JP</option>
-                    <option value="ru">🇷 RU</option>
+                    <option value="ru">🇷🇺 RU</option>
                     <option value="ar">🇸🇦 AR</option>
-                    <option value="he">🇮 HE</option>
+                    <option value="he">🇱 HE</option>
                 </select>
                 <a href="admin.html" class="btn-admin">🔧 Admin</a>
             </nav>
@@ -108,7 +114,7 @@
                 </div>
             </div>
             <div class="detail-container">
-                <div class="detail-section"><h2> เกี่ยวกับ</h2><p id="detailDesc"></p></div>
+                <div class="detail-section"><h2>📖 เกี่ยวกับ</h2><p id="detailDesc"></p></div>
                 <div class="detail-section"><h2>📸 แกลเลอรี่ภาพ</h2><div class="gallery-grid" id="detailGallery"></div></div>
                 <div class="detail-section"><h2>🎬 วิดีโอ</h2><div class="video-grid" id="detailVideos"></div></div>
                 <div class="detail-section">
@@ -118,62 +124,101 @@
                         <i class="fas fa-directions"></i> ดูเส้นทางใน Google Maps
                     </button>
                 </div>
-                <button class="btn-back" onclick="showPage('attractions')">⬅️ กลับ</button>
+                <button class="btn-back" onclick="showPage('attractions')">️ กลับ</button>
             </div>
         </div>
     </main>
     <footer>© 2026 Ripley's Believe It or Not! Pattaya. All Rights Reserved.</footer>
     <div class="update-badge" id="updateBadge">✅ อัพเดทข้อมูลล่าสุดแล้ว</div>
+    <div class="loading" id="loading"><div class="loading-spinner"></div></div>
+    <div class="error-message" id="errorMessage"></div>
 
 <script>
+// ==========================================
+// ตัวแปรหลัก
+// ==========================================
 let currentLang = localStorage.getItem('ripleyLang') || 'th';
 let attractions = [];
-let lastCheckTime = 0;
+let lastDataVersion = null;
+let checkInterval = null;
 
-// ฟังก์ชันเพิ่ม Cache Busting - แก้ปัญหาข้อมูลไม่อัพเดท
+// ==========================================
+// ฟังก์ชัน Cache Busting - ป้องกัน Cache
+// ==========================================
 function getCacheBustUrl(url) {
+    if (!url) return '';
     const separator = url.includes('?') ? '&' : '?';
     return url + separator + 'v=' + Date.now();
 }
 
-// โหลดข้อมูลใหม่ทุกครั้งที่เปิดหน้า (ไม่ใช้ cache)
-async function loadData(forceRefresh = false) {
+// ==========================================
+// โหลดข้อมูลจาก data.json
+// ==========================================
+async function loadData(showLoading = true) {
     try {
-        // ใช้ timestamp เพื่อบังคับให้ browser โหลดไฟล์ใหม่เสมอ
+        if (showLoading) {
+            document.getElementById('loading').classList.add('active');
+        }
+        
+        // เพิ่ม timestamp เพื่อบังคับไม่ให้ใช้ cache
         const timestamp = Date.now();
-        const url = forceRefresh ? `data.json?t=${timestamp}` : `data.json?t=${timestamp}`;
+        const url = `data.json?t=${timestamp}`;
         
         const response = await fetch(url, {
-            cache: 'no-store',  // บังคับไม่ให้ใช้ cache
+            cache: 'no-store',
             headers: {
                 'Cache-Control': 'no-cache, no-store, must-revalidate',
                 'Pragma': 'no-cache'
             }
         });
         
-        if (response.ok) {
-            const newData = await response.json();
-            
-            // ตรวจสอบว่าข้อมูลเปลี่ยนหรือไม่
-            const oldDataStr = JSON.stringify(attractions);
-            const newDataStr = JSON.stringify(newData);
-            
-            attractions = newData;
-            
-            // ถ้าข้อมูลเปลี่ยน แสดง badge แจ้งเตือน
-            if (oldDataStr !== newDataStr && oldDataStr !== '[]') {
-                showUpdateBadge();
-            }
-            
-            lastCheckTime = timestamp;
-            init();
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-    } catch (e) { 
-        console.error('Error loading data:', e); 
+        
+        const newData = await response.json();
+        
+        // ตรวจสอบว่าข้อมูลเปลี่ยนหรือไม่
+        const newDataVersion = JSON.stringify(newData);
+        if (newDataVersion !== lastDataVersion && lastDataVersion !== null) {
+            showUpdateBadge();
+        }
+        
+        attractions = newData;
+        lastDataVersion = newDataVersion;
+        
+        hideError();
+        init();
+        
+    } catch (error) {
+        console.error('Error loading data:', error);
+        showError('ไม่สามารถโหลดข้อมูลได้ กรุณาลองใหม่อีกครั้ง');
+    } finally {
+        if (showLoading) {
+            document.getElementById('loading').classList.remove('active');
+        }
     }
 }
 
-// แสดง badge แจ้งเมื่อข้อมูลอัพเดท
+// ==========================================
+// แสดง/ซ่อน Error
+// ==========================================
+function showError(message) {
+    const errorDiv = document.getElementById('errorMessage');
+    errorDiv.textContent = message;
+    errorDiv.style.display = 'block';
+    setTimeout(() => {
+        errorDiv.style.display = 'none';
+    }, 5000);
+}
+
+function hideError() {
+    document.getElementById('errorMessage').style.display = 'none';
+}
+
+// ==========================================
+// แสดง Badge แจ้งเตือนเมื่อข้อมูลอัพเดท
+// ==========================================
 function showUpdateBadge() {
     const badge = document.getElementById('updateBadge');
     badge.style.display = 'block';
@@ -182,27 +227,48 @@ function showUpdateBadge() {
     }, 3000);
 }
 
+// ==========================================
+// เริ่มต้นระบบ
+// ==========================================
 function init() {
     document.getElementById('langSelector').value = currentLang;
     renderAttractions();
 }
 
+// ==========================================
+// เปลี่ยนภาษา
+// ==========================================
 function changeLang(lang) {
     currentLang = lang;
     localStorage.setItem('ripleyLang', lang);
     renderAttractions();
+    
+    // ถ้าอยู่ในหน้า detail ให้ reload ข้อมูล
     if (document.getElementById('page-detail').classList.contains('active')) {
         const id = document.getElementById('detailTitle').dataset.id;
         if (id) showDetail(id);
     }
 }
 
-function t(obj) { 
+// ==========================================
+// แปลงข้อความตามภาษา
+// ==========================================
+function t(obj) {
     if (!obj) return '';
-    return obj[currentLang] || obj['en'] || obj['th'] || ''; 
+    if (typeof obj === 'string') return obj;
+    return obj[currentLang] || obj['en'] || obj['th'] || '';
 }
 
+// ==========================================
+// แสดงรายการเครื่องเล่น
+// ==========================================
 function renderAttractions() {
+    if (!attractions || attractions.length === 0) {
+        document.getElementById('homeAttractions').innerHTML = '<p style="text-align:center;grid-column:1/-1;">ไม่มีข้อมูล</p>';
+        document.getElementById('allAttractions').innerHTML = '<p style="text-align:center;grid-column:1/-1;">ไม่มีข้อมูล</p>';
+        return;
+    }
+    
     const html = attractions.map(a => `
         <div class="attraction-card" onclick="showDetail('${a.id}')">
             <img class="card-image" src="${getCacheBustUrl(a.heroImage)}" alt="${t(a.title)}" onerror="this.src='https://via.placeholder.com/400x220?text=Ripley'">
@@ -216,68 +282,117 @@ function renderAttractions() {
             </div>
         </div>
     `).join('');
+    
     document.getElementById('homeAttractions').innerHTML = html;
     document.getElementById('allAttractions').innerHTML = html;
 }
 
+// ==========================================
+// เปลี่ยนหน้า
+// ==========================================
 function showPage(page) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + page).classList.add('active');
     window.scrollTo(0, 0);
 }
 
+// ==========================================
+// แสดงรายละเอียดเครื่องเล่น
+// ==========================================
 function showDetail(id) {
     const a = attractions.find(x => x.id === id);
-    if (!a) return;
+    if (!a) {
+        showError('ไม่พบข้อมูลเครื่องเล่นนี้');
+        return;
+    }
     
-    // เพิ่ม cache busting สำหรับรูปภาพหลัก
+    // รูปภาพหลัก (เพิ่ม cache busting)
     document.getElementById('detailHeroImage').src = getCacheBustUrl(a.heroImage);
+    document.getElementById('detailHeroImage').onerror = function() {
+        this.src = 'https://via.placeholder.com/800x400?text=Ripley';
+    };
+    
     document.getElementById('detailTitle').textContent = t(a.title);
     document.getElementById('detailTitle').dataset.id = id;
     document.getElementById('detailSubtitle').textContent = t(a.subtitle);
     document.getElementById('detailDesc').textContent = t(a.desc);
 
-    // Gallery - เพิ่ม cache busting
-    document.getElementById('detailGallery').innerHTML = (a.images || []).map(img => `
-        <div class="gallery-item">
-            <img src="${getCacheBustUrl(img)}" onerror="this.src='https://via.placeholder.com/200?text=Image'">
-        </div>
-    `).join('');
-
-    // Videos - เพิ่ม cache busting สำหรับ YouTube
-    document.getElementById('detailVideos').innerHTML = (a.videos || []).map(v => {
-        const videoUrl = getCacheBustUrl(v.url);
-        return `
-            <div class="video-card">
-                <div class="video-wrapper">
-                    <iframe src="${videoUrl}" allowfullscreen></iframe>
-                </div>
-                <div class="video-info">
-                    <h4>${t(v.title)}</h4>
-                </div>
+    // Gallery (เพิ่ม cache busting)
+    if (a.images && a.images.length > 0) {
+        document.getElementById('detailGallery').innerHTML = a.images.map(img => `
+            <div class="gallery-item">
+                <img src="${getCacheBustUrl(img)}" onerror="this.src='https://via.placeholder.com/200?text=Image'">
             </div>
-        `;
-    }).join('');
+        `).join('');
+    } else {
+        document.getElementById('detailGallery').innerHTML = '<p>ไม่มีรูปภาพ</p>';
+    }
+
+    // Videos (เพิ่ม cache busting)
+    if (a.videos && a.videos.length > 0) {
+        document.getElementById('detailVideos').innerHTML = a.videos.map(v => {
+            const videoUrl = getCacheBustUrl(v.url);
+            return `
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="${videoUrl}" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h4>${t(v.title)}</h4>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    } else {
+        document.getElementById('detailVideos').innerHTML = '<p>ไม่มีวิดีโอ</p>';
+    }
 
     // Map
+    const mapUrl = a.mapUrl || 'https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5';
     document.getElementById('detailMap').src = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3885.547499847876!2d100.8767083153126!3d12.928577990346636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310268f0b0b0b0b0%3A0x0!2sRipley\'s%20Believe%20It%20or%20Not!%20Pattaya!5e0!3m2!1sen!2sth!4v1600000000000';
-    document.getElementById('mapDirectionBtn').dataset.mapUrl = a.mapUrl || 'https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5';
+    document.getElementById('mapDirectionBtn').dataset.mapUrl = mapUrl;
 
     showPage('detail');
 }
 
+// ==========================================
+// เปิด Google Maps
+// ==========================================
 function openMapDirection() {
     const mapUrl = document.getElementById('mapDirectionBtn').dataset.mapUrl;
-    if (mapUrl) window.open(mapUrl, '_blank');
+    if (mapUrl) {
+        window.open(mapUrl, '_blank');
+    }
 }
 
-// ตรวจสอบข้อมูลใหม่ทุก 30 วินาที (auto-refresh)
-setInterval(() => {
-    loadData(true);
-}, 30000);
+// ==========================================
+// Auto-refresh ข้อมูลทุก 30 วินาที
+// ==========================================
+function startAutoRefresh() {
+    if (checkInterval) {
+        clearInterval(checkInterval);
+    }
+    checkInterval = setInterval(() => {
+        loadData(false); // ไม่แสดง loading เมื่อ auto-refresh
+    }, 30000);
+}
 
-// โหลดข้อมูลเมื่อเปิดหน้า
-document.addEventListener('DOMContentLoaded', () => loadData(true));
+// ==========================================
+// เริ่มระบบเมื่อโหลดหน้า
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    loadData(true);
+    startAutoRefresh();
+});
+
+// ==========================================
+// Cleanup เมื่อปิดหน้า
+// ==========================================
+window.addEventListener('beforeunload', () => {
+    if (checkInterval) {
+        clearInterval(checkInterval);
+    }
+});
 </script>
 </body>
 </html>
