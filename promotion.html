@@ -118,7 +118,7 @@
             border: 2px solid var(--accent); transition: transform 0.3s;
         }
         .coupon-card:hover { transform: translateY(-5px); }
-        .coupon-card img { width: 100%; height: auto; display: block; }
+        .coupon-card img { width: 100%; height: auto; display: block; object-fit: cover; }
         .coupon-card-body { padding: 1.5rem; text-align: center; }
         .coupon-card-body h3 { color: var(--accent); margin-bottom: 1rem; font-size: 1.5rem; }
         .coupon-card-body p { color: rgba(255,255,255,0.8); line-height: 1.6; margin-bottom: 1rem; }
@@ -275,7 +275,7 @@
             </div>
         </div>
 
-        <!-- ตัวอย่างคูปองและวิธีคำนวณราคา (NEW) -->
+        <!-- ตัวอย่างคูปองและวิธีคำนวณราคา (พร้อมรูปจริง) -->
         <div class="section-box" style="background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,215,0,0.05)); border: 2px solid var(--accent);">
             <h2><i class="fas fa-ticket-alt"></i> <span data-i18n="couponExamplesTitle">ตัวอย่างคูปองและการคำนวณราคา</span></h2>
             
@@ -286,7 +286,7 @@
             <div class="coupon-examples-grid">
                 <!-- คูปอง 10% -->
                 <div class="coupon-card">
-                    <img src="https://via.placeholder.com/600x250/1a1a2e/ffd700?text=10%25+DISCOUNT+COUPON" alt="Coupon 10%" onerror="this.style.background='var(--gradient-gold)'; this.style.height='150px';">
+                    <img src="https://double-gold-z5hbe8jd.edgeone.dev/" alt="Coupon 10%" onerror="this.src='https://via.placeholder.com/600x250/1a1a2e/ffd700?text=10%25+DISCOUNT+COUPON'">
                     <div class="coupon-card-body">
                         <h3 data-i18n="coupon10Title">🎫 คูปองส่วนลด 10%</h3>
                         <p data-i18n="coupon10Desc">ได้รับเมื่อเล่น <strong>The Vault Laser Maze</strong></p>
@@ -300,7 +300,7 @@
                 
                 <!-- คูปอง 20% -->
                 <div class="coupon-card" style="border-color: #ff6b6b;">
-                    <img src="https://via.placeholder.com/600x250/1a1a2e/ff6b6b?text=20%25+DISCOUNT+COUPON" alt="Coupon 20%" onerror="this.style.background='linear-gradient(135deg, #e31e24, #ff6b6b)'; this.style.height='150px';">
+                    <img src="https://xenogeneic-indigo-cccd1zc0.edgeone.dev/" alt="Coupon 20%" onerror="this.src='https://via.placeholder.com/600x250/1a1a2e/ff6b6b?text=20%25+DISCOUNT+COUPON'">
                     <div class="coupon-card-body">
                         <h3 style="color: #ff6b6b;" data-i18n="coupon20Title">🎫 คูปองส่วนลด 20%</h3>
                         <p data-i18n="coupon20Desc">ได้รับเมื่อเล่น <strong>Scream in the Dark</strong></p>
@@ -681,7 +681,7 @@
                 coupon10Title: "🎫 קופון הנחה 10%", coupon10Desc: "מתקבל בעת ביקור ב<strong>מבוך הלייזר</strong>",
                 coupon20Title: "🎫 קופון הנחה 20%", coupon20Desc: "מתקבל בעת ביקור ב<strong>צריחה בחושך</strong>",
                 exampleLabel: "דוגמה לחישוב:",
-                exWater: "מים 25.-", exSlushy: "סלושי 59.-", exWater2: "מים 25.-", exSlushy2: "สโลชิ 59.-", exSausage: "נקניקיות 3 יחידות 100.-",
+                exWater: "מים 25.-", exSlushy: "סלושי 59.-", exWater2: "מים 25.-", exSlushy2: "סלושי 59.-", exSausage: "נקניקיות 3 יחידות 100.-",
                 calcFormulaTitle: "נוסחה לחישוב מחיר לאחר הנחה",
                 calcFormula: "מחיר לאחר הנחה = מחיר מקורי × (100 - אחוז הנחה%) ÷ 100",
                 calc10Title: "קופון 10%", calc10Ex: "100 באט → 90 באט<br>50 באט → 45 באט",
