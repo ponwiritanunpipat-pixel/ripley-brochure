@@ -16,9 +16,10 @@
         .login-box h2 i { margin-right: 10px; }
         .login-box input { width: 100%; padding: 1rem; margin-bottom: 1rem; background: rgba(10,10,26,0.8); border: 1px solid rgba(255,255,255,0.15); color: #fff; border-radius: 12px; font-size: 1rem; font-family: 'Prompt', sans-serif; }
         .login-box input:focus { outline: none; border-color: #ffd700; }
+        .login-box input::placeholder { color: rgba(255,255,255,0.4); }
         .login-box button { width: 100%; padding: 1rem; background: linear-gradient(135deg, #e31e24, #ff6b6b); color: #fff; border: none; border-radius: 12px; cursor: pointer; font-weight: 700; font-size: 1.05rem; font-family: 'Prompt', sans-serif; }
-        .login-box .hint { margin-top: 1rem; font-size: 0.85rem; color: rgba(255,255,255,0.6); }
-        .login-box .hint code { color: #ffd700; background: rgba(255,215,0,0.1); padding: 0.2rem 0.5rem; border-radius: 5px; }
+        .login-box button:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(227,30,36,0.5); }
+        .login-box .hint { margin-top: 1rem; font-size: 0.85rem; color: rgba(255,255,255,0.4); }
         
         #adminPanel { display: none; }
         .admin-container { max-width: 900px; margin: 0 auto; background: rgba(26,26,46,0.95); border-radius: 24px; padding: 2.5rem; border: 1px solid rgba(255,255,255,0.15); }
@@ -61,9 +62,9 @@
     <div id="loginScreen">
         <div class="login-box">
             <h2><i class="fas fa-lock"></i> เข้าสู่ระบบแอดมิน</h2>
-            <input type="password" id="adminPass" placeholder="กรอกรหัสผ่าน">
+            <input type="password" id="adminPass" placeholder="🔑 กรอกรหัสผ่านเพื่อเข้าใช้งาน">
             <button onclick="doLogin()">เข้าสู่ระบบ</button>
-            <p class="hint">รหัสผ่าน: <code>ripley2024</code></p>
+            <p class="hint">เฉพาะผู้ดูแลระบบเท่านั้น</p>
         </div>
     </div>
 
@@ -88,25 +89,25 @@
             <div class="admin-tabs">
                 <button class="admin-tab active" onclick="showTab('content', event)">📝 เนื้อหา</button>
                 <button class="admin-tab" onclick="showTab('images', event)">🖼️ รูปภาพ</button>
-                <button class="admin-tab" onclick="showTab('videos', event)"> วิดีโอ</button>
+                <button class="admin-tab" onclick="showTab('videos', event)">🎬 วิดีโอ</button>
             </div>
 
             <!-- แท็บเนื้อหา -->
             <div class="admin-section active" id="tab-content">
                 <div class="form-group">
-                    <label>🎢 เลือกเครื่องเล่น</label>
+                    <label> เลือกเครื่องเล่น</label>
                     <select id="selectAttraction" onchange="loadContent()">
                         <option value="">-- เลือกเครื่องเล่น --</option>
                     </select>
                 </div>
-                <div class="form-group"><label>📌 ชื่อ (ภาษาไทย)</label><input type="text" id="titleTh"></div>
+                <div class="form-group"><label> ชื่อ (ภาษาไทย)</label><input type="text" id="titleTh"></div>
                 <div class="form-group"><label>📌 ชื่อ (ภาษาอังกฤษ)</label><input type="text" id="titleEn"></div>
                 <div class="form-group"><label>🏷️ คำบรรยายสั้น (ไทย)</label><input type="text" id="subtitleTh"></div>
                 <div class="form-group"><label>🏷️ คำบรรยายสั้น (อังกฤษ)</label><input type="text" id="subtitleEn"></div>
                 <div class="form-group"><label>📄 รายละเอียด (ไทย)</label><textarea id="descTh"></textarea></div>
                 <div class="form-group"><label>📄 รายละเอียด (อังกฤษ)</label><textarea id="descEn"></textarea></div>
                 <div class="form-group"><label>🖼️ รูปหลัก (URL)</label><input type="text" id="heroImage"></div>
-                <div class="form-group"><label>📍 ลิงก์แผนที่</label><input type="text" id="mapUrl"></div>
+                <div class="form-group"><label> ลิงก์แผนที่</label><input type="text" id="mapUrl"></div>
                 <button class="btn-save" onclick="saveContent()">💾 บันทึกเนื้อหา</button>
             </div>
 
@@ -133,12 +134,12 @@
                 </div>
                 <button class="btn-add" onclick="addVideo()">➕ เพิ่มวิดีโอ</button>
                 <div id="videoList" class="video-list"></div>
-                <button class="btn-save" onclick="saveVideos()">💾 บันทึกวิดีโอ</button>
+                <button class="btn-save" onclick="saveVideos()"> บันทึกวิดีโอ</button>
             </div>
 
             <div class="export-import">
-                <button class="btn-export" onclick="exportJSON()">📤 Export JSON</button>
-                <button class="btn-import" onclick="document.getElementById('importFile').click()"> Import JSON</button>
+                <button class="btn-export" onclick="exportJSON()"> Export JSON</button>
+                <button class="btn-import" onclick="document.getElementById('importFile').click()">📥 Import JSON</button>
                 <button class="btn-apply" onclick="applyToSite()">✨ ใช้ข้อมูลทันที</button>
                 <input type="file" id="importFile" style="display:none" accept=".json" onchange="importJSON(event)">
             </div>
