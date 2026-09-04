@@ -3,64 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Ripley's Believe It or Not! Pattaya</title>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { 
-            --primary: #e31e24; 
-            --accent: #ffd700; 
-            --dark: #0a0a1a; 
-            --card-bg: rgba(255,255,255,0.05); 
-            --glass: rgba(255,255,255,0.1); 
-            --glass-border: rgba(255,255,255,0.15);
-        }
+        :root { --primary: #e31e24; --accent: #ffd700; --dark: #0a0a1a; --card-bg: rgba(255,255,255,0.05); --glass: rgba(255,255,255,0.1); }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Prompt', sans-serif; 
-            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0a0a1a 100%); 
-            color: #fff; 
-            min-height: 100vh; 
-        }
-        header { 
-            position: fixed; top: 0; width: 100%; z-index: 1000; 
-            background: rgba(10,10,26,0.95); backdrop-filter: blur(20px); 
-            border-bottom: 1px solid var(--glass-border); 
-        }
-        .header-container { 
-            max-width: 1400px; margin: 0 auto; padding: 1rem 2rem; 
-            display: flex; justify-content: space-between; align-items: center; 
-        }
+        body { font-family: 'Prompt', sans-serif; background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0a0a1a 100%); color: #fff; min-height: 100vh; }
+        header { position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(10,10,26,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .header-container { max-width: 1400px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.5rem; font-weight: 900; color: var(--accent); }
         .nav-links { display: flex; gap: 1.5rem; align-items: center; }
         .nav-links a { color: #fff; text-decoration: none; font-weight: 600; cursor: pointer; transition: color 0.3s; }
         .nav-links a:hover { color: var(--accent); }
-        .lang-selector { 
-            background: var(--glass); border: 1px solid var(--glass-border); 
-            color: #fff; padding: 0.5rem 1rem; border-radius: 25px; cursor: pointer; 
-        }
-        .btn-admin { 
-            background: #4CAF50; color: #fff; padding: 0.5rem 1rem; 
-            border-radius: 25px; text-decoration: none; font-weight: 600; 
-        }
-        .btn-help { 
-            background: var(--accent); color: var(--dark); width: 40px; height: 40px; 
-            border-radius: 50%; border: none; cursor: pointer; font-weight: bold; font-size: 1.2rem; 
-        }
+        .lang-selector { background: var(--glass); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 0.5rem 1rem; border-radius: 25px; cursor: pointer; }
+        .btn-admin { background: #4CAF50; color: #fff; padding: 0.5rem 1rem; border-radius: 25px; text-decoration: none; font-weight: 600; }
         main { margin-top: 80px; min-height: calc(100vh - 80px); }
         .page { display: none; animation: fadeIn 0.5s; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
         .hero { text-align: center; padding: 4rem 2rem; background: radial-gradient(ellipse at center, rgba(227,30,36,0.2) 0%, transparent 70%); }
         .hero h1 { font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(45deg, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hero p { font-size: 1.2rem; color: rgba(255,255,255,0.8); }
-        
         .attractions-grid { max-width: 1400px; margin: 0 auto; padding: 2rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem; }
-        .attraction-card { 
-            background: var(--card-bg); border-radius: 20px; overflow: hidden; 
-            border: 1px solid var(--glass-border); transition: all 0.3s; cursor: pointer; 
-        }
+        .attraction-card { background: var(--card-bg); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s; cursor: pointer; }
         .attraction-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(227,30,36,0.3); border-color: var(--accent); }
         .card-image { width: 100%; height: 220px; object-fit: cover; }
         .card-content { padding: 1.5rem; }
@@ -68,77 +37,31 @@
         .card-content p { color: rgba(255,255,255,0.7); font-size: 0.95rem; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
         .card-tags { display: flex; gap: 0.5rem; margin-top: 1rem; }
         .tag { background: rgba(227,30,36,0.3); color: var(--accent); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.8rem; }
-        
         .detail-hero { position: relative; height: 400px; overflow: hidden; }
         .detail-hero img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.4); }
         .detail-hero-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 3rem; background: linear-gradient(transparent, var(--dark)); }
         .detail-hero-content h1 { font-size: 2.5rem; color: var(--accent); }
-        
         .detail-container { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
         .detail-section { margin-bottom: 3rem; }
         .detail-section h2 { font-size: 1.8rem; margin-bottom: 1.5rem; color: var(--accent); }
         .detail-section p { line-height: 1.8; color: rgba(255,255,255,0.85); font-size: 1.05rem; }
-        
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
         .gallery-item { aspect-ratio: 1; border-radius: 15px; overflow: hidden; cursor: pointer; }
         .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
         .gallery-item:hover img { transform: scale(1.1); }
-        
         .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
         .video-card { background: var(--card-bg); border-radius: 15px; overflow: hidden; }
         .video-wrapper { position: relative; padding-bottom: 56.25%; background: #000; }
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
         .video-info { padding: 1rem; }
         .video-info h4 { color: var(--accent); margin-bottom: 0.3rem; }
-        
-        .map-container { border-radius: 15px; overflow: hidden; margin-top: 1rem; border: 1px solid var(--glass-border); }
+        .map-container { border-radius: 15px; overflow: hidden; margin-top: 1rem; border: 1px solid rgba(255,255,255,0.1); }
         .map-container iframe { width: 100%; height: 400px; border: 0; }
-        .btn-directions { 
-            background: var(--accent); color: var(--dark); border: none; padding: 1rem 2rem; 
-            border-radius: 10px; cursor: pointer; font-weight: 700; width: 100%; margin-top: 1rem; 
-            display: flex; align-items: center; justify-content: center; gap: 0.5rem; 
-        }
-        .btn-back { 
-            background: var(--primary); color: #fff; border: none; padding: 1rem 2rem; 
-            border-radius: 10px; cursor: pointer; font-weight: 600; margin-top: 2rem; 
-        }
-        
+        .btn-directions { background: var(--accent); color: var(--dark); border: none; padding: 1rem 2rem; border-radius: 10px; cursor: pointer; font-weight: 700; width: 100%; margin-top: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+        .btn-back { background: var(--primary); color: #fff; border: none; padding: 1rem 2rem; border-radius: 10px; cursor: pointer; font-weight: 600; margin-top: 2rem; }
         footer { text-align: center; padding: 2rem; background: rgba(0,0,0,0.5); color: rgba(255,255,255,0.6); margin-top: 4rem; }
-        
-        /* Help Modal Styles */
-        .modal-overlay { 
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; 
-            backdrop-filter: blur(5px);
-        }
-        .modal-overlay.active { display: flex; }
-        .modal-content { 
-            background: linear-gradient(135deg, #1a1a2e, #0a0a1a); 
-            max-width: 800px; width: 90%; max-height: 85vh; overflow-y: auto; 
-            border-radius: 20px; padding: 2.5rem; border: 2px solid var(--accent); position: relative; 
-        }
-        .modal-close { 
-            position: absolute; top: 15px; right: 15px; background: var(--primary); 
-            color: #fff; border: none; width: 40px; height: 40px; border-radius: 50%; 
-            cursor: pointer; font-size: 1.2rem; transition: transform 0.3s;
-        }
-        .modal-close:hover { transform: rotate(90deg); }
-        .modal-content h2 { color: var(--accent); font-size: 2rem; margin-bottom: 1.5rem; text-align: center; }
-        .help-section { margin-bottom: 2rem; }
-        .help-section h3 { color: var(--accent); font-size: 1.3rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
-        .help-section ul { list-style: none; padding-left: 0.5rem; }
-        .help-section li { 
-            margin-bottom: 0.8rem; padding: 0.8rem; background: rgba(255,255,255,0.05); 
-            border-radius: 8px; border-left: 3px solid var(--accent); line-height: 1.6; 
-        }
-        .help-section li strong { color: var(--accent); }
-        
-        @media (max-width: 768px) { 
-            .nav-links { display: none; } 
-            .hero h1 { font-size: 2rem; } 
-            .attractions-grid { grid-template-columns: 1fr; padding: 1rem; } 
-            .modal-content { padding: 1.5rem; }
-        }
+        .update-badge { position: fixed; bottom: 20px; right: 20px; background: #4CAF50; color: white; padding: 10px 20px; border-radius: 25px; display: none; z-index: 9999; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        @media (max-width: 768px) { .nav-links { display: none; } .hero h1 { font-size: 2rem; } .attractions-grid { grid-template-columns: 1fr; padding: 1rem; } }
     </style>
 </head>
 <body>
@@ -146,73 +69,33 @@
         <div class="header-container">
             <div class="logo">Ripley's Pattaya</div>
             <nav class="nav-links">
-                <a onclick="showPage('home')" data-i18n="navHome">🏠 หน้าแรก</a>
-                <a onclick="showPage('attractions')" data-i18n="navAttractions">🎢 เครื่องเล่น</a>
-                <a href="promotion.html" data-i18n="navPromo">🎫 โปรโมชั่น</a>
+                <a onclick="showPage('home')"> หน้าแรก</a>
+                <a onclick="showPage('attractions')">🎢 เครื่องเล่น</a>
                 <select class="lang-selector" id="langSelector" onchange="changeLang(this.value)">
-                    <option value="th">🇹🇭 TH</option>
+                    <option value="th">🇹 TH</option>
                     <option value="en">🇬🇧 EN</option>
-                    <option value="zh">🇨🇳 CN</option>
+                    <option value="zh">🇨 CN</option>
                     <option value="jp">🇯🇵 JP</option>
-                    <option value="ru">🇷🇺 RU</option>
+                    <option value="ru">🇷 RU</option>
                     <option value="ar">🇸🇦 AR</option>
-                    <option value="he">🇮🇱 HE</option>
+                    <option value="he">🇮 HE</option>
                 </select>
-                <button class="btn-help" onclick="showHelp()" title="วิธีใช้งาน / How to use">?</button>
-                <a href="admin.html" class="btn-admin" data-i18n="navAdmin">🔧 Admin</a>
+                <a href="admin.html" class="btn-admin">🔧 Admin</a>
             </nav>
         </div>
     </header>
-    
-    <!-- Help Modal -->
-    <div class="modal-overlay" id="helpModal" onclick="closeHelp(event)">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="closeHelp()">×</button>
-            <h2 data-i18n="helpTitle">📖 วิธีใช้งานเว็บไซต์</h2>
-            
-            <div class="help-section">
-                <h3>🌐 <span data-i18n="helpVisitorTitle">สำหรับผู้เข้าชม</span></h3>
-                <ul>
-                    <li><strong data-i18n="helpVisitor1Label">เลือกภาษา:</strong> <span data-i18n="helpVisitor1">คลิกที่เมนูภาษา (TH/EN/CN/JP/RU/AR/HE) มุมขวาบนเพื่อเปลี่ยนภาษา</span></li>
-                    <li><strong data-i18n="helpVisitor2Label">ดูเครื่องเล่น:</strong> <span data-i18n="helpVisitor2">คลิกที่การ์ดเครื่องเล่นเพื่อดูรายละเอียด รูปภาพ วิดีโอ และแผนที่</span></li>
-                    <li><strong data-i18n="helpVisitor3Label">ดูรูปภาพ:</strong> <span data-i18n="helpVisitor3">คลิกที่รูปภาพในแกลเลอรี่เพื่อดูแบบเต็มจอ</span></li>
-                    <li><strong data-i18n="helpVisitor4Label">ดูเส้นทาง:</strong> <span data-i18n="helpVisitor4">คลิกปุ่ม "ดูเส้นทางใน Google Maps" เพื่อนำทาง</span></li>
-                </ul>
-            </div>
-            
-            <div class="help-section">
-                <h3>🎫 <span data-i18n="helpPromoTitle">กิจกรรมพิเศษ</span></h3>
-                <ul>
-                    <li><strong data-i18n="helpPromo1Label">รับคูปอง:</strong> <span data-i18n="helpPromo1">เล่นเครื่องเล่น Laser Maze หรือ Scream in the Dark</span></li>
-                    <li><strong data-i18n="helpPromo2Label">แลกส่วนลด:</strong> <span data-i18n="helpPromo2">นำคูปองไปแลกซื้ออาหารและเครื่องดื่มที่เคาน์เตอร์</span></li>
-                    <li><strong data-i18n="helpPromo3Label">ดูรายละเอียด:</strong> <span data-i18n="helpPromo3">คลิกเมนู "โปรโมชั่น" เพื่อดูวิธีใช้และเมนูอาหาร</span></li>
-                </ul>
-            </div>
-            
-            <div class="help-section">
-                <h3>🔧 <span data-i18n="helpAdminTitle">สำหรับผู้ดูแลระบบ</span></h3>
-                <ul>
-                    <li><strong data-i18n="helpAdmin1Label">เข้าสู่ระบบ:</strong> <span data-i18n="helpAdmin1">คลิกปุ่ม "Admin" และกรอกรหัสผ่าน</span></li>
-                    <li><strong data-i18n="helpAdmin2Label">แก้ไขข้อมูล:</strong> <span data-i18n="helpAdmin2">แก้ไขชื่อ รายละเอียด รูปภาพ และวิดีโอ</span></li>
-                    <li><strong data-i18n="helpAdmin3Label">บันทึกข้อมูล:</strong> <span data-i18n="helpAdmin3">กดปุ่ม "Export JSON" เพื่อดาวน์โหลดไฟล์</span></li>
-                    <li><strong data-i18n="helpAdmin4Label">อัพเดทเว็บ:</strong> <span data-i18n="helpAdmin4">อัพโหลดไฟล์ data.json ใหม่ขึ้น GitHub/Cloudflare</span></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
     <main>
         <div id="page-home" class="page active">
             <div class="hero">
-                <h1 id="heroTitle" data-i18n="heroTitleDefault">Ripley's Believe It or Not! Pattaya</h1>
-                <p id="heroDesc" data-i18n="heroDescDefault">สัมผัสประสบการณ์สุดระทึกใจ กับ 10 เครื่องเล่นสุดมันส์</p>
+                <h1>Ripley's Believe It or Not! Pattaya</h1>
+                <p>สัมผัสประสบการณ์สุดระทึกใจ กับ 10 เครื่องเล่นสุดมันส์</p>
             </div>
             <div class="attractions-grid" id="homeAttractions"></div>
         </div>
         <div id="page-attractions" class="page">
             <div class="hero">
-                <h1 id="allAttractions" data-i18n="allAttractionsDefault">เครื่องเล่นทั้งหมด</h1>
-                <p id="attractionsDesc" data-i18n="attractionsDescDefault">เลือกสัมผัสประสบการณ์ที่คุณชื่นชอบ</p>
+                <h1>เครื่องเล่นทั้งหมด</h1>
+                <p>เลือกสัมผัสประสบการณ์ที่คุณชื่นชอบ</p>
             </div>
             <div class="attractions-grid" id="allAttractions"></div>
         </div>
@@ -225,245 +108,88 @@
                 </div>
             </div>
             <div class="detail-container">
+                <div class="detail-section"><h2> เกี่ยวกับ</h2><p id="detailDesc"></p></div>
+                <div class="detail-section"><h2>📸 แกลเลอรี่ภาพ</h2><div class="gallery-grid" id="detailGallery"></div></div>
+                <div class="detail-section"><h2>🎬 วิดีโอ</h2><div class="video-grid" id="detailVideos"></div></div>
                 <div class="detail-section">
-                    <h2 id="labelAbout">📖 เกี่ยวกับ</h2>
-                    <p id="detailDesc"></p>
-                </div>
-                <div class="detail-section">
-                    <h2 id="labelGallery">📸 แกลเลอรี่ภาพ</h2>
-                    <div class="gallery-grid" id="detailGallery"></div>
-                </div>
-                <div class="detail-section">
-                    <h2 id="labelVideos">🎬 วิดีโอ</h2>
-                    <div class="video-grid" id="detailVideos"></div>
-                </div>
-                <div class="detail-section">
-                    <h2 id="labelLocation">📍 ที่ตั้ง</h2>
-                    <div class="map-container">
-                        <iframe id="detailMap" src="" allowfullscreen="" loading="lazy"></iframe>
-                    </div>
+                    <h2>📍 ที่ตั้ง</h2>
+                    <div class="map-container"><iframe id="detailMap" src="" allowfullscreen="" loading="lazy"></iframe></div>
                     <button id="mapDirectionBtn" class="btn-directions" onclick="openMapDirection()">
-                        <i class="fas fa-directions"></i> <span id="labelDirections">ดูเส้นทางใน Google Maps</span>
+                        <i class="fas fa-directions"></i> ดูเส้นทางใน Google Maps
                     </button>
                 </div>
-                <button class="btn-back" onclick="showPage('attractions')" id="labelBack">⬅️ กลับ</button>
+                <button class="btn-back" onclick="showPage('attractions')">⬅️ กลับ</button>
             </div>
         </div>
     </main>
-    <footer>
-        <p>© 2026 Ripley's Believe It or Not! Pattaya. <span data-i18n="footerRights">All Rights Reserved</span>.</p>
-    </footer>
+    <footer>© 2026 Ripley's Believe It or Not! Pattaya. All Rights Reserved.</footer>
+    <div class="update-badge" id="updateBadge">✅ อัพเดทข้อมูลล่าสุดแล้ว</div>
 
 <script>
-// ระบบแปลภาษา
-const translations = {
-    th: {
-        navHome: "🏠 หน้าแรก", navAttractions: "🎢 เครื่องเล่น", navPromo: "🎫 โปรโมชั่น", navAdmin: "🔧 Admin",
-        heroTitleDefault: "Ripley's Believe It or Not! Pattaya",
-        heroDescDefault: "สัมผัสประสบการณ์สุดระทึกใจ กับ 10 เครื่องเล่นสุดมันส์",
-        allAttractionsDefault: "เครื่องเล่นทั้งหมด",
-        attractionsDescDefault: "เลือกสัมผัสประสบการณ์ที่คุณชื่นชอบ",
-        labelAbout: "📖 เกี่ยวกับ", labelGallery: "📸 แกลเลอรี่ภาพ", labelVideos: "🎬 วิดีโอ",
-        labelLocation: "📍 ที่ตั้ง", labelDirections: "ดูเส้นทางใน Google Maps", labelBack: "⬅️ กลับ",
-        photos: "รูป", videos: "วิดีโอ", promoVideo: "วิดีโอแนะนำ", footerRights: "สงวนลิขสิทธิ์",
-        helpTitle: "📖 วิธีใช้งานเว็บไซต์",
-        helpVisitorTitle: "สำหรับผู้เข้าชม",
-        helpVisitor1Label: "เลือกภาษา:", helpVisitor1: "คลิกที่เมนูภาษา (TH/EN/CN/JP/RU/AR/HE) มุมขวาบนเพื่อเปลี่ยนภาษา",
-        helpVisitor2Label: "ดูเครื่องเล่น:", helpVisitor2: "คลิกที่การ์ดเครื่องเล่นเพื่อดูรายละเอียด รูปภาพ วิดีโอ และแผนที่",
-        helpVisitor3Label: "ดูรูปภาพ:", helpVisitor3: "คลิกที่รูปภาพในแกลเลอรี่เพื่อดูแบบเต็มจอ",
-        helpVisitor4Label: "ดูเส้นทาง:", helpVisitor4: "คลิกปุ่ม \"ดูเส้นทางใน Google Maps\" เพื่อนำทาง",
-        helpPromoTitle: "กิจกรรมพิเศษ",
-        helpPromo1Label: "รับคูปอง:", helpPromo1: "เล่นเครื่องเล่น Laser Maze หรือ Scream in the Dark",
-        helpPromo2Label: "แลกส่วนลด:", helpPromo2: "นำคูปองไปแลกซื้ออาหารและเครื่องดื่มที่เคาน์เตอร์",
-        helpPromo3Label: "ดูรายละเอียด:", helpPromo3: "คลิกเมนู \"โปรโมชั่น\" เพื่อดูวิธีใช้และเมนูอาหาร",
-        helpAdminTitle: "สำหรับผู้ดูแลระบบ",
-        helpAdmin1Label: "เข้าสู่ระบบ:", helpAdmin1: "คลิกปุ่ม \"Admin\" และกรอกรหัสผ่าน",
-        helpAdmin2Label: "แก้ไขข้อมูล:", helpAdmin2: "แก้ไขชื่อ รายละเอียด รูปภาพ และวิดีโอ",
-        helpAdmin3Label: "บันทึกข้อมูล:", helpAdmin3: "กดปุ่ม \"Export JSON\" เพื่อดาวน์โหลดไฟล์",
-        helpAdmin4Label: "อัพเดทเว็บ:", helpAdmin4: "อัพโหลดไฟล์ data.json ใหม่ขึ้น GitHub/Cloudflare"
-    },
-    en: {
-        navHome: "🏠 Home", navAttractions: "🎢 Attractions", navPromo: "🎫 Promotion", navAdmin: "🔧 Admin",
-        heroTitleDefault: "Ripley's Believe It or Not! Pattaya",
-        heroDescDefault: "Experience 10 thrilling attractions",
-        allAttractionsDefault: "All Attractions",
-        attractionsDescDefault: "Choose your preferred experience",
-        labelAbout: "📖 About", labelGallery: "📸 Gallery", labelVideos: "🎬 Videos",
-        labelLocation: "📍 Location", labelDirections: "Get Directions on Google Maps", labelBack: "⬅️ Back",
-        photos: "Photos", videos: "Videos", promoVideo: "Promotional Video", footerRights: "All Rights Reserved",
-        helpTitle: "📖 How to Use",
-        helpVisitorTitle: "For Visitors",
-        helpVisitor1Label: "Select Language:", helpVisitor1: "Click the language menu (TH/EN/CN/JP/RU/AR/HE) at the top right to change language",
-        helpVisitor2Label: "View Attractions:", helpVisitor2: "Click on an attraction card to see details, photos, videos, and maps",
-        helpVisitor3Label: "View Photos:", helpVisitor3: "Click on gallery photos to view in full screen",
-        helpVisitor4Label: "Get Directions:", helpVisitor4: "Click 'Get Directions on Google Maps' button for navigation",
-        helpPromoTitle: "Special Activities",
-        helpPromo1Label: "Get Coupon:", helpPromo1: "Play Laser Maze or Scream in the Dark attractions",
-        helpPromo2Label: "Redeem Discount:", helpPromo2: "Bring the coupon to redeem food and drinks at the counter",
-        helpPromo3Label: "View Details:", helpPromo3: "Click 'Promotion' menu to see how to use and food menu",
-        helpAdminTitle: "For Administrators",
-        helpAdmin1Label: "Login:", helpAdmin1: "Click 'Admin' button and enter password",
-        helpAdmin2Label: "Edit Data:", helpAdmin2: "Edit names, descriptions, images, and videos",
-        helpAdmin3Label: "Save Data:", helpAdmin3: "Click 'Export JSON' to download the file",
-        helpAdmin4Label: "Update Website:", helpAdmin4: "Upload new data.json to GitHub/Cloudflare"
-    },
-    zh: {
-        navHome: "🏠 首页", navAttractions: "🎢 游乐设施", navPromo: "🎫 促销", navAdmin: "🔧 管理员",
-        heroTitleDefault: "信不信由你！芭堤雅",
-        heroDescDefault: "体验10个惊险游乐设施",
-        allAttractionsDefault: "所有游乐设施",
-        attractionsDescDefault: "选择您喜欢的体验",
-        labelAbout: "📖 关于", labelGallery: "📸 图库", labelVideos: "🎬 视频",
-        labelLocation: "📍 位置", labelDirections: "在谷歌地图上获取路线", labelBack: "⬅️ 返回",
-        photos: "照片", videos: "视频", promoVideo: "宣传视频", footerRights: "版权所有",
-        helpTitle: "📖 如何使用",
-        helpVisitorTitle: "访客指南",
-        helpVisitor1Label: "选择语言：", helpVisitor1: "点击右上角的语言菜单（TH/EN/CN/JP/RU/AR/HE）切换语言",
-        helpVisitor2Label: "查看设施：", helpVisitor2: "点击游乐设施卡片查看详情、照片、视频和地图",
-        helpVisitor3Label: "查看照片：", helpVisitor3: "点击图库中的照片可全屏查看",
-        helpVisitor4Label: "获取路线：", helpVisitor4: "点击\"在谷歌地图上获取路线\"按钮进行导航",
-        helpPromoTitle: "特别活动",
-        helpPromo1Label: "领取券：", helpPromo1: "游玩激光迷宫或黑暗尖叫设施",
-        helpPromo2Label: "兑换折扣：", helpPromo2: "将券带到柜台兑换食物和饮料",
-        helpPromo3Label: "查看详情：", helpPromo3: "点击\"促销\"菜单查看使用方法和菜单",
-        helpAdminTitle: "管理员指南",
-        helpAdmin1Label: "登录：", helpAdmin1: "点击\"Admin\"按钮并输入密码",
-        helpAdmin2Label: "编辑数据：", helpAdmin2: "编辑名称、描述、图片和视频",
-        helpAdmin3Label: "保存数据：", helpAdmin3: "点击\"导出JSON\"下载文件",
-        helpAdmin4Label: "更新网站：", helpAdmin4: "上传新的data.json到GitHub/Cloudflare"
-    },
-    jp: {
-        navHome: "🏠 ホーム", navAttractions: "🎢 アトラクション", navPromo: "🎫 プロモーション", navAdmin: "🔧 管理者",
-        heroTitleDefault: "リプリーズ・ビリーブ・イット・オア・ノット！パタヤ",
-        heroDescDefault: "10のスリリングなアトラクションを体験",
-        allAttractionsDefault: "すべてのアトラクション",
-        attractionsDescDefault: "お好みの体験を選択",
-        labelAbout: "📖 概要", labelGallery: "📸 ギャラリー", labelVideos: "🎬 動画",
-        labelLocation: "📍 場所", labelDirections: "Googleマップでルート案内", labelBack: "⬅️ 戻る",
-        photos: "写真", videos: "動画", promoVideo: "プロモーション動画", footerRights: "無断転載禁止",
-        helpTitle: "📖 使い方",
-        helpVisitorTitle: "お客様へ",
-        helpVisitor1Label: "言語選択：", helpVisitor1: "右上の言語メニュー（TH/EN/CN/JP/RU/AR/HE）をクリックして言語を変更",
-        helpVisitor2Label: "アトラクションを見る：", helpVisitor2: "アトラクションカードをクリックして詳細、写真、動画、地図を表示",
-        helpVisitor3Label: "写真を見る：", helpVisitor3: "ギャラリーの写真をクリックすると全画面表示",
-        helpVisitor4Label: "ルート案内：", helpVisitor4: "「Googleマップでルート案内」ボタンをクリックしてナビゲーション",
-        helpPromoTitle: "特別アクティビティ",
-        helpPromo1Label: "クーポン取得：", helpPromo1: "レーザーメイズまたはスクリーム・イン・ザ・ダークをプレイ",
-        helpPromo2Label: "割引交換：", helpPromo2: "カウンターでフードとドリンクにクーポンを交換",
-        helpPromo3Label: "詳細を見る：", helpPromo3: "「プロモーション」メニューで使い方とメニューを確認",
-        helpAdminTitle: "管理者ガイド",
-        helpAdmin1Label: "ログイン：", helpAdmin1: "「Admin」ボタンをクリックしてパスワードを入力",
-        helpAdmin2Label: "データ編集：", helpAdmin2: "名前、説明、画像、動画を編集",
-        helpAdmin3Label: "データ保存：", helpAdmin3: "「JSONをエクスポート」をクリックしてファイルをダウンロード",
-        helpAdmin4Label: "ウェブサイト更新：", helpAdmin4: "新しいdata.jsonをGitHub/Cloudflareにアップロード"
-    },
-    ru: {
-        navHome: "🏠 Главная", navAttractions: "🎢 Аттракционы", navPromo: "🎫 Акция", navAdmin: "🔧 Админ",
-        heroTitleDefault: "Ripley's Believe It or Not! Паттайя",
-        heroDescDefault: "Испытайте 10 захватывающих аттракционов",
-        allAttractionsDefault: "Все аттракционы",
-        attractionsDescDefault: "Выберите свой опыт",
-        labelAbout: "📖 О нас", labelGallery: "📸 Галерея", labelVideos: "🎬 Видео",
-        labelLocation: "📍 Местоположение", labelDirections: "Получить маршрут на Google Maps", labelBack: "⬅️ Назад",
-        photos: "Фото", videos: "Видео", promoVideo: "Рекламное видео", footerRights: "Все права защищены",
-        helpTitle: "📖 Как использовать",
-        helpVisitorTitle: "Для посетителей",
-        helpVisitor1Label: "Выбор языка:", helpVisitor1: "Нажмите меню языка (TH/EN/CN/JP/RU/AR/HE) в правом верхнем углу",
-        helpVisitor2Label: "Смотреть аттракционы:", helpVisitor2: "Нажмите на карточку аттракциона для просмотра деталей, фото, видео и карты",
-        helpVisitor3Label: "Смотреть фото:", helpVisitor3: "Нажмите на фото в галерее для полноэкранного просмотра",
-        helpVisitor4Label: "Маршрут:", helpVisitor4: "Нажмите кнопку «Получить маршрут на Google Maps» для навигации",
-        helpPromoTitle: "Специальные акции",
-        helpPromo1Label: "Получить купон:", helpPromo1: "Посетите аттракционы Лазерный лабиринт или Крик во тьме",
-        helpPromo2Label: "Обменять скидку:", helpPromo2: "Принесите купон к стойке для обмена на еду и напитки",
-        helpPromo3Label: "Подробнее:", helpPromo3: "Нажмите меню «Акция» для просмотра инструкции и меню",
-        helpAdminTitle: "Для администраторов",
-        helpAdmin1Label: "Вход:", helpAdmin1: "Нажмите кнопку «Admin» и введите пароль",
-        helpAdmin2Label: "Редактировать данные:", helpAdmin2: "Редактируйте названия, описания, изображения и видео",
-        helpAdmin3Label: "Сохранить данные:", helpAdmin3: "Нажмите «Экспорт JSON» для скачивания файла",
-        helpAdmin4Label: "Обновить сайт:", helpAdmin4: "Загрузите новый data.json на GitHub/Cloudflare"
-    },
-    ar: {
-        navHome: "🏠 الرئيسية", navAttractions: "🎢 الألعاب", navPromo: "🎫 العروض", navAdmin: "🔧 المشرف",
-        heroTitleDefault: "ريبلي تصدق أو لا تصدق! باتايا",
-        heroDescDefault: "جرب 10 ألعاب مثيرة",
-        allAttractionsDefault: "جميع الألعاب",
-        attractionsDescDefault: "اختر تجربتك المفضلة",
-        labelAbout: "📖 حول", labelGallery: "📸 معرض الصور", labelVideos: "🎬 فيديوهات",
-        labelLocation: "📍 الموقع", labelDirections: "احصل على الاتجاهات على خرائط جوجل", labelBack: "⬅️ رجوع",
-        photos: "صور", videos: "فيديوهات", promoVideo: "فيديو ترويجي", footerRights: "جميع الحقوق محفوظة",
-        helpTitle: "📖 كيفية الاستخدام",
-        helpVisitorTitle: "للزوار",
-        helpVisitor1Label: "اختر اللغة:", helpVisitor1: "انقر على قائمة اللغة (TH/EN/CN/JP/RU/AR/HE) في أعلى اليمين",
-        helpVisitor2Label: "عرض الألعاب:", helpVisitor2: "انقر على بطاقة اللعبة لعرض التفاصيل والصور ومقاطع الفيديو والخريطة",
-        helpVisitor3Label: "عرض الصور:", helpVisitor3: "انقر على الصور في المعرض لعرضها بملء الشاشة",
-        helpVisitor4Label: "الاتجاهات:", helpVisitor4: "انقر على زر \"احصل على الاتجاهات على خرائط جوجل\" للملاحة",
-        helpPromoTitle: "أنشطة خاصة",
-        helpPromo1Label: "احصل على الكوبون:", helpPromo1: "العب متاهة الليزر أو الصراخ في الظلام",
-        helpPromo2Label: "استبدل الخصم:", helpPromo2: "احضر الكوبون إلى الكاونتر لاستبداله بالطعام والشراب",
-        helpPromo3Label: "عرض التفاصيل:", helpPromo3: "انقر على قائمة \"العروض\" لعرض طريقة الاستخدام والقائمة",
-        helpAdminTitle: "للمشرفين",
-        helpAdmin1Label: "تسجيل الدخول:", helpAdmin1: "انقر على زر \"Admin\" وأدخل كلمة المرور",
-        helpAdmin2Label: "تحرير البيانات:", helpAdmin2: "تحرير الأسماء والأوصاف والصور ومقاطع الفيديو",
-        helpAdmin3Label: "حفظ البيانات:", helpAdmin3: "انقر على \"تصدير JSON\" لتنزيل الملف",
-        helpAdmin4Label: "تحديث الموقع:", helpAdmin4: "ارفع data.json الجديد إلى GitHub/Cloudflare"
-    },
-    he: {
-        navHome: "🏠 בית", navAttractions: "🎢 אטרקציות", navPromo: "🎫 מבצעים", navAdmin: "🔧 מנהל",
-        heroTitleDefault: "ריפלי - תאמין או לא! פטאיה",
-        heroDescDefault: "חווה 10 אטרקציות מרגשות",
-        allAttractionsDefault: "כל האטרקציות",
-        attractionsDescDefault: "בחר את החוויה שלך",
-        labelAbout: "📖 אודות", labelGallery: "📸 גלריה", labelVideos: "🎬 סרטונים",
-        labelLocation: "📍 מיקום", labelDirections: "קבל הוראות הגעה בגוגל מפות", labelBack: "⬅️ חזור",
-        photos: "תמונות", videos: "סרטונים", promoVideo: "סרטון קידום מכירות", footerRights: "כל הזכויות שמורות",
-        helpTitle: "📖 כיצד להשתמש",
-        helpVisitorTitle: "למבקרים",
-        helpVisitor1Label: "בחירת שפה:", helpVisitor1: "לחץ על תפריט השפה (TH/EN/CN/JP/RU/AR/HE) בפינה הימנית העליונה",
-        helpVisitor2Label: "צפייה באטרקציות:", helpVisitor2: "לחץ על כרטיס האטרקציה לצפייה בפרטים, תמונות, סרטונים ומפה",
-        helpVisitor3Label: "צפייה בתמונות:", helpVisitor3: "לחץ על תמונות בגלריה לצפייה במסך מלא",
-        helpVisitor4Label: "הוראות הגעה:", helpVisitor4: "לחץ על כפתור \"קבל הוראות הגעה בגוגל מפות\" לניווט",
-        helpPromoTitle: "פעילויות מיוחדות",
-        helpPromo1Label: "קבל קופון:", helpPromo1: "בקר במבוך הלייזר או צריחה בחושך",
-        helpPromo2Label: "המר הנחה:", helpPromo2: "הבא את הקופון לדלפק להמרה לאוכל ושתייה",
-        helpPromo3Label: "צפה בפרטים:", helpPromo3: "לחץ על תפריט \"מבצעים\" לצפייה בהוראות שימוש ותפריט",
-        helpAdminTitle: "למנהלים",
-        helpAdmin1Label: "התחברות:", helpAdmin1: "לחץ על כפתור \"Admin\" והזן סיסמה",
-        helpAdmin2Label: "עריכת נתונים:", helpAdmin2: "ערוך שמות, תיאורים, תמונות וסרטונים",
-        helpAdmin3Label: "שמירת נתונים:", helpAdmin3: "לחץ על \"ייצא JSON\" להורדת הקובץ",
-        helpAdmin4Label: "עדכון האתר:", helpAdmin4: "העלה data.json חדש ל-GitHub/Cloudflare"
-    }
-};
-
 let currentLang = localStorage.getItem('ripleyLang') || 'th';
 let attractions = [];
+let lastCheckTime = 0;
 
-async function loadData() {
+// ฟังก์ชันเพิ่ม Cache Busting - แก้ปัญหาข้อมูลไม่อัพเดท
+function getCacheBustUrl(url) {
+    const separator = url.includes('?') ? '&' : '?';
+    return url + separator + 'v=' + Date.now();
+}
+
+// โหลดข้อมูลใหม่ทุกครั้งที่เปิดหน้า (ไม่ใช้ cache)
+async function loadData(forceRefresh = false) {
     try {
-        const saved = localStorage.getItem('ripleyAttractions');
-        if (saved) {
-            attractions = JSON.parse(saved);
-            console.log('โหลดจาก localStorage:', attractions.length, 'รายการ');
-        } else {
-            const response = await fetch('data.json');
-            if (response.ok) {
-                attractions = await response.json();
-                console.log('โหลดจาก data.json:', attractions.length, 'รายการ');
+        // ใช้ timestamp เพื่อบังคับให้ browser โหลดไฟล์ใหม่เสมอ
+        const timestamp = Date.now();
+        const url = forceRefresh ? `data.json?t=${timestamp}` : `data.json?t=${timestamp}`;
+        
+        const response = await fetch(url, {
+            cache: 'no-store',  // บังคับไม่ให้ใช้ cache
+            headers: {
+                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                'Pragma': 'no-cache'
             }
+        });
+        
+        if (response.ok) {
+            const newData = await response.json();
+            
+            // ตรวจสอบว่าข้อมูลเปลี่ยนหรือไม่
+            const oldDataStr = JSON.stringify(attractions);
+            const newDataStr = JSON.stringify(newData);
+            
+            attractions = newData;
+            
+            // ถ้าข้อมูลเปลี่ยน แสดง badge แจ้งเตือน
+            if (oldDataStr !== newDataStr && oldDataStr !== '[]') {
+                showUpdateBadge();
+            }
+            
+            lastCheckTime = timestamp;
+            init();
         }
-        init();
-    } catch (e) { console.error(e); }
+    } catch (e) { 
+        console.error('Error loading data:', e); 
+    }
+}
+
+// แสดง badge แจ้งเมื่อข้อมูลอัพเดท
+function showUpdateBadge() {
+    const badge = document.getElementById('updateBadge');
+    badge.style.display = 'block';
+    setTimeout(() => {
+        badge.style.display = 'none';
+    }, 3000);
 }
 
 function init() {
     document.getElementById('langSelector').value = currentLang;
-    applyLang();
     renderAttractions();
 }
 
 function changeLang(lang) {
     currentLang = lang;
     localStorage.setItem('ripleyLang', lang);
-    applyLang();
     renderAttractions();
     if (document.getElementById('page-detail').classList.contains('active')) {
         const id = document.getElementById('detailTitle').dataset.id;
@@ -471,41 +197,21 @@ function changeLang(lang) {
     }
 }
 
-function applyLang() {
-    const t = translations[currentLang];
-    if (!t) return;
-    
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.dataset.i18n;
-        if (t[key]) {
-            el.innerHTML = t[key]; // ใช้ innerHTML เพื่อรองรับ tag <strong> ใน Help Modal
-        }
-    });
-    
-    // RTL support for Arabic and Hebrew
-    if (currentLang === 'ar' || currentLang === 'he') {
-        document.body.style.direction = 'rtl';
-    } else {
-        document.body.style.direction = 'ltr';
-    }
-}
-
 function t(obj) { 
-    if (typeof obj === 'string') return obj;
+    if (!obj) return '';
     return obj[currentLang] || obj['en'] || obj['th'] || ''; 
 }
 
 function renderAttractions() {
-    const currentText = translations[currentLang];
     const html = attractions.map(a => `
         <div class="attraction-card" onclick="showDetail('${a.id}')">
-            <img class="card-image" src="${a.heroImage}" alt="${t(a.title)}" onerror="this.src='https://via.placeholder.com/400x220?text=Ripley'">
+            <img class="card-image" src="${getCacheBustUrl(a.heroImage)}" alt="${t(a.title)}" onerror="this.src='https://via.placeholder.com/400x220?text=Ripley'">
             <div class="card-content">
                 <h3>${t(a.title)}</h3>
                 <p>${t(a.desc)}</p>
                 <div class="card-tags">
-                    <span class="tag">📸 ${a.images.length} ${currentText.photos}</span>
-                    <span class="tag">🎬 ${a.videos.length} ${currentText.videos}</span>
+                    <span class="tag">📸 ${a.images ? a.images.length : 0} รูป</span>
+                    <span class="tag">🎬 ${a.videos ? a.videos.length : 0} วิดีโอ</span>
                 </div>
             </div>
         </div>
@@ -520,38 +226,40 @@ function showPage(page) {
     window.scrollTo(0, 0);
 }
 
-function showHelp() {
-    document.getElementById('helpModal').classList.add('active');
-}
-
-function closeHelp(event) {
-    if (!event || event.target.id === 'helpModal' || event.target.classList.contains('modal-close')) {
-        document.getElementById('helpModal').classList.remove('active');
-    }
-}
-
 function showDetail(id) {
     const a = attractions.find(x => x.id === id);
     if (!a) return;
-    const currentText = translations[currentLang];
     
-    document.getElementById('detailHeroImage').src = a.heroImage;
+    // เพิ่ม cache busting สำหรับรูปภาพหลัก
+    document.getElementById('detailHeroImage').src = getCacheBustUrl(a.heroImage);
     document.getElementById('detailTitle').textContent = t(a.title);
     document.getElementById('detailTitle').dataset.id = id;
     document.getElementById('detailSubtitle').textContent = t(a.subtitle);
     document.getElementById('detailDesc').textContent = t(a.desc);
 
-    document.getElementById('detailGallery').innerHTML = a.images.map(img => `
-        <div class="gallery-item"><img src="${img}" onerror="this.src='https://via.placeholder.com/200?text=Image'"></div>
-    `).join('');
-
-    document.getElementById('detailVideos').innerHTML = a.videos.map(v => `
-        <div class="video-card">
-            <div class="video-wrapper"><iframe src="${v.url}" allowfullscreen></iframe></div>
-            <div class="video-info"><h4>${t(v.title)}</h4><p>${currentText.promoVideo}</p></div>
+    // Gallery - เพิ่ม cache busting
+    document.getElementById('detailGallery').innerHTML = (a.images || []).map(img => `
+        <div class="gallery-item">
+            <img src="${getCacheBustUrl(img)}" onerror="this.src='https://via.placeholder.com/200?text=Image'">
         </div>
     `).join('');
 
+    // Videos - เพิ่ม cache busting สำหรับ YouTube
+    document.getElementById('detailVideos').innerHTML = (a.videos || []).map(v => {
+        const videoUrl = getCacheBustUrl(v.url);
+        return `
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe src="${videoUrl}" allowfullscreen></iframe>
+                </div>
+                <div class="video-info">
+                    <h4>${t(v.title)}</h4>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    // Map
     document.getElementById('detailMap').src = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3885.547499847876!2d100.8767083153126!3d12.928577990346636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310268f0b0b0b0b0%3A0x0!2sRipley\'s%20Believe%20It%20or%20Not!%20Pattaya!5e0!3m2!1sen!2sth!4v1600000000000';
     document.getElementById('mapDirectionBtn').dataset.mapUrl = a.mapUrl || 'https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5';
 
@@ -563,7 +271,13 @@ function openMapDirection() {
     if (mapUrl) window.open(mapUrl, '_blank');
 }
 
-document.addEventListener('DOMContentLoaded', loadData);
+// ตรวจสอบข้อมูลใหม่ทุก 30 วินาที (auto-refresh)
+setInterval(() => {
+    loadData(true);
+}, 30000);
+
+// โหลดข้อมูลเมื่อเปิดหน้า
+document.addEventListener('DOMContentLoaded', () => loadData(true));
 </script>
 </body>
 </html>
