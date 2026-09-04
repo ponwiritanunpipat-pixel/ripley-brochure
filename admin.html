@@ -4,75 +4,308 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ระบบจัดการ - Ripley's Pattaya</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #e31e24;
+            --accent: #ffd700;
+            --dark: #0a0a1a;
+            --card-bg: rgba(255,255,255,0.05);
+            --glass: rgba(255,255,255,0.1);
+            --glass-border: rgba(255,255,255,0.15);
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #1a1a2e; color: #fff; min-height: 100vh; padding: 20px; }
-        .admin-container { max-width: 900px; margin: 0 auto; background: #16213e; border-radius: 15px; padding: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
-        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid #e31e24; }
-        .admin-header h1 { color: #ffd700; font-size: 1.8rem; }
-        .admin-header h1 i { margin-right: 10px; }
-        .close-btn { background: #e31e24; color: #fff; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; }
-        .close-btn:hover { background: #ff6b6b; }
-        
-        /* Tabs */
-        .tabs { display: flex; gap: 10px; margin-bottom: 25px; }
-        .tab { padding: 12px 25px; background: #0f3460; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; font-weight: 600; transition: all 0.3s; }
-        .tab.active { background: #e31e24; }
-        .tab:hover { background: #e31e24; }
-        
-        /* Form */
-        .form-section { display: none; }
-        .form-section.active { display: block; }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; color: #ffd700; font-weight: 600; font-size: 0.95rem; }
-        .form-group select, .form-group input, .form-group textarea { width: 100%; padding: 12px; background: #0f3460; border: 1px solid #1a1a2e; color: #fff; border-radius: 8px; font-size: 1rem; font-family: inherit; }
-        .form-group select:focus, .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #ffd700; }
-        .form-group textarea { min-height: 100px; resize: vertical; }
-        
-        /* Image/Video List */
-        .item-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
-        .item-row { display: flex; gap: 10px; align-items: center; background: #0f3460; padding: 10px; border-radius: 8px; }
-        .item-row input { flex: 1; background: #1a1a2e; border: 1px solid #333; color: #fff; padding: 10px; border-radius: 5px; }
-        .btn-delete { background: #ff4444; color: #fff; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
-        .btn-delete:hover { background: #ff6666; }
-        .btn-add { background: #4CAF50; color: #fff; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; margin-bottom: 15px; }
-        .btn-add:hover { background: #66bb6a; }
-        
-        /* Buttons */
-        .btn-save { background: linear-gradient(45deg, #e31e24, #ff6b6b); color: #fff; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 1.1rem; width: 100%; margin-top: 10px; }
-        .btn-save:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(227,30,36,0.4); }
-        .btn-export { background: #2196F3; color: #fff; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 15px; }
-        .btn-import { background: #FF9800; color: #fff; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 15px; margin-left: 10px; }
-        
-        .success-msg { background: #4CAF50; padding: 15px; border-radius: 8px; margin-bottom: 20px; display: none; text-align: center; font-weight: 600; }
-        
+        body {
+            font-family: 'Prompt', sans-serif;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0a0a1a 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .admin-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(26,26,46,0.95);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary);
+        }
+        .admin-header h1 {
+            color: var(--accent);
+            font-size: 1.8rem;
+        }
+        .close-btn {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .close-btn:hover {
+            transform: rotate(90deg);
+            background: #ff6b6b;
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 15px;
+        }
+        .tab {
+            background: transparent;
+            color: rgba(255,255,255,0.7);
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 10px;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        .tab:hover {
+            background: var(--glass);
+            color: #fff;
+        }
+        .tab.active {
+            background: var(--primary);
+            color: #fff;
+        }
+        .form-section {
+            display: none;
+        }
+        .form-section.active {
+            display: block;
+            animation: fadeIn 0.4s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .form-group select,
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(10,10,26,0.8);
+            border: 1px solid var(--glass-border);
+            color: #fff;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .form-group select:focus,
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(255,215,0,0.1);
+        }
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .btn-save {
+            background: linear-gradient(135deg, #e31e24, #ff6b6b);
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.05rem;
+            transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(227,30,36,0.3);
+        }
+        .btn-save:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(227,30,36,0.5);
+        }
+        .btn-add {
+            background: linear-gradient(135deg, #4CAF50, #2e7d32);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+        .btn-add:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76,175,80,0.4);
+        }
+        .btn-delete {
+            background: linear-gradient(135deg, #ff4444, #cc0000);
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn-delete:hover {
+            transform: scale(1.05);
+        }
+        .item-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .item-row {
+            background: rgba(10,10,26,0.6);
+            padding: 12px;
+            border-radius: 10px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            border: 1px solid var(--glass-border);
+        }
+        .item-row input {
+            flex: 1;
+            background: rgba(5,5,16,0.8);
+            border: 1px solid var(--glass-border);
+            color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .success-msg {
+            background: #4CAF50;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+            text-align: center;
+            font-weight: 600;
+        }
+        .info-box {
+            background: rgba(33,150,243,0.15);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2196F3;
+        }
+        .info-box h3 {
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        .info-box ol {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+        .export-import {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--glass-border);
+        }
+        .btn-export {
+            flex: 1;
+            background: linear-gradient(135deg, #2196F3, #1565c0);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn-export:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(33,150,243,0.4);
+        }
+        .btn-import {
+            flex: 1;
+            background: linear-gradient(135deg, #FF9800, #e65100);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn-import:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,152,0,0.4);
+        }
         @media (max-width: 768px) {
             .admin-container { padding: 15px; }
             .tabs { flex-wrap: wrap; }
             .tab { padding: 10px 15px; font-size: 0.9rem; }
+            .export-import { flex-direction: column; }
         }
     </style>
 </head>
 <body>
     <div class="admin-container">
         <div class="admin-header">
-            <h1>⚙️ ระบบจัดการ</h1>
-            <button class="close-btn" onclick="window.location.href='index.html'">✕</button>
+            <h1><i class="fas fa-cog"></i> ระบบจัดการ</h1>
+            <button class="close-btn" onclick="window.location.href='index.html'">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
-        
-        <div id="successMsg" class="success-msg">✅ บันทึกสำเร็จ! กรุณาอัพโหลดไฟล์ data.json ใหม่</div>
-        
-        <!-- Tabs -->
+
+        <div class="info-box">
+            <h3><i class="fas fa-info-circle"></i> วิธีใช้งาน</h3>
+            <ol>
+                <li>เลือกเครื่องเล่นที่ต้องการแก้ไข</li>
+                <li>แก้ไขข้อมูลในฟอร์ม</li>
+                <li>กดปุ่ม "บันทึก" เพื่อดาวน์โหลดไฟล์ data.json</li>
+                <li>อัพโหลดไฟล์ data.json ใหม่ขึ้น GitHub หรือ Cloudflare</li>
+                <li>รอ 30 วินาที เว็บจะอัพเดทอัตโนมัติ</li>
+            </ol>
+        </div>
+
+        <div id="successMsg" class="success-msg">
+            <i class="fas fa-check-circle"></i> บันทึกสำเร็จ! กรุณาอัพโหลดไฟล์ data.json ใหม่
+        </div>
+
         <div class="tabs">
-            <button class="tab active" onclick="switchTab('content')">เนื้อหา</button>
-            <button class="tab" onclick="switchTab('images')">รูปภาพ</button>
-            <button class="tab" onclick="switchTab('videos')">วิดีโอ</button>
+            <button class="tab active" onclick="switchTab('content')">
+                <i class="fas fa-edit"></i> เนื้อหา
+            </button>
+            <button class="tab" onclick="switchTab('images')">
+                <i class="fas fa-images"></i> รูปภาพ
+            </button>
+            <button class="tab" onclick="switchTab('videos')">
+                <i class="fas fa-video"></i> วิดีโอ
+            </button>
         </div>
-        
+
         <!-- Content Tab -->
         <div id="tab-content" class="form-section active">
             <div class="form-group">
-                <label>🎢 เลือกเครื่องเล่น</label>
+                <label><i class="fas fa-gamepad"></i> เลือกเครื่องเล่น</label>
                 <select id="selectAttraction" onchange="loadAttractionData()">
                     <option value="">-- เลือกเครื่องเล่น --</option>
                 </select>
@@ -86,7 +319,7 @@
                 <input type="text" id="titleEn" placeholder="ชื่อเครื่องเล่นภาษาอังกฤษ">
             </div>
             <div class="form-group">
-                <label>️ คำบรรยายสั้น (ไทย)</label>
+                <label>🏷️ คำบรรยายสั้น (ไทย)</label>
                 <input type="text" id="subtitleTh" placeholder="คำบรรยายสั้น">
             </div>
             <div class="form-group">
@@ -109,39 +342,53 @@
                 <label>📍 ลิงก์แผนที่ (Google Maps)</label>
                 <input type="text" id="mapUrl" placeholder="https://maps.app.goo.gl/...">
             </div>
-            <button class="btn-save" onclick="saveContent()">💾 บันทึกเนื้อหา</button>
+            <button class="btn-save" onclick="saveContent()">
+                <i class="fas fa-save"></i> บันทึกเนื้อหา
+            </button>
         </div>
-        
+
         <!-- Images Tab -->
         <div id="tab-images" class="form-section">
             <div class="form-group">
-                <label>🎢 เลือกเครื่องเล่น</label>
+                <label><i class="fas fa-gamepad"></i> เลือกเครื่องเล่น</label>
                 <select id="selectAttractionImg" onchange="loadImages()">
                     <option value="">-- เลือกเครื่องเล่น --</option>
                 </select>
             </div>
-            <button class="btn-add" onclick="addImage()"> เพิ่มรูปภาพ</button>
+            <button class="btn-add" onclick="addImage()">
+                <i class="fas fa-plus"></i> เพิ่มรูปภาพ
+            </button>
             <div id="imageList" class="item-list"></div>
-            <button class="btn-save" onclick="saveImages()">💾 บันทึกรูปภาพ</button>
+            <button class="btn-save" onclick="saveImages()">
+                <i class="fas fa-save"></i> บันทึกรูปภาพ
+            </button>
         </div>
-        
+
         <!-- Videos Tab -->
         <div id="tab-videos" class="form-section">
             <div class="form-group">
-                <label>🎢 เลือกเครื่องเล่น</label>
+                <label><i class="fas fa-gamepad"></i> เลือกเครื่องเล่น</label>
                 <select id="selectAttractionVid" onchange="loadVideos()">
                     <option value="">-- เลือกเครื่องเล่น --</option>
                 </select>
             </div>
-            <button class="btn-add" onclick="addVideo()">➕ เพิ่มวิดีโอ</button>
+            <button class="btn-add" onclick="addVideo()">
+                <i class="fas fa-plus"></i> เพิ่มวิดีโอ
+            </button>
             <div id="videoList" class="item-list"></div>
-            <button class="btn-save" onclick="saveVideos()">💾 บันทึกวิดีโอ</button>
+            <button class="btn-save" onclick="saveVideos()">
+                <i class="fas fa-save"></i> บันทึกวิดีโอ
+            </button>
         </div>
-        
+
         <!-- Export/Import -->
-        <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #333;">
-            <button class="btn-export" onclick="exportJSON()">📤 Export JSON (สำรองข้อมูล)</button>
-            <button class="btn-import" onclick="document.getElementById('importFile').click()">📥 Import JSON (นำเข้าข้อมูล)</button>
+        <div class="export-import">
+            <button class="btn-export" onclick="exportJSON()">
+                <i class="fas fa-download"></i> Export JSON (สำรองข้อมูล)
+            </button>
+            <button class="btn-import" onclick="document.getElementById('importFile').click()">
+                <i class="fas fa-upload"></i> Import JSON (นำเข้าข้อมูล)
+            </button>
             <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
         </div>
     </div>
@@ -156,7 +403,7 @@
                 attractions = await response.json();
                 populateSelects();
             } catch (e) {
-                alert('ไม่สามารถโหลดข้อมูลได้');
+                alert('ไม่สามารถโหลดข้อมูลได้ กรุณาตรวจสอบไฟล์ data.json');
             }
         }
 
@@ -197,7 +444,10 @@
         }
 
         function saveContent() {
-            if (currentIndex === -1) { alert('กรุณาเลือกเครื่องเล่น'); return; }
+            if (currentIndex === -1) {
+                alert('กรุณาเลือกเครื่องเล่น');
+                return;
+            }
             const a = attractions[currentIndex];
             a.title.th = document.getElementById('titleTh').value;
             a.title.en = document.getElementById('titleEn').value;
@@ -221,7 +471,12 @@
             attractions[currentIndex].images.forEach((img, i) => {
                 const row = document.createElement('div');
                 row.className = 'item-row';
-                row.innerHTML = `<input type="text" value="${img}" data-index="${i}"><button class="btn-delete" onclick="deleteImage(${i})">ลบ</button>`;
+                row.innerHTML = `
+                    <input type="text" value="${img}" data-index="${i}">
+                    <button class="btn-delete" onclick="deleteImage(${i})">
+                        <i class="fas fa-trash"></i> ลบ
+                    </button>
+                `;
                 list.appendChild(row);
             });
         }
@@ -230,7 +485,12 @@
             const list = document.getElementById('imageList');
             const row = document.createElement('div');
             row.className = 'item-row';
-            row.innerHTML = `<input type="text" placeholder="URL รูปภาพ" class="new-img"><button class="btn-delete" onclick="this.parentElement.remove()">ลบ</button>`;
+            row.innerHTML = `
+                <input type="text" placeholder="URL รูปภาพ" class="new-img">
+                <button class="btn-delete" onclick="this.parentElement.remove()">
+                    <i class="fas fa-trash"></i> ลบ
+                </button>
+            `;
             list.appendChild(row);
         }
 
@@ -240,7 +500,10 @@
         }
 
         function saveImages() {
-            if (currentIndex === -1) { alert('กรุณาเลือกเครื่องเล่น'); return; }
+            if (currentIndex === -1) {
+                alert('กรุณาเลือกเครื่องเล่น');
+                return;
+            }
             const inputs = document.querySelectorAll('#imageList input');
             const newImages = [];
             inputs.forEach(input => {
@@ -263,7 +526,9 @@
                 row.innerHTML = `
                     <input type="text" value="${v.url}" placeholder="URL วิดีโอ" class="vid-url">
                     <input type="text" value="${v.title.th || ''}" placeholder="ชื่อวิดีโอ" class="vid-title">
-                    <button class="btn-delete" onclick="deleteVideo(${i})">ลบ</button>
+                    <button class="btn-delete" onclick="deleteVideo(${i})">
+                        <i class="fas fa-trash"></i> ลบ
+                    </button>
                 `;
                 list.appendChild(row);
             });
@@ -276,7 +541,9 @@
             row.innerHTML = `
                 <input type="text" placeholder="URL วิดีโอ (YouTube embed)" class="vid-url">
                 <input type="text" placeholder="ชื่อวิดีโอ" class="vid-title">
-                <button class="btn-delete" onclick="this.parentElement.remove()">ลบ</button>
+                <button class="btn-delete" onclick="this.parentElement.remove()">
+                    <i class="fas fa-trash"></i> ลบ
+                </button>
             `;
             list.appendChild(row);
         }
@@ -287,7 +554,10 @@
         }
 
         function saveVideos() {
-            if (currentIndex === -1) { alert('กรุณาเลือกเครื่องเล่น'); return; }
+            if (currentIndex === -1) {
+                alert('กรุณาเลือกเครื่องเล่น');
+                return;
+            }
             const rows = document.querySelectorAll('#videoList .item-row');
             const newVideos = [];
             rows.forEach(row => {
@@ -332,7 +602,7 @@
                     populateSelects();
                     alert('นำเข้าข้อมูลสำเร็จ!');
                 } catch (err) {
-                    alert('ไฟล์ไม่ถูกต้อง');
+                    alert('ไฟล์ไม่ถูกต้อง: ' + err.message);
                 }
             };
             reader.readAsText(file);
