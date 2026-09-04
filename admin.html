@@ -17,7 +17,7 @@
         .attraction { background: rgba(255,255,255,0.1); padding: 25px; margin-bottom: 25px; border-radius: 10px; border-left: 4px solid #ffd700; }
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-weight: bold; color: #ffd700; }
-        input, textarea, select { width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #333; background: #0a0a1a; color: white; font-family: inherit; }
+        input, textarea { width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #333; background: #0a0a1a; color: white; font-family: inherit; }
         textarea { min-height: 80px; resize: vertical; }
         button { background: #e31e24; color: white; padding: 12px 25px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 16px; margin-right: 10px; margin-top: 10px; }
         button:hover { background: #ff6b6b; }
@@ -30,7 +30,6 @@
         a { color: #ffd700; text-decoration: none; margin-left: 10px; }
         a:hover { text-decoration: underline; }
         .info { background: rgba(33,150,243,0.2); padding: 15px; border-radius: 5px; margin-bottom: 20px; border-left: 4px solid #2196F3; }
-        .item-list { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 5px; margin-bottom: 10px; }
         .item-row { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
         .item-row input { flex: 1; }
     </style>
@@ -50,18 +49,12 @@
         <div id="success" class="success">✅ บันทึกข้อมูลสำเร็จ! กรุณาอัพโหลดไฟล์ data.json ใหม่</div>
         
         <div class="tabs">
-            <button class="tab active" onclick="showTab('attractions')">🎢 เครื่องเล่น</button>
-            <button class="tab" onclick="showTab('promotions')">🎁 โปรโมชั่น</button>
-            <button class="tab" onclick="showTab('export')">💾 Export/Import</button>
+            <button class="tab active" onclick="showTab('attractions')"> เครื่องเล่น</button>
+            <button class="tab" onclick="showTab('export')"> Export/Import</button>
         </div>
 
         <div id="tab-attractions" class="tab-content active">
             <div id="attractionsList"></div>
-        </div>
-
-        <div id="tab-promotions" class="tab-content">
-            <button class="btn-add" onclick="addPromotion()">+ เพิ่มโปรโมชั่น</button>
-            <div id="promotionsList"></div>
         </div>
 
         <div id="tab-export" class="tab-content">
@@ -69,7 +62,7 @@
                 <h3>💾 สำรองและกู้คืนข้อมูล</h3>
                 <p>ใช้ฟังก์ชันนี้เพื่อสำรองข้อมูลทั้งหมดหรือกู้คืนจากไฟล์สำรอง</p>
             </div>
-            <button onclick="exportData()" class="btn-download">📥 Export JSON (ดาวน์โหลดข้อมูล)</button>
+            <button onclick="exportData()" class="btn-download"> Export JSON (ดาวน์โหลดข้อมูล)</button>
             <div style="margin-top: 20px;">
                 <label>Import JSON (อัพโหลดข้อมูล):</label>
                 <input type="file" id="importFile" accept=".json" onchange="importData(this)">
@@ -78,22 +71,20 @@
 
         <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid rgba(255,255,255,0.1);">
             <button onclick="saveAll()" style="font-size: 18px; padding: 15px 30px;">💾 บันทึกและดาวน์โหลดไฟล์</button>
-            <button onclick="downloadJSON()" class="btn-download">📥 ดาวน์โหลด JSON</button>
+            <button onclick="downloadJSON()" class="btn-download"> ดาวน์โหลด JSON</button>
             <a href="index.html">← กลับหน้าหลัก</a>
         </div>
     </div>
 
     <script>
-        let data = { attractions: [], promotions: [] };
+        let data = { attractions: [] };
 
         async function loadData() {
             try {
                 const response = await fetch('data.json');
                 data = await response.json();
                 if (!data.attractions) data.attractions = [];
-                if (!data.promotions) data.promotions = [];
                 renderAttractions();
-                renderPromotions();
             } catch (e) {
                 alert('ไม่สามารถโหลดไฟล์ data.json ได้');
             }
@@ -172,65 +163,6 @@
             document.getElementById('attractionsList').innerHTML = html;
         }
 
-        function renderPromotions() {
-            const html = data.promotions.map((p, index) => `
-                <div class="attraction">
-                    <h2>🎁 ${p.title?.th || p.title?.en || 'โปรโมชั่น ' + (index + 1)} (#${index + 1})</h2>
-                    <div class="form-group">
-                        <label>ชื่อ (ไทย)</label>
-                        <input type="text" id="promo-title-th-${index}" value="${p.title?.th || ''}">
-                    </div>
-                    <div class="form-group">
-                        <label>ชื่อ (อังกฤษ)</label>
-                        <input type="text" id="promo-title-en-${index}" value="${p.title?.en || ''}">
-                    </div>
-                    <div class="form-group">
-                        <label>ราคา</label>
-                        <input type="text" id="promo-price-${index}" value="${p.price || ''}">
-                    </div>
-                    <div class="form-group">
-                        <label>ราคาเดิม (ขีดฆ่า)</label>
-                        <input type="text" id="promo-originalPrice-${index}" value="${p.originalPrice || ''}">
-                    </div>
-                    <div class="form-group">
-                        <label>รายละเอียด (ไทย)</label>
-                        <textarea id="promo-desc-th-${index}">${p.desc?.th || ''}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>รายละเอียด (อังกฤษ)</label>
-                        <textarea id="promo-desc-en-${index}">${p.desc?.en || ''}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>ข้อความปุ่ม (ไทย)</label>
-                        <input type="text" id="promo-buttonText-th-${index}" value="${p.buttonText?.th || ''}">
-                    </div>
-                    <div class="form-group">
-                        <label>ข้อความปุ่ม (อังกฤษ)</label>
-                        <input type="text" id="promo-buttonText-en-${index}" value="${p.buttonText?.en || ''}">
-                    </div>
-                    <div class="form-group">
-                        <label>ลิงก์ปุ่ม</label>
-                        <input type="text" id="promo-buttonLink-${index}" value="${p.buttonLink || ''}">
-                    </div>
-                    <div class="form-group">
-                        <label>คุณสมบัติ (${(p.features || []).length} รายการ)</label>
-                        <div id="promo-features-${index}">
-                            ${(p.features || []).map((f, i) => `
-                                <div class="item-row">
-                                    <input type="text" value="${f.th || ''}" placeholder="ไทย" id="promo-feat-th-${index}-${i}">
-                                    <input type="text" value="${f.en || ''}" placeholder="English" id="promo-feat-en-${index}-${i}">
-                                    <button class="btn-delete" onclick="removeFeature(${index}, ${i})">ลบ</button>
-                                </div>
-                            `).join('')}
-                        </div>
-                        <button class="btn-add" onclick="addFeature(${index})">+ เพิ่มคุณสมบัติ</button>
-                    </div>
-                    <button class="btn-delete" onclick="removePromotion(${index})">🗑️ ลบโปรโมชั่นนี้</button>
-                </div>
-            `).join('');
-            document.getElementById('promotionsList').innerHTML = html;
-        }
-
         function addImage(attrIndex) {
             data.attractions[attrIndex].images = data.attractions[attrIndex].images || [];
             data.attractions[attrIndex].images.push('');
@@ -253,68 +185,19 @@
             renderAttractions();
         }
 
-        function addPromotion() {
-            data.promotions.push({
-                title: { th: '', en: '' },
-                price: '',
-                originalPrice: '',
-                desc: { th: '', en: '' },
-                features: [],
-                buttonText: { th: 'ซื้อเลย', en: 'Buy Now' },
-                buttonLink: ''
-            });
-            renderPromotions();
-        }
-
-        function removePromotion(index) {
-            if (confirm('ต้องการลบโปรโมชั่นนี้หรือไม่?')) {
-                data.promotions.splice(index, 1);
-                renderPromotions();
-            }
-        }
-
-        function addFeature(promoIndex) {
-            data.promotions[promoIndex].features = data.promotions[promoIndex].features || [];
-            data.promotions[promoIndex].features.push({ th: '', en: '' });
-            renderPromotions();
-        }
-
-        function removeFeature(promoIndex, featIndex) {
-            data.promotions[promoIndex].features.splice(featIndex, 1);
-            renderPromotions();
-        }
-
         function saveAll() {
-            // Save attractions
             data.attractions.forEach((a, index) => {
                 a.title = { th: document.getElementById(`attr-title-th-${index}`).value, en: document.getElementById(`attr-title-en-${index}`).value };
                 a.subtitle = { th: document.getElementById(`attr-subtitle-th-${index}`).value, en: document.getElementById(`attr-subtitle-en-${index}`).value };
                 a.desc = { th: document.getElementById(`attr-desc-th-${index}`).value, en: document.getElementById(`attr-desc-en-${index}`).value };
                 a.heroImage = document.getElementById(`attr-heroImage-${index}`).value;
                 a.mapUrl = document.getElementById(`attr-mapUrl-${index}`).value;
-                
                 a.images = (a.images || []).map((_, i) => document.getElementById(`attr-img-${index}-${i}`).value).filter(v => v);
                 a.videos = (a.videos || []).map((_, i) => ({
                     url: document.getElementById(`attr-vid-url-${index}-${i}`).value,
                     title: { th: document.getElementById(`attr-vid-title-${index}-${i}`).value, en: '' }
                 })).filter(v => v.url);
             });
-
-            // Save promotions
-            data.promotions.forEach((p, index) => {
-                p.title = { th: document.getElementById(`promo-title-th-${index}`).value, en: document.getElementById(`promo-title-en-${index}`).value };
-                p.price = document.getElementById(`promo-price-${index}`).value;
-                p.originalPrice = document.getElementById(`promo-originalPrice-${index}`).value;
-                p.desc = { th: document.getElementById(`promo-desc-th-${index}`).value, en: document.getElementById(`promo-desc-en-${index}`).value };
-                p.buttonText = { th: document.getElementById(`promo-buttonText-th-${index}`).value, en: document.getElementById(`promo-buttonText-en-${index}`).value };
-                p.buttonLink = document.getElementById(`promo-buttonLink-${index}`).value;
-                
-                p.features = (p.features || []).map((_, i) => ({
-                    th: document.getElementById(`promo-feat-th-${index}-${i}`).value,
-                    en: document.getElementById(`promo-feat-en-${index}-${i}`).value
-                })).filter(f => f.th || f.en);
-            });
-
             document.getElementById('success').style.display = 'block';
             downloadJSON();
             setTimeout(() => document.getElementById('success').style.display = 'none', 5000);
@@ -330,9 +213,7 @@
             URL.revokeObjectURL(url);
         }
 
-        function exportData() {
-            downloadJSON();
-        }
+        function exportData() { downloadJSON(); }
 
         function importData(input) {
             const file = input.files[0];
@@ -342,9 +223,7 @@
                 try {
                     data = JSON.parse(e.target.result);
                     if (!data.attractions) data.attractions = [];
-                    if (!data.promotions) data.promotions = [];
                     renderAttractions();
-                    renderPromotions();
                     alert('✅ นำเข้าข้อมูลสำเร็จ!');
                 } catch (err) {
                     alert('❌ ไฟล์ JSON ไม่ถูกต้อง: ' + err.message);
