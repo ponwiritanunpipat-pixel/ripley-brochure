@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>กิจกรรมพิเศษ - คูปองส่วนลด | Ripley's Pattaya</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #e31e24;
+            --accent: #ffd700;
+            --dark: #0a0a1a;
+            --secondary: #1a1a2e;
+            --card-bg: rgba(255,255,255,0.05);
+            --glass: rgba(255,255,255,0.1);
+            --glass-border: rgba(255,255,255,0.15);
+            --gradient-primary: linear-gradient(135deg, #e31e24 0%, #ff6b6b 100%);
+            --gradient-gold: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
+            --gradient-bg: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 25%, #2d1b4e 50%, #1a1a3e 75%, #0a0a1a 100%);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Prompt', sans-serif;
+            background: var(--gradient-bg);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: #fff;
+            min-height: 100vh;
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        header {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(10,10,26,0.95); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .header-container {
+            max-width: 1400px; margin: 0 auto; padding: 1rem 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo { font-size: 1.5rem; font-weight: 900; color: var(--accent); }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a { color: #fff; text-decoration: none; font-weight: 600; cursor: pointer; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .lang-selector {
+            background: var(--glass); border: 1px solid var(--glass-border);
+            color: #fff; padding: 0.5rem 1rem; border-radius: 25px; cursor: pointer;
+        }
+        
+        .promo-hero {
+            margin-top: 80px; padding: 4rem 2rem; text-align: center;
+            background: radial-gradient(ellipse at center, rgba(227,30,36,0.3) 0%, rgba(255,215,0,0.15) 50%, transparent 70%);
+            border-bottom: 2px solid var(--glass-border);
+        }
+        .promo-hero h1 {
+            font-size: 3rem; margin-bottom: 1rem;
+            background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .promo-hero .subtitle { font-size: 1.3rem; color: rgba(255,255,255,0.9); margin-bottom: 2rem; }
+        .coupon-badge {
+            display: inline-block; background: var(--gradient-gold); color: var(--dark);
+            padding: 1rem 3rem; border-radius: 50px; font-weight: 900; font-size: 1.3rem;
+            box-shadow: 0 10px 30px rgba(255,215,0,0.4); animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
+        
+        .section-box {
+            background: var(--card-bg); backdrop-filter: blur(10px);
+            border-radius: 24px; padding: 2.5rem; margin-bottom: 3rem;
+            border: 1px solid var(--glass-border);
+        }
+        .section-box h2 {
+            color: var(--accent); font-size: 2rem; margin-bottom: 2rem; text-align: center;
+            display: flex; align-items: center; justify-content: center; gap: 0.7rem;
+        }
+        
+        /* Steps */
+        .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .step {
+            background: rgba(10,10,26,0.6); padding: 2rem 1.5rem; border-radius: 15px;
+            text-align: center; border: 1px solid var(--glass-border); transition: all 0.3s;
+        }
+        .step:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 30px rgba(255,215,0,0.2); }
+        .step-number {
+            width: 60px; height: 60px; background: var(--gradient-primary); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem;
+            font-size: 1.8rem; font-weight: 900; color: #fff;
+        }
+        .step h3 { color: var(--accent); margin-bottom: 0.8rem; font-size: 1.2rem; }
+        .step p { color: rgba(255,255,255,0.8); line-height: 1.6; font-size: 0.95rem; }
+        
+        /* Attractions */
+        .attraction-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .attraction-card {
+            background: linear-gradient(135deg, rgba(227,30,36,0.15), rgba(255,215,0,0.08));
+            border-radius: 20px; padding: 2.5rem 2rem; text-align: center;
+            border: 2px solid var(--primary); transition: all 0.3s;
+        }
+        .attraction-card:hover { transform: scale(1.03); box-shadow: 0 15px 40px rgba(227,30,36,0.4); border-color: var(--accent); }
+        .attraction-card i { font-size: 4rem; margin-bottom: 1rem; color: var(--accent); }
+        .attraction-card h3 { color: var(--accent); font-size: 1.5rem; margin-bottom: 1rem; }
+        .attraction-card p { color: rgba(255,255,255,0.85); line-height: 1.6; margin-bottom: 1.5rem; }
+        .coupon-tag {
+            display: inline-block; background: var(--gradient-gold); color: var(--dark);
+            padding: 0.6rem 1.5rem; border-radius: 25px; font-weight: 700;
+        }
+
+        /* Coupon Examples & Calculation */
+        .coupon-examples-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+        .coupon-card {
+            background: rgba(0,0,0,0.3); border-radius: 15px; overflow: hidden;
+            border: 2px solid var(--accent); transition: transform 0.3s;
+        }
+        .coupon-card:hover { transform: translateY(-5px); }
+        .coupon-card img { width: 100%; height: auto; display: block; }
+        .coupon-card-body { padding: 1.5rem; text-align: center; }
+        .coupon-card-body h3 { color: var(--accent); margin-bottom: 1rem; font-size: 1.5rem; }
+        .coupon-card-body p { color: rgba(255,255,255,0.8); line-height: 1.6; margin-bottom: 1rem; }
+        .calc-example {
+            margin-top: 1rem; padding: 1rem; background: rgba(255,215,0,0.1);
+            border-radius: 10px; text-align: left; font-size: 0.95rem;
+        }
+        .calc-example strong { color: var(--accent); }
+        
+        .calc-info-box {
+            background: rgba(76,175,80,0.15); border: 2px solid #4CAF50;
+            border-radius: 15px; padding: 1.5rem; margin-top: 1.5rem;
+        }
+        .calc-info-box h3 { color: #4CAF50; margin-bottom: 1rem; font-size: 1.3rem; display: flex; align-items: center; gap: 0.5rem; }
+        .calc-info-box p { color: rgba(255,255,255,0.9); line-height: 1.8; margin-bottom: 1rem; }
+        .calc-formula { 
+            background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 8px; 
+            text-align: center; font-weight: 700; color: #fff; font-size: 1.1rem; margin-bottom: 1rem;
+        }
+        .calc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .calc-item { background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px; text-align: center; }
+        .calc-item strong { color: var(--accent); display: block; margin-bottom: 0.5rem; }
+
+        /* Menu */
+        .menu-category { margin-bottom: 2.5rem; }
+        .menu-category h3 {
+            color: var(--accent); font-size: 1.5rem; margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem; border-bottom: 2px solid var(--glass-border);
+            display: flex; align-items: center; gap: 0.7rem;
+        }
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+        .menu-item {
+            background: rgba(10,10,26,0.6); border-radius: 12px; padding: 1.2rem 1.5rem;
+            display: flex; justify-content: space-between; align-items: center;
+            border: 1px solid var(--glass-border); transition: all 0.3s;
+        }
+        .menu-item:hover { border-color: var(--accent); transform: translateX(5px); }
+        .menu-item-info h4 { color: #fff; font-size: 1.05rem; margin-bottom: 0.3rem; }
+        .menu-item-info p { color: rgba(255,255,255,0.6); font-size: 0.85rem; }
+        .menu-item-price {
+            background: var(--gradient-primary); color: #fff; padding: 0.7rem 1.3rem;
+            border-radius: 25px; font-weight: 700; font-size: 1.1rem; white-space: nowrap;
+        }
+        .menu-item.promo {
+            background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,215,0,0.05));
+            border: 2px solid var(--accent);
+        }
+        .menu-item.promo .menu-item-price { background: var(--gradient-gold); color: var(--dark); }
+        .promo-badge {
+            display: inline-block; background: var(--gradient-primary); color: #fff;
+            padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;
+        }
+        
+        /* Location */
+        .location-box {
+            background: linear-gradient(135deg, rgba(76,175,80,0.15), rgba(76,175,80,0.05));
+            border: 2px solid #4CAF50; border-radius: 20px; padding: 2.5rem; text-align: center;
+        }
+        .location-box i.main-icon { font-size: 4rem; color: #4CAF50; margin-bottom: 1rem; }
+        .location-box h3 { color: #4CAF50; font-size: 1.8rem; margin-bottom: 1rem; }
+        .location-box p { color: rgba(255,255,255,0.9); font-size: 1.1rem; line-height: 1.8; }
+        .location-box strong { color: var(--accent); }
+        
+        .back-btn-container { text-align: center; margin-top: 2rem; }
+        .back-btn {
+            display: inline-block; background: var(--gradient-primary); color: #fff;
+            padding: 1rem 3rem; border-radius: 50px; text-decoration: none;
+            font-weight: 700; font-size: 1.1rem; transition: all 0.3s; border: none; cursor: pointer;
+        }
+        .back-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(227,30,36,0.6); }
+        
+        footer { text-align: center; padding: 2rem; background: rgba(0,0,0,0.5); color: rgba(255,255,255,0.6); border-top: 1px solid var(--glass-border); }
+        
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .promo-hero h1 { font-size: 2rem; }
+            .coupon-examples-grid { grid-template-columns: 1fr; }
+            .section-box { padding: 1.5rem; }
+            .steps, .attraction-cards, .menu-grid, .calc-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">Ripley's Pattaya</div>
+            <nav class="nav-links">
+                <a href="index.html">🏠 <span data-i18n="navHome">หน้าแรก</span></a>
+                <a href="index.html#page-attractions">🎢 <span data-i18n="navAttractions">เครื่องเล่น</span></a>
+                <a href="promotion.html" class="active">🎫 <span data-i18n="navPromo">โปรโมชั่น</span></a>
+                <select class="lang-selector" id="langSelector" onchange="changeLang(this.value)">
+                    <option value="th">🇹🇭 TH</option>
+                    <option value="en">🇬🇧 EN</option>
+                    <option value="zh">🇨🇳 CN</option>
+                    <option value="jp">🇯🇵 JP</option>
+                    <option value="ru">🇷🇺 RU</option>
+                    <option value="ar">🇸🇦 AR</option>
+                    <option value="he">🇮🇱 HE</option>
+                </select>
+            </nav>
+        </div>
+    </header>
+
+    <div class="promo-hero">
+        <h1 data-i18n="heroTitle">🎫 กิจกรรมพิเศษสำหรับคุณ!</h1>
+        <p class="subtitle" data-i18n="heroSubtitle">รับคูปองส่วนลดสุดพิเศษ เมื่อเล่นเครื่องเล่นที่ร่วมรายการ</p>
+        <div class="coupon-badge" data-i18n="heroBadge">🎟️ แลกคูปอง → รับส่วนลด → อร่อยทันที!</div>
+    </div>
+
+    <div class="container">
+        <!-- วิธีใช้คูปอง -->
+        <div class="section-box">
+            <h2><i class="fas fa-clipboard-list"></i> <span data-i18n="howToUseTitle">วิธีใช้คูปองส่วนลด</span></h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3 data-i18n="step1Title">เล่นเครื่องเล่น</h3>
+                    <p data-i18n="step1Desc">เล่นเครื่องเล่นที่ร่วมรายการ: Laser Maze หรือ Scream in the Dark</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3 data-i18n="step2Title">รับคูปอง</h3>
+                    <p data-i18n="step2Desc">รับคูปองส่วนลดจากเจ้าหน้าที่ หลังจากเล่นเครื่องเล่นเสร็จ</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3 data-i18n="step3Title">แสดงคูปอง</h3>
+                    <p data-i18n="step3Desc">แสดงคูปองที่ร้านขายของทานเล่นตรงเคาน์เตอร์ขายตั๋ว</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3 data-i18n="step4Title">รับส่วนลดทันที!</h3>
+                    <p data-i18n="step4Desc">ราคาจะลดลงจากราคาป้ายตามเปอร์เซ็นต์ส่วนลดในคูปอง</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- เครื่องเล่นที่ได้คูปอง -->
+        <div class="section-box">
+            <h2><i class="fas fa-gamepad"></i> <span data-i18n="attractionsTitle">เครื่องเล่นที่ร่วมรายการ</span></h2>
+            <div class="attraction-cards">
+                <div class="attraction-card">
+                    <i class="fas fa-bullseye"></i>
+                    <h3 data-i18n="laserTitle">🔦 The Vault Laser Maze</h3>
+                    <p data-i18n="laserDesc">เกมตะลุยเขาวงกตเลเซอร์สุดท้าทาย ทดสอบความว่องไวและความแม่นยำของคุณ</p>
+                    <span class="coupon-tag" data-i18n="getCoupon10">🎟️ รับคูปองส่วนลด 10%</span>
+                </div>
+                <div class="attraction-card">
+                    <i class="fas fa-ghost"></i>
+                    <h3 data-i18n="screamTitle">😱 Scream in the Dark</h3>
+                    <p data-i18n="screamDesc">สวนสนุกสุดสยองในความมืด พร้อมเสียงกรีดร้องและความตื่นเต้น</p>
+                    <span class="coupon-tag" data-i18n="getCoupon20">🎟️ รับคูปองส่วนลด 20%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ตัวอย่างคูปองและวิธีคำนวณราคา (NEW) -->
+        <div class="section-box" style="background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,215,0,0.05)); border: 2px solid var(--accent);">
+            <h2><i class="fas fa-ticket-alt"></i> <span data-i18n="couponExamplesTitle">ตัวอย่างคูปองและการคำนวณราคา</span></h2>
+            
+            <p style="text-align: center; color: rgba(255,255,255,0.9); margin-bottom: 2rem; font-size: 1.1rem;" data-i18n="priceNote">
+                <strong>หมายเหตุ:</strong> ราคาที่แสดงในเมนูคือราคาปกติ (ราคาป้าย) เมื่อท่านใช้คูปอง ราคาจะถูกลดลงตามเปอร์เซ็นต์ส่วนลดที่ระบุในคูปองทันที
+            </p>
+
+            <div class="coupon-examples-grid">
+                <!-- คูปอง 10% -->
+                <div class="coupon-card">
+                    <img src="https://via.placeholder.com/600x250/1a1a2e/ffd700?text=10%25+DISCOUNT+COUPON" alt="Coupon 10%" onerror="this.style.background='var(--gradient-gold)'; this.style.height='150px';">
+                    <div class="coupon-card-body">
+                        <h3 data-i18n="coupon10Title">🎫 คูปองส่วนลด 10%</h3>
+                        <p data-i18n="coupon10Desc">ได้รับเมื่อเล่น <strong>The Vault Laser Maze</strong></p>
+                        <div class="calc-example">
+                            <strong data-i18n="exampleLabel">ตัวอย่างการคำนวณ:</strong><br>
+                            • <span data-i18n="exWater">น้ำดื่ม 25.-</span> → <span style="color:#4CAF50">22.50.-</span><br>
+                            • <span data-i18n="exSlushy">Slushy 59.-</span> → <span style="color:#4CAF50">53.10.-</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- คูปอง 20% -->
+                <div class="coupon-card" style="border-color: #ff6b6b;">
+                    <img src="https://via.placeholder.com/600x250/1a1a2e/ff6b6b?text=20%25+DISCOUNT+COUPON" alt="Coupon 20%" onerror="this.style.background='linear-gradient(135deg, #e31e24, #ff6b6b)'; this.style.height='150px';">
+                    <div class="coupon-card-body">
+                        <h3 style="color: #ff6b6b;" data-i18n="coupon20Title">🎫 คูปองส่วนลด 20%</h3>
+                        <p data-i18n="coupon20Desc">ได้รับเมื่อเล่น <strong>Scream in the Dark</strong></p>
+                        <div class="calc-example" style="background: rgba(255,107,107,0.1);">
+                            <strong data-i18n="exampleLabel">ตัวอย่างการคำนวณ:</strong><br>
+                            • <span data-i18n="exWater2">น้ำดื่ม 25.-</span> → <span style="color:#4CAF50">20.-</span><br>
+                            • <span data-i18n="exSlushy2">Slushy 59.-</span> → <span style="color:#4CAF50">47.20.-</span><br>
+                            • <span data-i18n="exSausage">ไส้กรอก 3 ชิ้น 100.-</span> → <span style="color:#4CAF50">80.-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="calc-info-box">
+                <h3><i class="fas fa-calculator"></i> <span data-i18n="calcFormulaTitle">สูตรคำนวณราคาหลังใช้คูปอง</span></h3>
+                <div class="calc-formula" data-i18n="calcFormula">ราคาหลังลด = ราคาปกติ × (100 - ส่วนลด%) ÷ 100</div>
+                <div class="calc-grid">
+                    <div class="calc-item">
+                        <strong data-i18n="calc10Title">คูปอง 10%</strong>
+                        <span data-i18n="calc10Ex">100 บาท → 90 บาท<br>50 บาท → 45 บาท</span>
+                    </div>
+                    <div class="calc-item">
+                        <strong data-i18n="calc20Title">คูปอง 20%</strong>
+                        <span data-i18n="calc20Ex">100 บาท → 80 บาท<br>50 บาท → 40 บาท</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- เมนูอาหารและเครื่องดื่ม -->
+        <div class="section-box">
+            <h2><i class="fas fa-utensils"></i> <span data-i18n="menuTitle">เมนูอาหารและเครื่องดื่ม</span></h2>
+            
+            <div class="menu-category">
+                <h3><i class="fas fa-glass-water"></i> <span data-i18n="drinksCategory">เครื่องดื่ม</span></h3>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <h4 data-i18n="waterName">💧 น้ำดื่ม (Water)</h4>
+                            <p data-i18n="waterDesc">น้ำดื่มสะอาด ขนาด 600 มล.</p>
+                        </div>
+                        <div class="menu-item-price">25.-</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <h4 data-i18n="softdrinksName">🥤 Soft Drinks</h4>
+                            <p data-i18n="softdrinksDesc">น้ำอัดลมหลากหลายยี่ห้อ</p>
+                        </div>
+                        <div class="menu-item-price">35.-</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <h4 data-i18n="slushyName">🍧 Slushy</h4>
+                            <p data-i18n="slushyDesc">KIWI, MANGO, THAI TEA, HONEY LEMON, FRUIT PUNCH, ORANGE, GRAPE, GREEN TEA, MIX BERRY, STRAWBERRY</p>
+                        </div>
+                        <div class="menu-item-price">59.-</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="menu-category">
+                <h3><i class="fas fa-burger"></i> <span data-i18n="snacksCategory">ของทานเล่น</span></h3>
+                <div class="menu-grid">
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <h4 data-i18n="sbRodName">🍿 SB Rod Snack Classic</h4>
+                            <p data-i18n="sbRodDesc">ข้าวเกรียบ SB</p>
+                        </div>
+                        <div class="menu-item-price">30.-</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <h4 data-i18n="popcornName">🍿 Popcorn ป๊อปคอร์น</h4>
+                            <p data-i18n="popcornDesc">Original / Caramel</p>
+                        </div>
+                        <div class="menu-item-price">90.-</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <h4 data-i18n="friesName">🍟 French Fries</h4>
+                            <p data-i18n="friesDesc">เฟรนช์ฟรายส์</p>
+                        </div>
+                        <div class="menu-item-price">69.-</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <h4 data-i18n="chickenSticksName">🍗 Chicken Sticks</h4>
+                            <p data-i18n="chickenSticksDesc">สติ๊กไก่ทอด</p>
+                        </div>
+                        <div class="menu-item-price">89.-</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <h4 data-i18n="chickenPopName">🍗 Crispy Chicken Pop</h4>
+                            <p data-i18n="chickenPopDesc">ไก่ป๊อป</p>
+                        </div>
+                        <div class="menu-item-price">89.-</div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-item-info">
+                            <h4 data-i18n="mixedSnacksName">🍟 Mixed Fried Snacks</h4>
+                            <p data-i18n="mixedSnacksDesc">ของทานเล่นทอดรวม</p>
+                        </div>
+                        <div class="menu-item-price">109.-</div>
+                    </div>
+                    <div class="menu-item promo">
+                        <div class="menu-item-info">
+                            <span class="promo-badge" data-i18n="promoBadge">⭐ โปรโมชั่นพิเศษ!</span>
+                            <h4 data-i18n="sausageName">🌭 ไส้กรอก 3 ชิ้น</h4>
+                            <p data-i18n="sausageDesc">ร้อนๆ จากเตา กรอบนอก นุ่มใน! คุ้มค่าที่สุด</p>
+                        </div>
+                        <div class="menu-item-price">100.-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- สถานที่แลกคูปอง -->
+        <div class="location-box">
+            <i class="fas fa-map-marker-alt main-icon"></i>
+            <h3 data-i18n="locationTitle">📍 สถานที่แลกคูปอง</h3>
+            <p>
+                <strong data-i18n="locationPlace">ร้านขายของทานเล่น</strong><br>
+                <span data-i18n="locationDesc">ตรงจุดเคาน์เตอร์ขายตั๋ว</span><br>
+                <strong>Ripley's Believe It or Not! Pattaya</strong><br>
+                <span data-i18n="locationAddress">Royal Garden Plaza, Pattaya</span>
+            </p>
+        </div>
+
+        <div class="back-btn-container">
+            <a href="index.html" class="back-btn">⬅️ <span data-i18n="backBtn">กลับสู่หน้าหลัก</span></a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Ripley's Believe It or Not! Pattaya. <span data-i18n="footerRights">All Rights Reserved</span>.</p>
+    </footer>
+
+    <script>
+        const translations = {
+            th: {
+                navHome: "หน้าแรก", navAttractions: "เครื่องเล่น", navPromo: "โปรโมชั่น",
+                heroTitle: "🎫 กิจกรรมพิเศษสำหรับคุณ!", heroSubtitle: "รับคูปองส่วนลดสุดพิเศษ เมื่อเล่นเครื่องเล่นที่ร่วมรายการ",
+                heroBadge: "🎟️ แลกคูปอง → รับส่วนลด → อร่อยทันที!",
+                howToUseTitle: "วิธีใช้คูปองส่วนลด",
+                step1Title: "เล่นเครื่องเล่น", step1Desc: "เล่นเครื่องเล่นที่ร่วมรายการ: Laser Maze หรือ Scream in the Dark",
+                step2Title: "รับคูปอง", step2Desc: "รับคูปองส่วนลดจากเจ้าหน้าที่ หลังจากเล่นเครื่องเล่นเสร็จ",
+                step3Title: "แสดงคูปอง", step3Desc: "แสดงคูปองที่ร้านขายของทานเล่นตรงเคาน์เตอร์ขายตั๋ว",
+                step4Title: "รับส่วนลดทันที!", step4Desc: "ราคาจะลดลงจากราคาป้ายตามเปอร์เซ็นต์ส่วนลดในคูปอง",
+                attractionsTitle: "เครื่องเล่นที่ร่วมรายการ",
+                laserTitle: "🔦 The Vault Laser Maze", laserDesc: "เกมตะลุยเขาวงกตเลเซอร์สุดท้าทาย ทดสอบความว่องไวและความแม่นยำของคุณ",
+                screamTitle: "😱 Scream in the Dark", screamDesc: "สวนสนุกสุดสยองในความมืด พร้อมเสียงกรีดร้องและความตื่นเต้น",
+                getCoupon10: "🎟️ รับคูปองส่วนลด 10%", getCoupon20: "🎟️ รับคูปองส่วนลด 20%",
+                couponExamplesTitle: "ตัวอย่างคูปองและการคำนวณราคา",
+                priceNote: "หมายเหตุ: ราคาที่แสดงในเมนูคือราคาปกติ (ราคาป้าย) เมื่อท่านใช้คูปอง ราคาจะถูกลดลงตามเปอร์เซ็นต์ส่วนลดที่ระบุในคูปองทันที",
+                coupon10Title: "🎫 คูปองส่วนลด 10%", coupon10Desc: "ได้รับเมื่อเล่น <strong>The Vault Laser Maze</strong>",
+                coupon20Title: "🎫 คูปองส่วนลด 20%", coupon20Desc: "ได้รับเมื่อเล่น <strong>Scream in the Dark</strong>",
+                exampleLabel: "ตัวอย่างการคำนวณ:",
+                exWater: "น้ำดื่ม 25.-", exSlushy: "Slushy 59.-", exWater2: "น้ำดื่ม 25.-", exSlushy2: "Slushy 59.-", exSausage: "ไส้กรอก 3 ชิ้น 100.-",
+                calcFormulaTitle: "สูตรคำนวณราคาหลังใช้คูปอง",
+                calcFormula: "ราคาหลังลด = ราคาปกติ × (100 - ส่วนลด%) ÷ 100",
+                calc10Title: "คูปอง 10%", calc10Ex: "100 บาท → 90 บาท<br>50 บาท → 45 บาท",
+                calc20Title: "คูปอง 20%", calc20Ex: "100 บาท → 80 บาท<br>50 บาท → 40 บาท",
+                menuTitle: "เมนูอาหารและเครื่องดื่ม", drinksCategory: "เครื่องดื่ม", snacksCategory: "ของทานเล่น",
+                waterName: "💧 น้ำดื่ม (Water)", waterDesc: "น้ำดื่มสะอาด ขนาด 600 มล.",
+                softdrinksName: "🥤 Soft Drinks", softdrinksDesc: "น้ำอัดลมหลากหลายยี่ห้อ",
+                slushyName: "🍧 Slushy", slushyDesc: "KIWI, MANGO, THAI TEA, HONEY LEMON, FRUIT PUNCH, ORANGE, GRAPE, GREEN TEA, MIX BERRY, STRAWBERRY",
+                sbRodName: "🍿 SB Rod Snack Classic", sbRodDesc: "ข้าวเกรียบ SB",
+                popcornName: "🍿 Popcorn ป๊อปคอร์น", popcornDesc: "Original / Caramel",
+                friesName: "🍟 French Fries", friesDesc: "เฟรนช์ฟรายส์",
+                chickenSticksName: "🍗 Chicken Sticks", chickenSticksDesc: "สติ๊กไก่ทอด",
+                chickenPopName: "🍗 Crispy Chicken Pop", chickenPopDesc: "ไก่ป๊อป",
+                mixedSnacksName: "🍟 Mixed Fried Snacks", mixedSnacksDesc: "ของทานเล่นทอดรวม",
+                promoBadge: "⭐ โปรโมชั่นพิเศษ!", sausageName: "🌭 ไส้กรอก 3 ชิ้น", sausageDesc: "ร้อนๆ จากเตา กรอบนอก นุ่มใน! คุ้มค่าที่สุด",
+                locationTitle: "📍 สถานที่แลกคูปอง", locationPlace: "ร้านขายของทานเล่น", locationDesc: "ตรงจุดเคาน์เตอร์ขายตั๋ว", locationAddress: "Royal Garden Plaza, Pattaya",
+                backBtn: "กลับสู่หน้าหลัก", footerRights: "สงวนลิขสิทธิ์"
+            },
+            en: {
+                navHome: "Home", navAttractions: "Attractions", navPromo: "Promotion",
+                heroTitle: "🎫 Special Activity for You!", heroSubtitle: "Get special discount coupons when you play participating attractions",
+                heroBadge: "🎟️ Redeem Coupon → Get Discount → Enjoy Now!",
+                howToUseTitle: "How to Use Discount Coupons",
+                step1Title: "Play the Attraction", step1Desc: "Play participating attractions: Laser Maze or Scream in the Dark",
+                step2Title: "Get Your Coupon", step2Desc: "Receive a discount coupon from staff after finishing the attraction",
+                step3Title: "Show Coupon", step3Desc: "Show the coupon at the snack shop near the ticket counter",
+                step4Title: "Get Discount Now!", step4Desc: "Price will be reduced from the marked price based on the coupon percentage",
+                attractionsTitle: "Participating Attractions",
+                laserTitle: "🔦 The Vault Laser Maze", laserDesc: "An exciting laser maze challenge. Test your agility and precision!",
+                screamTitle: "😱 Scream in the Dark", screamDesc: "A terrifying amusement in the dark with screams and thrills",
+                getCoupon10: "🎟️ Get 10% Discount Coupon", getCoupon20: "🎟️ Get 20% Discount Coupon",
+                couponExamplesTitle: "Coupon Examples & Price Calculation",
+                priceNote: "Note: Prices shown are marked prices. When using a coupon, the price will be reduced according to the discount percentage on the coupon.",
+                coupon10Title: "🎫 10% Discount Coupon", coupon10Desc: "Received when playing <strong>The Vault Laser Maze</strong>",
+                coupon20Title: "🎫 20% Discount Coupon", coupon20Desc: "Received when playing <strong>Scream in the Dark</strong>",
+                exampleLabel: "Calculation Example:",
+                exWater: "Water 25.-", exSlushy: "Slushy 59.-", exWater2: "Water 25.-", exSlushy2: "Slushy 59.-", exSausage: "Sausage 3 pcs 100.-",
+                calcFormulaTitle: "Discounted Price Formula",
+                calcFormula: "Discounted Price = Original Price × (100 - Discount%) ÷ 100",
+                calc10Title: "10% Coupon", calc10Ex: "100 Baht → 90 Baht<br>50 Baht → 45 Baht",
+                calc20Title: "20% Coupon", calc20Ex: "100 Baht → 80 Baht<br>50 Baht → 40 Baht",
+                menuTitle: "Food & Beverage Menu", drinksCategory: "Beverages", snacksCategory: "Snacks",
+                waterName: "💧 Water", waterDesc: "Clean drinking water, 600 ml",
+                softdrinksName: "🥤 Soft Drinks", softdrinksDesc: "Various brands",
+                slushyName: "🍧 Slushy", slushyDesc: "KIWI, MANGO, THAI TEA, HONEY LEMON, FRUIT PUNCH, ORANGE, GRAPE, GREEN TEA, MIX BERRY, STRAWBERRY",
+                sbRodName: "🍿 SB Rod Snack Classic", sbRodDesc: "SB Rice Crackers",
+                popcornName: "🍿 Popcorn", popcornDesc: "Original / Caramel",
+                friesName: "🍟 French Fries", friesDesc: "Crispy French Fries",
+                chickenSticksName: "🍗 Chicken Sticks", chickenSticksDesc: "Fried Chicken Sticks",
+                chickenPopName: "🍗 Crispy Chicken Pop", chickenPopDesc: "Crispy Chicken Pops",
+                mixedSnacksName: "🍟 Mixed Fried Snacks", mixedSnacksDesc: "Assorted Fried Snacks",
+                promoBadge: "⭐ Special Promotion!", sausageName: "🌭 Sausage 3 Pieces", sausageDesc: "Hot from the grill, crispy outside, tender inside! Best value",
+                locationTitle: "📍 Coupon Redemption Location", locationPlace: "Snack Shop", locationDesc: "At the ticket counter area", locationAddress: "Royal Garden Plaza, Pattaya",
+                backBtn: "Back to Home", footerRights: "All Rights Reserved"
+            },
+            zh: {
+                navHome: "首页", navAttractions: "游乐设施", navPromo: "促销",
+                heroTitle: "🎫 特别活动！", heroSubtitle: "游玩指定游乐设施即可获得特别折扣券",
+                heroBadge: "🎟️ 兑换券 → 折扣 → 立即享用！",
+                howToUseTitle: "如何使用折扣券",
+                step1Title: "游玩设施", step1Desc: "游玩指定设施：激光迷宫或黑暗尖叫",
+                step2Title: "领取券", step2Desc: "游玩结束后从工作人员处领取折扣券",
+                step3Title: "出示券", step3Desc: "在售票柜台附近的小吃店出示券",
+                step4Title: "立即享受折扣！", step4Desc: "价格将根据券上的折扣百分比从标价中扣除",
+                attractionsTitle: "指定游乐设施",
+                laserTitle: "🔦 激光迷宫挑战", laserDesc: "刺激的激光迷宫挑战，测试您的敏捷和精准度！",
+                screamTitle: "😱 黑暗尖叫", screamDesc: "黑暗中的恐怖游乐，充满尖叫和刺激",
+                getCoupon10: "🎟️ 获得10%折扣券", getCoupon20: "🎟️ 获得20%折扣券",
+                couponExamplesTitle: "折扣券示例和价格计算",
+                priceNote: "注意：菜单显示的价格为标价。使用折扣券时，价格将根据券上的折扣百分比立即降低。",
+                coupon10Title: "🎫 10%折扣券", coupon10Desc: "游玩 <strong>激光迷宫</strong> 时获得",
+                coupon20Title: "🎫 20%折扣券", coupon20Desc: "游玩 <strong>黑暗尖叫</strong> 时获得",
+                exampleLabel: "计算示例：",
+                exWater: "水 25.-", exSlushy: "冰沙 59.-", exWater2: "水 25.-", exSlushy2: "冰沙 59.-", exSausage: "香肠3根 100.-",
+                calcFormulaTitle: "折扣后价格公式",
+                calcFormula: "折扣后价格 = 原价 × (100 - 折扣%) ÷ 100",
+                calc10Title: "10%券", calc10Ex: "100泰铢 → 90泰铢<br>50泰铢 → 45泰铢",
+                calc20Title: "20%券", calc20Ex: "100泰铢 → 80泰铢<br>50泰铢 → 40泰铢",
+                menuTitle: "餐饮菜单", drinksCategory: "饮料", snacksCategory: "小吃",
+                waterName: "💧 饮用水", waterDesc: "清洁饮用水，600毫升",
+                softdrinksName: "🥤 软饮料", softdrinksDesc: "多种品牌",
+                slushyName: "🍧 冰沙", slushyDesc: "奇异果、芒果、泰式奶茶、蜂蜜柠檬、水果宾治、橙子、葡萄、绿茶、混合莓果、草莓",
+                sbRodName: "🍿 SB棒零食经典", sbRodDesc: "SB米饼",
+                popcornName: "🍿 爆米花", popcornDesc: "原味 / 焦糖味",
+                friesName: "🍟 薯条", friesDesc: "酥脆薯条",
+                chickenSticksName: "🍗 鸡柳", chickenSticksDesc: "炸鸡柳",
+                chickenPopName: "🍗 脆皮鸡块", chickenPopDesc: "酥脆鸡块",
+                mixedSnacksName: "🍟 混合炸小吃", mixedSnacksDesc: " assorted 炸小吃",
+                promoBadge: "⭐ 特别促销！", sausageName: "🌭 香肠3根", sausageDesc: "热腾腾出炉，外脆内嫩！最超值",
+                locationTitle: "📍 兑换地点", locationPlace: "小吃店", locationDesc: "售票柜台处", locationAddress: "Royal Garden Plaza, 芭堤雅",
+                backBtn: "返回首页", footerRights: "版权所有"
+            },
+            jp: {
+                navHome: "ホーム", navAttractions: "アトラクション", navPromo: "プロモーション",
+                heroTitle: "🎫 特別アクティビティ！", heroSubtitle: "参加アトラクションで特別割引クーポンをゲット",
+                heroBadge: "🎟️ クーポン交換 → 割引 → すぐ楽しむ！",
+                howToUseTitle: "割引クーポンの使い方",
+                step1Title: "アトラクションを楽しむ", step1Desc: "参加アトラクション：レーザーメイズまたはスクリーム・イン・ザ・ダーク",
+                step2Title: "クーポンを受け取る", step2Desc: "アトラクション終了後、スタッフから割引クーポンを受け取る",
+                step3Title: "クーポンを提示", step3Desc: "チケットカウンター付近のスナックショップでクーポンを提示",
+                step4Title: "すぐに割引を受ける！", step4Desc: "クーポンの割引率に応じて表示価格から値引きされます",
+                attractionsTitle: "参加アトラクション",
+                laserTitle: "🔦 ボールト・レーザー・メイズ", laserDesc: "エキサイティングなレーザーメイズチャレンジ。敏捷性と精度をテスト！",
+                screamTitle: "😱 スクリーム・イン・ザ・ダーク", screamDesc: "暗闇での恐怖のアミューズメント、叫びとスリル",
+                getCoupon10: "🎟️ 10%割引クーポンをゲット", getCoupon20: "🎟️ 20%割引クーポンをゲット",
+                couponExamplesTitle: "クーポンの例と価格計算",
+                priceNote: "注意：メニューに表示されている価格は表示価格です。クーポンを使用すると、クーポンに記載されている割引率に応じて価格がすぐに引き下げられます。",
+                coupon10Title: "🎫 10%割引クーポン", coupon10Desc: "<strong>レーザーメイズ</strong>プレイ時に取得",
+                coupon20Title: "🎫 20%割引クーポン", coupon20Desc: "<strong>スクリーム・イン・ザ・ダーク</strong>プレイ時に取得",
+                exampleLabel: "計算例：",
+                exWater: "水 25.-", exSlushy: "スラッシー 59.-", exWater2: "水 25.-", exSlushy2: "スラッシー 59.-", exSausage: "ソーセージ3本 100.-",
+                calcFormulaTitle: "割引後価格の計算式",
+                calcFormula: "割引後価格 = 元値 × (100 - 割引%) ÷ 100",
+                calc10Title: "10%クーポン", calc10Ex: "100バーツ → 90バーツ<br>50バーツ → 45バーツ",
+                calc20Title: "20%クーポン", calc20Ex: "100バーツ → 80バーツ<br>50バーツ → 40バーツ",
+                menuTitle: "フード＆ドリンクメニュー", drinksCategory: "ドリンク", snacksCategory: "スナック",
+                waterName: "💧 水", waterDesc: "清潔な飲料水、600ml",
+                softdrinksName: "🥤 ソフトドリンク", softdrinksDesc: "様々なブランド",
+                slushyName: "🍧 スラッシー", slushyDesc: "キウイ、マンゴー、タイティー、ハニーレモン、フルーツパンチ、オレンジ、グレープ、グリーンティー、ミックベリー、ストロベリー",
+                sbRodName: "🍿 SBロッドスナッククラシック", sbRodDesc: "SBライスクラッカー",
+                popcornName: "🍿 ポップコーン", popcornDesc: "オリジナル / キャラメル",
+                friesName: "🍟 フレンチフライ", friesDesc: "カリカリフレンチフライ",
+                chickenSticksName: "🍗 チキンスティック", chickenSticksDesc: "フライドチキンスティック",
+                chickenPopName: "🍗 クリスピーチキンポップ", chickenPopDesc: "クリスピーチキンポップ",
+                mixedSnacksName: "🍟 ミックスフライドスナック", mixedSnacksDesc: "アソート フライドスナック",
+                promoBadge: "⭐ 特別プロモーション！", sausageName: "🌭 ソーセージ3本", sausageDesc: "焼きたて、外はカリカリ、中はジューシー！ベストバリュー",
+                locationTitle: "📍 クーポン交換場所", locationPlace: "スナックショップ", locationDesc: "チケットカウンター付近", locationAddress: "Royal Garden Plaza、パタヤ",
+                backBtn: "ホームに戻る", footerRights: "無断転載禁止"
+            },
+            ru: {
+                navHome: "Главная", navAttractions: "Аттракционы", navPromo: "Акция",
+                heroTitle: "🎫 Специальная акция для вас!", heroSubtitle: "Получите специальные купоны на скидку при посещении участвующих аттракционов",
+                heroBadge: "🎟️ Обменять купон → Получить скидку → Наслаждаться!",
+                howToUseTitle: "Как использовать купоны на скидку",
+                step1Title: "Посетите аттракцион", step1Desc: "Посетите участвующие аттракционы: Лазерный лабиринт или Крик во тьме",
+                step2Title: "Получите купон", step2Desc: "Получите купон на скидку от персонала после аттракциона",
+                step3Title: "Покажите купон", step3Desc: "Покажите купон в закусочной у кассы",
+                step4Title: "Получите скидку!", step4Desc: "Цена будет снижена от заявленной в зависимости от процента скидки по купону",
+                attractionsTitle: "Участвующие аттракционы",
+                laserTitle: "🔦 Лазерный лабиринт", laserDesc: "Захватывающий лазерный лабиринт. Проверьте свою ловкость и точность!",
+                screamTitle: "😱 Крик во тьме", screamDesc: "Ужасающий аттракцион в темноте с криками и острыми ощущениями",
+                getCoupon10: "🎟️ Получить купон на 10%", getCoupon20: "🎟️ Получить купон на 20%",
+                couponExamplesTitle: "Примеры купонов и расчет цены",
+                priceNote: "Примечание: Цены в меню являются заявленными. При использовании купона цена будет немедленно снижена в соответствии с процентом скидки, указанным в купоне.",
+                coupon10Title: "🎫 Купон на 10%", coupon10Desc: "Получен при посещении <strong>Лазерного лабиринта</strong>",
+                coupon20Title: "🎫 Купон на 20%", coupon20Desc: "Получен при посещении <strong>Крика во тьме</strong>",
+                exampleLabel: "Пример расчета:",
+                exWater: "Вода 25.-", exSlushy: "Сланш 59.-", exWater2: "Вода 25.-", exSlushy2: "Сланш 59.-", exSausage: "Колбаски 3 шт. 100.-",
+                calcFormulaTitle: "Формула расчета цены со скидкой",
+                calcFormula: "Цена со скидкой = Исходная цена × (100 - Скидка%) ÷ 100",
+                calc10Title: "Купон 10%", calc10Ex: "100 бат → 90 бат<br>50 бат → 45 бат",
+                calc20Title: "Купон 20%", calc20Ex: "100 бат → 80 бат<br>50 бат → 40 бат",
+                menuTitle: "Меню еды и напитков", drinksCategory: "Напитки", snacksCategory: "Закуски",
+                waterName: "💧 Вода", waterDesc: "Чистая питьевая вода, 600 мл",
+                softdrinksName: "🥤 Безалкогольные напитки", softdrinksDesc: "Различные бренды",
+                slushyName: "🍧 Сланш", slushyDesc: "КИВИ, МАНГО, ТАЙСКИЙ ЧАЙ, МЕД-ЛИМОН, ФРУКТОВЫЙ ПАНЧ, АПЕЛЬСИН, ВИНОГРАД, ЗЕЛЁНЫЙ ЧАЙ, СМЕШАННЫЕ ЯГОДЫ, КЛУБНИКА",
+                sbRodName: "🍿 SB Rod Snack Classic", sbRodDesc: "Рисовые крекеры SB",
+                popcornName: "🍿 Попкорн", popcornDesc: "Оригинальный / Карамель",
+                friesName: "🍟 Картофель фри", friesDesc: "Хрустящий картофель фри",
+                chickenSticksName: "🍗 Куриные палочки", chickenSticksDesc: "Жареные куриные палочки",
+                chickenPopName: "🍗 Хрустящие куриные шарики", chickenPopDesc: "Хрустящие куриные шарики",
+                mixedSnacksName: "🍟 Смешанные жареные закуски", mixedSnacksDesc: "Ассорти жареных закусок",
+                promoBadge: "⭐ Специальная акция!", sausageName: "🌭 Колбаски 3 штуки", sausageDesc: "Горячие с гриля, хрустящие снаружи, сочные внутри! Лучшая цена",
+                locationTitle: "📍 Место обмена купонов", locationPlace: "Закусочная", locationDesc: "У кассы", locationAddress: "Royal Garden Plaza, Паттайя",
+                backBtn: "На главную", footerRights: "Все права защищены"
+            },
+            ar: {
+                navHome: "الرئيسية", navAttractions: "الألعاب", navPromo: "العروض",
+                heroTitle: "🎫 نشاط خاص لك!", heroSubtitle: "احصل على كوبونات خصم خاصة عند لعب الألعاب المشاركة",
+                heroBadge: "🎟️ استبدل الكوبون → احصل على خصم → استمتع الآن!",
+                howToUseTitle: "كيفية استخدام كوبونات الخصم",
+                step1Title: "العب اللعبة", step1Desc: "العب الألعاب المشاركة: متاهة الليزر أو الصراخ في الظلام",
+                step2Title: "احصل على الكوبون", step2Desc: "احصل على كوبون الخصم من الموظف بعد انتهاء اللعبة",
+                step3Title: "أظهر الكوبون", step3Desc: "أظهر الكوبون في متجر الوجبات الخفيفة بالقرب من شباك التذاكر",
+                step4Title: "احصل على الخصم الآن!", step4Desc: "سيتم تخفيض السعر من السعر المحدد بناءً على نسبة الخصم في الكوبون",
+                attractionsTitle: "الألعاب المشاركة",
+                laserTitle: "🔦 متاهة الليزر", laserDesc: "تحدي متاهة الليزر المثير. اختبر خفة حركتك ودقتك!",
+                screamTitle: "😱 الصراخ في الظلام", screamDesc: "لعبة مرعبة في الظلام مع الصراخ والإثارة",
+                getCoupon10: "🎟️ احصل على كوبون خصم 10%", getCoupon20: "🎟️ احصل على كوبون خصم 20%",
+                couponExamplesTitle: "أمثلة على الكوبونات وحساب السعر",
+                priceNote: "ملاحظة: الأسعار المعروضة في القائمة هي أسعار محددة. عند استخدام الكوبون، سيتم تخفيض السعر فورًا وفقًا لنسبة الخصم المحددة في الكوبون.",
+                coupon10Title: "🎫 كوبون خصم 10%", coupon10Desc: "يتم الحصول عليه عند لعب <strong>متاهة الليزر</strong>",
+                coupon20Title: "🎫 كوبون خصم 20%", coupon20Desc: "يتم الحصول عليه عند لعب <strong>الصراخ في الظلام</strong>",
+                exampleLabel: "مثال على الحساب:",
+                exWater: "ماء 25.-", exSlushy: "سلوشي 59.-", exWater2: "ماء 25.-", exSlushy2: "سلوشي 59.-", exSausage: "سجق 3 قطع 100.-",
+                calcFormulaTitle: "صيغة حساب السعر بعد الخصم",
+                calcFormula: "السعر بعد الخصم = السعر الأصلي × (100 - نسبة الخصم%) ÷ 100",
+                calc10Title: "كوبون 10%", calc10Ex: "100 بات → 90 بات<br>50 بات → 45 بات",
+                calc20Title: "كوبون 20%", calc20Ex: "100 بات → 80 بات<br>50 بات → 40 بات",
+                menuTitle: "قائمة الطعام والشراب", drinksCategory: "المشروبات", snacksCategory: "وجبات خفيفة",
+                waterName: "💧 ماء", waterDesc: "ماء نقي للشرب، 600 مل",
+                softdrinksName: "🥤 مشروبات غازية", softdrinksDesc: "علامات تجارية متنوعة",
+                slushyName: "🍧 سلوشي", slushyDesc: "كيوي، مانجو، شاي تايلاندي، عسل ليمون، فواكه، برتقال، عنب، شاي أخضر، توت مشكل، فراولة",
+                sbRodName: "🍿 SB Rod Snack Classic", sbRodDesc: "رقائق الأرز SB",
+                popcornName: "🍿 فوشار", popcornDesc: "أصلي / كراميل",
+                friesName: "🍟 بطاطس مقلية", friesDesc: "بطاطس مقلية مقرمشة",
+                chickenSticksName: "🍗 أصابع الدجاج", chickenSticksDesc: "أصابع دجاج مقلية",
+                chickenPopName: "🍗 دجاج مقرمش", chickenPopDesc: "كرات دجاج مقرمشة",
+                mixedSnacksName: "🍟 وجبات خفيفة مقلية مشكلة", mixedSnacksDesc: "تشكيلة وجبات خفيفة مقلية",
+                promoBadge: "⭐ عرض خاص!", sausageName: "🌭 سجق 3 قطع", sausageDesc: "ساخنة من الشواء، مقرمشة من الخارج وطرية من الداخل! أفضل قيمة",
+                locationTitle: "📍 مكان استبدال الكوبونات", locationPlace: "متجر الوجبات الخفيفة", locationDesc: "عند منطقة شباك التذاكر", locationAddress: "Royal Garden Plaza، باتايا",
+                backBtn: "العودة للرئيسية", footerRights: "جميع الحقوق محفوظة"
+            },
+            he: {
+                navHome: "בית", navAttractions: "אטרקציות", navPromo: "מבצעים",
+                heroTitle: "🎫 פעילות מיוחדת עבורך!", heroSubtitle: "קבל קופוני הנחה מיוחדים בעת ביקור באטרקציות המשתתפות",
+                heroBadge: "🎟️ המר קופון → קבל הנחה → תהנה עכשיו!",
+                howToUseTitle: "כיצד להשתמש בקופוני הנחה",
+                step1Title: "בקר באטרקציה", step1Desc: "בקר באטרקציות המשתתפות: מבוך לייזר או צריחה בחושך",
+                step2Title: "קבל קופון", step2Desc: "קבל קופון הנחה מהצוות לאחר האטרקציה",
+                step3Title: "הצג קופון", step3Desc: "הצג את הקופון בחנות החטיפים ליד דלפק הכרטיסים",
+                step4Title: "קבל הנחה עכשיו!", step4Desc: "המחיר יופחת מהמחיר הנקוב בהתאם לאחוז ההנחה בקופון",
+                attractionsTitle: "אטרקציות משתתפות",
+                laserTitle: "🔦 מבוך הלייזר", laserDesc: "אתגר מבוך לייזר מרגש. בדוק את זריזותך ודיוקך!",
+                screamTitle: "😱 צריחה בחושך", screamDesc: "אטרקציה מפחידה בחושך עם צעקות וריגושים",
+                getCoupon10: "🎟️ קבל קופון הנחה 10%", getCoupon20: "🎟️ קבל קופון הנחה 20%",
+                couponExamplesTitle: "דוגמאות לקופונים וחישוב מחיר",
+                priceNote: "הערה: המחירים המוצגים בתפריט הם מחירים נקובים. בעת שימוש בקופון, המחיר יופחת מיד בהתאם לאחוז ההנחה המצוין בקופון.",
+                coupon10Title: "🎫 קופון הנחה 10%", coupon10Desc: "מתקבל בעת ביקור ב<strong>מבוך הלייזר</strong>",
+                coupon20Title: "🎫 קופון הנחה 20%", coupon20Desc: "מתקבל בעת ביקור ב<strong>צריחה בחושך</strong>",
+                exampleLabel: "דוגמה לחישוב:",
+                exWater: "מים 25.-", exSlushy: "סלושי 59.-", exWater2: "מים 25.-", exSlushy2: "สโลชิ 59.-", exSausage: "נקניקיות 3 יחידות 100.-",
+                calcFormulaTitle: "נוסחה לחישוב מחיר לאחר הנחה",
+                calcFormula: "מחיר לאחר הנחה = מחיר מקורי × (100 - אחוז הנחה%) ÷ 100",
+                calc10Title: "קופון 10%", calc10Ex: "100 באט → 90 באט<br>50 באט → 45 באט",
+                calc20Title: "קופון 20%", calc20Ex: "100 באט → 80 באט<br>50 באט → 40 באט",
+                menuTitle: "תפריט אוכל ושתייה", drinksCategory: "משקאות", snacksCategory: "חטיפים",
+                waterName: "💧 מים", waterDesc: "מי שתייה נקיים, 600 מ\"ל",
+                softdrinksName: "🥤 משקאות קלים", softdrinksDesc: "מותגים שונים",
+                slushyName: "🍧 סלושי", slushyDesc: "קיwi, מנגו, תה תאילנדי, דבש לימון, פונץ' פירות, תפוז, ענבים, תה ירוק, פירות יער מעורבים, תות",
+                sbRodName: "🍿 SB Rod Snack Classic", sbRodDesc: "קרקרי אורז SB",
+                popcornName: "🍿 פופקורן", popcornDesc: "רגיל / קרמל",
+                friesName: "🍟 צ'יפס", friesDesc: "צ'יפס פריך",
+                chickenSticksName: "🍗 מקלות עוף", chickenSticksDesc: "מקלות עוף מטוגנים",
+                chickenPopName: "🍗 עוף פריך", chickenPopDesc: "כדורי עוף פריכים",
+                mixedSnacksName: "🍟 חטיפים מטוגנים מעורבים", mixedSnacksDesc: "מבחר חטיפים מטוגנים",
+                promoBadge: "⭐ מבצע מיוחד!", sausageName: "🌭 נקניקיות 3 יחידות", sausageDesc: "חם מהגריל, פריך מבחוץ ועסיסי מבפנים! הערך הטוב ביותר",
+                locationTitle: "📍 מיקום המרת קופונים", locationPlace: "חנות חטיפים", locationDesc: "ליד דלפק הכרטיסים", locationAddress: "Royal Garden Plaza, פטאיה",
+                backBtn: "חזור לדף הבית", footerRights: "כל הזכויות שמורות"
+            }
+        };
+
+        let currentLang = localStorage.getItem('ripleyLang') || 'th';
+
+        function changeLang(lang) {
+            currentLang = lang;
+            localStorage.setItem('ripleyLang', lang);
+            applyLang();
+        }
+
+        function applyLang() {
+            const t = translations[currentLang];
+            if (!t) return;
+            
+            document.getElementById('langSelector').value = currentLang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                if (t[key]) {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = t[key];
+                    } else {
+                        el.innerHTML = t[key];
+                    }
+                }
+            });
+            
+            // RTL support for Arabic and Hebrew
+            if (currentLang === 'ar' || currentLang === 'he') {
+                document.body.style.direction = 'rtl';
+            } else {
+                document.body.style.direction = 'ltr';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', applyLang);
+    </script>
+</body>
+</html>
