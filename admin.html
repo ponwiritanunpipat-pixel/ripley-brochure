@@ -7,64 +7,399 @@
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #e31e24;
+            --accent: #ffd700;
+            --dark: #0a0a1a;
+            --secondary: #1a1a2e;
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --gradient-primary: linear-gradient(135deg, #e31e24 0%, #ff6b6b 100%);
+            --gradient-gold: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
+            --gradient-bg: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 25%, #2d1b4e 50%, #1a1a3e 75%, #0a0a1a 100%);
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Prompt', sans-serif; background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0a0a1a 100%); color: #fff; min-height: 100vh; padding: 2rem 1rem; }
+        body {
+            font-family: 'Prompt', sans-serif;
+            background: var(--gradient-bg);
+            color: #fff;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
         
-        #loginScreen { display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .login-box { max-width: 400px; width: 100%; background: rgba(26,26,46,0.95); padding: 3rem; border-radius: 24px; text-align: center; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
-        .login-box h2 { color: #ffd700; margin-bottom: 1.5rem; font-size: 1.8rem; }
+        /* Login Screen */
+        #loginScreen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .login-box {
+            max-width: 420px;
+            width: 100%;
+            background: rgba(26, 26, 46, 0.95);
+            padding: 3rem;
+            border-radius: 24px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .login-box h2 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
         .login-box h2 i { margin-right: 10px; }
-        .login-box input { width: 100%; padding: 1rem; margin-bottom: 1rem; background: rgba(10,10,26,0.8); border: 1px solid rgba(255,255,255,0.15); color: #fff; border-radius: 12px; font-size: 1rem; font-family: 'Prompt', sans-serif; }
-        .login-box input:focus { outline: none; border-color: #ffd700; }
+        .login-box input {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: rgba(10, 10, 26, 0.8);
+            border: 1px solid var(--glass-border);
+            color: #fff;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Prompt', sans-serif;
+        }
+        .login-box input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+        }
         .login-box input::placeholder { color: rgba(255,255,255,0.4); }
-        .login-box button { width: 100%; padding: 1rem; background: linear-gradient(135deg, #e31e24, #ff6b6b); color: #fff; border: none; border-radius: 12px; cursor: pointer; font-weight: 700; font-size: 1.05rem; font-family: 'Prompt', sans-serif; }
-        .login-box button:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(227,30,36,0.5); }
-        .login-box .hint { margin-top: 1rem; font-size: 0.85rem; color: rgba(255,255,255,0.4); }
+        .login-box button {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient-primary);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.05rem;
+            font-family: 'Prompt', sans-serif;
+            transition: all 0.3s;
+        }
+        .login-box button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(227, 30, 36, 0.5);
+        }
+        .login-box .hint {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+        }
         
+        /* Admin Panel */
         #adminPanel { display: none; }
-        .admin-container { max-width: 900px; margin: 0 auto; background: rgba(26,26,46,0.95); border-radius: 24px; padding: 2.5rem; border: 1px solid rgba(255,255,255,0.15); }
-        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.15); }
-        .admin-header h2 { color: #ffd700; font-size: 1.8rem; }
-        .admin-close { background: linear-gradient(135deg, #e31e24, #ff6b6b); color: #fff; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; }
+        .admin-container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .admin-header h2 {
+            color: var(--accent);
+            font-size: 1.8rem;
+        }
+        .admin-header h2 i { margin-right: 10px; }
+        .admin-close {
+            background: var(--gradient-primary);
+            color: #fff;
+            border: none;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        .admin-close:hover { transform: rotate(90deg); }
         
-        .admin-tabs { display: flex; gap: 0.5rem; margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 1rem; flex-wrap: wrap; }
-        .admin-tab { background: transparent; color: rgba(255,255,255,0.7); border: none; padding: 0.7rem 1.2rem; cursor: pointer; font-size: 1rem; border-radius: 10px; font-family: 'Prompt', sans-serif; }
-        .admin-tab.active { background: linear-gradient(135deg, #e31e24, #ff6b6b); color: #fff; }
+        /* Tabs */
+        .admin-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .admin-tab {
+            background: transparent;
+            color: rgba(255,255,255,0.7);
+            border: none;
+            padding: 0.7rem 1.2rem;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 10px;
+            font-family: 'Prompt', sans-serif;
+            transition: all 0.3s;
+        }
+        .admin-tab:hover { background: var(--glass); color: #fff; }
+        .admin-tab.active {
+            background: var(--gradient-primary);
+            color: #fff;
+        }
         
         .admin-section { display: none; }
-        .admin-section.active { display: block; }
+        .admin-section.active { display: block; animation: fadeIn 0.4s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
         .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; margin-bottom: 0.6rem; color: #ffd700; font-weight: 600; }
-        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.9rem 1rem; background: rgba(10,10,26,0.8); border: 1px solid rgba(255,255,255,0.15); color: #fff; border-radius: 12px; font-family: 'Prompt', sans-serif; font-size: 1rem; }
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: #ffd700; }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.6rem;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            background: rgba(10, 10, 26, 0.8);
+            border: 1px solid var(--glass-border);
+            color: #fff;
+            border-radius: 12px;
+            font-family: 'Prompt', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+        }
         .form-group textarea { min-height: 120px; resize: vertical; }
         
-        .btn-save { background: linear-gradient(135deg, #e31e24, #ff6b6b); color: #fff; border: none; padding: 1rem 2.5rem; border-radius: 12px; cursor: pointer; font-weight: 700; font-size: 1.05rem; font-family: 'Prompt', sans-serif; margin-top: 1rem; }
+        .btn-save {
+            background: var(--gradient-primary);
+            color: #fff;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.05rem;
+            font-family: 'Prompt', sans-serif;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+        .btn-save:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(227, 30, 36, 0.5);
+        }
+        
         .image-list, .video-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
-        .list-item { background: rgba(10,10,26,0.6); padding: 1rem; border-radius: 12px; display: flex; gap: 0.8rem; align-items: center; border: 1px solid rgba(255,255,255,0.15); }
+        .list-item {
+            background: rgba(10, 10, 26, 0.6);
+            padding: 1rem;
+            border-radius: 12px;
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+            border: 1px solid var(--glass-border);
+        }
         .list-item input { flex: 1; background: rgba(5,5,16,0.8); }
-        .btn-delete { background: #ff4444; color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; font-family: 'Prompt', sans-serif; }
-        .btn-add { background: #4CAF50; color: #fff; border: none; padding: 0.7rem 1.5rem; border-radius: 10px; cursor: pointer; font-weight: 600; margin-bottom: 1rem; font-family: 'Prompt', sans-serif; }
+        .btn-delete {
+            background: linear-gradient(135deg, #ff4444, #cc0000);
+            color: #fff;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Prompt', sans-serif;
+            font-weight: 600;
+        }
+        .btn-add {
+            background: linear-gradient(135deg, #4CAF50, #2e7d32);
+            color: #fff;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-family: 'Prompt', sans-serif;
+        }
         
         .export-import { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
-        .export-import button { flex: 1; min-width: 200px; padding: 1rem; border-radius: 12px; border: none; cursor: pointer; font-weight: 600; font-family: 'Prompt', sans-serif; }
-        .btn-export { background: #2196F3; color: #fff; }
-        .btn-import { background: #FF9800; color: #fff; }
-        .btn-apply { background: #9C27B0; color: #fff; }
+        .export-import button {
+            flex: 1;
+            min-width: 200px;
+            padding: 1rem;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Prompt', sans-serif;
+            transition: all 0.3s;
+        }
+        .btn-export { background: linear-gradient(135deg, #2196F3, #1565c0); color: #fff; }
+        .btn-import { background: linear-gradient(135deg, #FF9800, #e65100); color: #fff; }
+        .btn-apply { background: linear-gradient(135deg, #9C27B0, #6A1B9A); color: #fff; }
+        .btn-home { background: linear-gradient(135deg, #00BCD4, #00838F); color: #fff; }
+        .export-import button:hover { transform: translateY(-2px); }
         
-        .success-msg { background: #4CAF50; padding: 1rem; border-radius: 12px; margin-bottom: 1rem; display: none; text-align: center; font-weight: 600; }
-        .info-box { background: rgba(33,150,243,0.15); border-left: 4px solid #2196F3; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.9rem; line-height: 1.6; }
+        .success-msg {
+            background: linear-gradient(135deg, #4CAF50, #2e7d32);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: none;
+            text-align: center;
+            font-weight: 600;
+        }
+        .info-box {
+            background: rgba(33, 150, 243, 0.15);
+            border-left: 4px solid #2196F3;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .lang-selector {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Prompt', sans-serif;
+        }
+        
+        .admin-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        /* Upload Section Styles */
+        .upload-area {
+            border: 2px dashed var(--accent);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            background: rgba(10,10,26,0.6);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .upload-area:hover {
+            background: rgba(255,215,0,0.05);
+            border-color: #ffed4e;
+        }
+        .upload-area i {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        .upload-area p {
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 1rem;
+        }
+        .upload-preview {
+            margin-top: 1rem;
+            max-width: 300px;
+            border-radius: 10px;
+            border: 2px solid var(--glass-border);
+        }
+        .uploaded-list {
+            margin-top: 1.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .uploaded-item {
+            background: rgba(10,10,26,0.6);
+            padding: 0.8rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid var(--glass-border);
+        }
+        .uploaded-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .uploaded-item-info {
+            flex: 1;
+            overflow: hidden;
+        }
+        .uploaded-item-info p {
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 0.9rem;
+        }
+        .btn-use {
+            background: var(--gradient-gold);
+            color: var(--dark);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Prompt', sans-serif;
+            font-size: 0.85rem;
+        }
+        .btn-youtube {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: #FF0000;
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn-youtube:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,0,0,0.4);
+        }
+        .tips-list {
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+            padding-left: 1.5rem;
+        }
+        .tips-list li { margin-bottom: 0.5rem; }
+        
+        @media (max-width: 768px) {
+            .admin-container { padding: 1.5rem; }
+            .admin-header h2 { font-size: 1.3rem; }
+            .list-item { flex-direction: column; align-items: stretch; }
+            .export-import { flex-direction: column; }
+            .admin-top-bar { flex-direction: column; align-items: stretch; }
+        }
     </style>
 </head>
 <body>
     <!-- หน้า Login -->
     <div id="loginScreen">
         <div class="login-box">
-            <h2><i class="fas fa-lock"></i> เข้าสู่ระบบแอดมิน</h2>
+            <h2><i class="fas fa-lock"></i> <span id="loginTitle">เข้าสู่ระบบแอดมิน</span></h2>
             <input type="password" id="adminPass" placeholder="🔑 กรอกรหัสผ่านเพื่อเข้าใช้งาน">
-            <button onclick="doLogin()">เข้าสู่ระบบ</button>
-            <p class="hint">เฉพาะผู้ดูแลระบบเท่านั้น</p>
+            <button onclick="doLogin()" id="loginBtn">เข้าสู่ระบบ</button>
+            <p class="hint" id="loginHint">เฉพาะผู้ดูแลระบบเท่านั้น</p>
         </div>
     </div>
 
@@ -72,13 +407,13 @@
     <div id="adminPanel">
         <div class="admin-container">
             <div class="admin-header">
-                <h2><i class="fas fa-cog"></i> ระบบจัดการ</h2>
-                <button class="admin-close" onclick="logout()"><i class="fas fa-sign-out-alt"></i></button>
+                <h2><i class="fas fa-cog"></i> <span id="adminTitle">ระบบจัดการ</span></h2>
+                <button class="admin-close" onclick="logout()" title="ออกจากระบบ"><i class="fas fa-sign-out-alt"></i></button>
             </div>
 
             <div id="successMsg" class="success-msg">✅ บันทึกสำเร็จ!</div>
 
-            <div class="info-box">
+            <div class="info-box" id="infoBox">
                 <strong>📌 วิธีใช้งาน:</strong><br>
                 1. แก้ไขข้อมูลในหน้านี้<br>
                 2. กดปุ่ม <strong>"บันทึก"</strong> (ข้อมูลจะบันทึกในเบราว์เซอร์)<br>
@@ -86,61 +421,121 @@
                 4. อัพโหลดไฟล์ data.json ใหม่ขึ้น GitHub หรือ Cloudflare
             </div>
 
-            <div class="admin-tabs">
-                <button class="admin-tab active" onclick="showTab('content', event)">📝 เนื้อหา</button>
-                <button class="admin-tab" onclick="showTab('images', event)">🖼️ รูปภาพ</button>
-                <button class="admin-tab" onclick="showTab('videos', event)">🎬 วิดีโอ</button>
+            <div class="admin-top-bar">
+                <div class="admin-tabs">
+                    <button class="admin-tab active" onclick="showTab('content', event)" id="tabBtn1">📝 เนื้อหา</button>
+                    <button class="admin-tab" onclick="showTab('images', event)" id="tabBtn2">️ รูปภาพ</button>
+                    <button class="admin-tab" onclick="showTab('videos', event)" id="tabBtn3">🎬 วิดีโอ</button>
+                    <button class="admin-tab" onclick="showTab('upload', event)" id="tabBtn4">📤 อัปโหลด</button>
+                </div>
+                <select class="lang-selector" id="adminLangSelector" onchange="changeAdminLang(this.value)">
+                    <option value="th">🇹🇭 TH</option>
+                    <option value="en">🇬 EN</option>
+                    <option value="zh">🇨🇳 CN</option>
+                    <option value="jp">🇯 JP</option>
+                    <option value="ru">🇷🇺 RU</option>
+                    <option value="ar">🇸 AR</option>
+                    <option value="he">🇮🇱 HE</option>
+                </select>
             </div>
 
             <!-- แท็บเนื้อหา -->
             <div class="admin-section active" id="tab-content">
                 <div class="form-group">
-                    <label> เลือกเครื่องเล่น</label>
+                    <label id="labelSelect">🎢 เลือกเครื่องเล่น</label>
                     <select id="selectAttraction" onchange="loadContent()">
                         <option value="">-- เลือกเครื่องเล่น --</option>
                     </select>
                 </div>
-                <div class="form-group"><label> ชื่อ (ภาษาไทย)</label><input type="text" id="titleTh"></div>
-                <div class="form-group"><label>📌 ชื่อ (ภาษาอังกฤษ)</label><input type="text" id="titleEn"></div>
-                <div class="form-group"><label>🏷️ คำบรรยายสั้น (ไทย)</label><input type="text" id="subtitleTh"></div>
-                <div class="form-group"><label>🏷️ คำบรรยายสั้น (อังกฤษ)</label><input type="text" id="subtitleEn"></div>
-                <div class="form-group"><label>📄 รายละเอียด (ไทย)</label><textarea id="descTh"></textarea></div>
-                <div class="form-group"><label>📄 รายละเอียด (อังกฤษ)</label><textarea id="descEn"></textarea></div>
-                <div class="form-group"><label>🖼️ รูปหลัก (URL)</label><input type="text" id="heroImage"></div>
-                <div class="form-group"><label> ลิงก์แผนที่</label><input type="text" id="mapUrl"></div>
-                <button class="btn-save" onclick="saveContent()">💾 บันทึกเนื้อหา</button>
+                <div class="form-group"><label id="labelTitleTh">📌 ชื่อ (ภาษาไทย)</label><input type="text" id="titleTh"></div>
+                <div class="form-group"><label id="labelTitleEn">📌 ชื่อ (ภาษาอังกฤษ)</label><input type="text" id="titleEn"></div>
+                <div class="form-group"><label id="labelSubTh">🏷️ คำบรรยายสั้น (ไทย)</label><input type="text" id="subtitleTh"></div>
+                <div class="form-group"><label id="labelSubEn">🏷️ คำบรรยายสั้น (อังกฤษ)</label><input type="text" id="subtitleEn"></div>
+                <div class="form-group"><label id="labelDescTh">📄 รายละเอียด (ไทย)</label><textarea id="descTh"></textarea></div>
+                <div class="form-group"><label id="labelDescEn">📄 รายละเอียด (อังกฤษ)</label><textarea id="descEn"></textarea></div>
+                <div class="form-group"><label id="labelHero">🖼️ รูปหลัก (URL)</label><input type="text" id="heroImage"></div>
+                <div class="form-group"><label id="labelMap">📍 ลิงก์แผนที่</label><input type="text" id="mapUrl"></div>
+                <button class="btn-save" onclick="saveContent()" id="btnSaveContent">💾 บันทึกเนื้อหา</button>
             </div>
 
             <!-- แท็บรูปภาพ -->
             <div class="admin-section" id="tab-images">
                 <div class="form-group">
-                    <label>🎢 เลือกเครื่องเล่น</label>
+                    <label id="labelSelectImg">🎢 เลือกเครื่องเล่น</label>
                     <select id="selectAttractionImg" onchange="loadImages()">
                         <option value="">-- เลือกเครื่องเล่น --</option>
                     </select>
                 </div>
-                <button class="btn-add" onclick="addImage()">➕ เพิ่มรูปภาพ</button>
+                <button class="btn-add" onclick="addImage()" id="btnAddImg"> เพิ่มรูปภาพ</button>
                 <div id="imageList" class="image-list"></div>
-                <button class="btn-save" onclick="saveImages()">💾 บันทึกรูปภาพ</button>
+                <button class="btn-save" onclick="saveImages()" id="btnSaveImg">💾 บันทึกรูปภาพ</button>
             </div>
 
             <!-- แท็บวิดีโอ -->
             <div class="admin-section" id="tab-videos">
                 <div class="form-group">
-                    <label>🎢 เลือกเครื่องเล่น</label>
+                    <label id="labelSelectVid">🎢 เลือกเครื่องเล่น</label>
                     <select id="selectAttractionVid" onchange="loadVideos()">
                         <option value="">-- เลือกเครื่องเล่น --</option>
                     </select>
                 </div>
-                <button class="btn-add" onclick="addVideo()">➕ เพิ่มวิดีโอ</button>
+                <button class="btn-add" onclick="addVideo()" id="btnAddVid">➕ เพิ่มวิดีโอ</button>
                 <div id="videoList" class="video-list"></div>
-                <button class="btn-save" onclick="saveVideos()"> บันทึกวิดีโอ</button>
+                <button class="btn-save" onclick="saveVideos()" id="btnSaveVid"> บันทึกวิดีโอ</button>
+            </div>
+
+            <!-- แท็บอัปโหลด -->
+            <div class="admin-section" id="tab-upload">
+                <div class="info-box" style="background: rgba(156,39,176,0.15); border-left-color: #9C27B0;">
+                    <strong> วิธีอัปโหลดรูปภาพและวิดีโอ:</strong><br>
+                    1. <strong>รูปภาพ:</strong> เลือกรูปจากคอมพิวเตอร์ → คัดลอกลิงก์ → ไปใช้ที่แท็บ "รูปภาพ"<br>
+                    2. <strong>วิดีโอ:</strong> อัปโหลดขึ้น YouTube → คัดลอก URL → ไปใช้ที่แท็บ "วิดีโอ"
+                </div>
+                
+                <div class="form-group">
+                    <label>🖼️ อัปโหลดรูปภาพ</label>
+                    <div class="upload-area" onclick="document.getElementById('imageUpload').click()">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p id="uploadText">คลิกเพื่อเลือกรูปภาพ หรือลากรูปมาวางที่นี่</p>
+                        <input type="file" id="imageUpload" accept="image/*" onchange="handleImageUpload(event)" style="display: none;">
+                        <img id="uploadPreview" class="upload-preview" style="display: none;">
+                    </div>
+                    <div id="imageUploadResult" style="margin-top: 1rem; padding: 1rem; background: rgba(76,175,80,0.1); border-radius: 8px; display: none;">
+                        <p style="color: #4CAF50; margin-bottom: 0.5rem;"><i class="fas fa-check-circle"></i> <span id="uploadSuccessText">อัปโหลดสำเร็จ!</span></p>
+                        <input type="text" id="uploadedImageUrl" readonly style="width: 100%; padding: 0.5rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2); border-radius: 5px; color: #fff; font-family: monospace; font-size: 0.85rem;">
+                        <button onclick="copyImageUrl()" id="btnCopyLink" style="margin-top: 0.5rem; padding: 0.5rem 1rem; background: var(--accent); color: var(--dark); border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">📋 คัดลอกลิงก์</button>
+                        <button onclick="useImageDirectly()" id="btnUseDirect" style="margin-top: 0.5rem; margin-left: 0.5rem; padding: 0.5rem 1rem; background: #4CAF50; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">➕ ใช้เลย</button>
+                    </div>
+                </div>
+
+                <div class="uploaded-list" id="uploadedList"></div>
+                
+                <div class="form-group" style="margin-top: 2rem;">
+                    <label>🎬 อัปโหลดวิดีโอ (YouTube)</label>
+                    <p style="color: rgba(255,255,255,0.7); margin-bottom: 1rem; font-size: 0.9rem;" id="youtubeDesc">
+                        สำหรับวิดีโอ ให้อัปโหลดขึ้น YouTube ก่อน แล้วคัดลอก URL มาวางในแท็บ "วิดีโอ"
+                    </p>
+                    <a href="https://www.youtube.com/upload" target="_blank" class="btn-youtube">
+                        <i class="fab fa-youtube"></i> <span id="youtubeBtnText">อัปโหลดวิดีโอขึ้น YouTube</span>
+                    </a>
+                </div>
+                
+                <div class="form-group" style="margin-top: 2rem;">
+                    <label>💡 <span id="tipsTitle">คำแนะนำการอัปโหลด</span></label>
+                    <ul class="tips-list" id="tipsList">
+                        <li><strong>รูปภาพ:</strong> รองรับไฟล์ JPG, PNG, WebP (ขนาดไม่เกิน 5MB)</li>
+                        <li><strong>วิดีโอ:</strong> ให้อัปโหลดขึ้น YouTube แล้วใช้ลิงก์ Embed</li>
+                        <li><strong>ขนาดรูปภาพแนะนำ:</strong> 1200x800 พิกเซล สำหรับรูปหลัก</li>
+                        <li><strong>ขนาดรูปภาพแกลเลอรี่:</strong> 800x800 พิกเซล (สี่เหลี่ยมจัตุรัส)</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="export-import">
-                <button class="btn-export" onclick="exportJSON()"> Export JSON</button>
-                <button class="btn-import" onclick="document.getElementById('importFile').click()">📥 Import JSON</button>
-                <button class="btn-apply" onclick="applyToSite()">✨ ใช้ข้อมูลทันที</button>
+                <button class="btn-export" onclick="exportJSON()" id="btnExport">📤 Export JSON</button>
+                <button class="btn-import" onclick="document.getElementById('importFile').click()" id="btnImport"> Import JSON</button>
+                <button class="btn-apply" onclick="applyToSite()" id="btnApply">✨ ใช้ข้อมูลทันที</button>
+                <button class="btn-home" onclick="window.location.href='index.html'" id="btnHome"> กลับหน้าหลัก</button>
                 <input type="file" id="importFile" style="display:none" accept=".json" onchange="importJSON(event)">
             </div>
         </div>
@@ -150,9 +545,483 @@
         const ADMIN_PASSWORD = 'ripley2024';
         let attractions = [];
         let currentIndex = -1;
+        let adminLang = localStorage.getItem('adminLang') || 'th';
 
-        // เช็คว่า login แล้วหรือยัง
+        const adminTranslations = {
+            th: {
+                loginTitle: "เข้าสู่ระบบแอดมิน",
+                loginBtn: "เข้าสู่ระบบ",
+                loginHint: "เฉพาะผู้ดูแลระบบเท่านั้น",
+                adminTitle: "ระบบจัดการ",
+                tabContent: "📝 เนื้อหา",
+                tabImages: "🖼️ รูปภาพ",
+                tabVideos: "🎬 วิดีโอ",
+                tabUpload: "📤 อัปโหลด",
+                select: "🎢 เลือกเครื่องเล่น",
+                selectPlaceholder: "-- เลือกเครื่องเล่น --",
+                titleTh: "📌 ชื่อ (ภาษาไทย)",
+                titleEn: "📌 ชื่อ (ภาษาอังกฤษ)",
+                subTh: "🏷️ คำบรรยายสั้น (ไทย)",
+                subEn: "🏷️ คำบรรยายสั้น (อังกฤษ)",
+                descTh: "📄 รายละเอียด (ไทย)",
+                descEn: "📄 รายละเอียด (อังกฤษ)",
+                hero: "🖼️ รูปหลัก (URL)",
+                map: "📍 ลิงก์แผนที่",
+                saveContent: "💾 บันทึกเนื้อหา",
+                saveImg: "💾 บันทึกรูปภาพ",
+                saveVid: "💾 บันทึกวิดีโอ",
+                addImg: " เพิ่มรูปภาพ",
+                addVid: " เพิ่มวิดีโอ",
+                delete: "ลบ",
+                export: "📤 Export JSON",
+                import: "📥 Import JSON",
+                apply: "✨ ใช้ข้อมูลทันที",
+                home: "🏠 กลับหน้าหลัก",
+                infoBox: "<strong>📌 วิธีใช้งาน:</strong><br>1. แก้ไขข้อมูลในหน้านี้<br>2. กดปุ่ม <strong>\"บันทึก\"</strong> (ข้อมูลจะบันทึกในเบราว์เซอร์)<br>3. กดปุ่ม <strong>\"Export JSON\"</strong> เพื่อดาวน์โหลดไฟล์ data.json<br>4. อัพโหลดไฟล์ data.json ใหม่ขึ้น GitHub หรือ Cloudflare",
+                uploadInfo: "<strong>📤 วิธีอัปโหลดรูปภาพและวิดีโอ:</strong><br>1. <strong>รูปภาพ:</strong> เลือกรูปจากคอมพิวเตอร์ → คัดลอกลิงก์ → ไปใช้ที่แท็บ \"รูปภาพ\"<br>2. <strong>วิดีโอ:</strong> อัปโหลดขึ้น YouTube → คัดลอก URL → ไปใช้ที่แท็บ \"วิดีโอ\"",
+                successSave: "บันทึกเนื้อหาสำเร็จ!",
+                successImg: "บันทึกรูปภาพสำเร็จ!",
+                successVid: "บันทึกวิดีโอสำเร็จ!",
+                successExport: "ดาวน์โหลดไฟล์ data.json สำเร็จ!",
+                successImport: "นำเข้าข้อมูลสำเร็จ!",
+                successUpload: "อัปโหลดสำเร็จ!",
+                copyLink: "📋 คัดลอกลิงก์",
+                copied: "✅ คัดลอกแล้ว!",
+                useDirect: " ใช้เลย",
+                uploadText: "คลิกเพื่อเลือกรูปภาพ หรือลากรูปมาวางที่นี่",
+                youtubeDesc: "สำหรับวิดีโอ ให้อัปโหลดขึ้น YouTube ก่อน แล้วคัดลอก URL มาวางในแท็บ \"วิดีโอ\"",
+                youtubeBtn: "อัปโหลดวิดีโอขึ้น YouTube",
+                tipsTitle: "💡 คำแนะนำการอัปโหลด",
+                tips: [
+                    "<strong>รูปภาพ:</strong> รองรับไฟล์ JPG, PNG, WebP (ขนาดไม่เกิน 5MB)",
+                    "<strong>วิดีโอ:</strong> ให้อัปโหลดขึ้น YouTube แล้วใช้ลิงก์ Embed",
+                    "<strong>ขนาดรูปภาพแนะนำ:</strong> 1200x800 พิกเซล สำหรับรูปหลัก",
+                    "<strong>ขนาดรูปภาพแกลเลอรี่:</strong> 800x800 พิกเซล (สี่เหลี่ยมจัตุรัส)"
+                ],
+                alertSelect: "กรุณาเลือกเครื่องเล่น",
+                alertWrongPass: "❌ รหัสผ่านไม่ถูกต้อง!",
+                alertLogout: "ต้องการออกจากระบบ?",
+                alertApply: "✅ ข้อมูลถูกบันทึกแล้ว!\n\nกด OK เพื่อเปิดหน้าหลักดูผลลัพธ์",
+                alertFileInvalid: "ไฟล์ไม่ถูกต้อง",
+                alertFileError: "ไฟล์ JSON ไม่ถูกต้อง: ",
+                alertLargeFile: "ไฟล์รูปภาพมีขนาดใหญ่เกิน 5MB กรุณาลดขนาดภาพก่อนอัปโหลด",
+                alertInvalidImage: "กรุณาเลือกไฟล์รูปภาพ (JPG, PNG, WebP)",
+                alertReadError: "เกิดข้อผิดพลาดในการอ่านไฟล์",
+                placeholderPass: "🔑 กรอกรหัสผ่านเพื่อเข้าใช้งาน",
+                placeholderImg: "URL รูปภาพ",
+                placeholderVidUrl: "URL วิดีโอ",
+                placeholderVidTitle: "ชื่อวิดีโอ",
+                uploadedTitle: "📚 รูปภาพที่อัปโหลดไว้",
+                useBtn: "ใช้งาน",
+                noUploads: "ยังไม่มีรูปภาพที่อัปโหลด"
+            },
+            en: {
+                loginTitle: "Admin Login",
+                loginBtn: "Login",
+                loginHint: "For administrators only",
+                adminTitle: "Admin Panel",
+                tabContent: "📝 Content",
+                tabImages: "🖼️ Images",
+                tabVideos: "🎬 Videos",
+                tabUpload: "📤 Upload",
+                select: "🎢 Select Attraction",
+                selectPlaceholder: "-- Select Attraction --",
+                titleTh: "📌 Title (Thai)",
+                titleEn: "📌 Title (English)",
+                subTh: "🏷️ Subtitle (Thai)",
+                subEn: "🏷️ Subtitle (English)",
+                descTh: "📄 Description (Thai)",
+                descEn: "📄 Description (English)",
+                hero: "🖼️ Hero Image (URL)",
+                map: "📍 Map Link",
+                saveContent: "💾 Save Content",
+                saveImg: "💾 Save Images",
+                saveVid: "💾 Save Videos",
+                addImg: "➕ Add Image",
+                addVid: "➕ Add Video",
+                delete: "Delete",
+                export: "📤 Export JSON",
+                import: "📥 Import JSON",
+                apply: "✨ Apply Now",
+                home: "🏠 Back to Home",
+                infoBox: "<strong>📌 How to use:</strong><br>1. Edit data on this page<br>2. Click <strong>\"Save\"</strong> (data saved in browser)<br>3. Click <strong>\"Export JSON\"</strong> to download data.json<br>4. Upload new data.json to GitHub or Cloudflare",
+                uploadInfo: "<strong>📤 How to upload:</strong><br>1. <strong>Images:</strong> Select from computer → Copy link → Use in \"Images\" tab<br>2. <strong>Videos:</strong> Upload to YouTube → Copy URL → Use in \"Videos\" tab",
+                successSave: "Content saved successfully!",
+                successImg: "Images saved successfully!",
+                successVid: "Videos saved successfully!",
+                successExport: "data.json downloaded successfully!",
+                successImport: "Data imported successfully!",
+                successUpload: "Upload successful!",
+                copyLink: "📋 Copy Link",
+                copied: "✅ Copied!",
+                useDirect: "➕ Use Now",
+                uploadText: "Click to select image or drag & drop here",
+                youtubeDesc: "For videos, upload to YouTube first then copy the URL to the \"Videos\" tab",
+                youtubeBtn: "Upload Video to YouTube",
+                tipsTitle: "💡 Upload Tips",
+                tips: [
+                    "<strong>Images:</strong> Supports JPG, PNG, WebP (max 5MB)",
+                    "<strong>Videos:</strong> Upload to YouTube then use Embed link",
+                    "<strong>Recommended size:</strong> 1200x800px for hero image",
+                    "<strong>Gallery size:</strong> 800x800px (square)"
+                ],
+                alertSelect: "Please select an attraction",
+                alertWrongPass: "❌ Incorrect password!",
+                alertLogout: "Do you want to logout?",
+                alertApply: "✅ Data saved!\n\nClick OK to open the main page",
+                alertFileInvalid: "Invalid file",
+                alertFileError: "Invalid JSON file: ",
+                alertLargeFile: "Image file is larger than 5MB. Please resize before uploading",
+                alertInvalidImage: "Please select an image file (JPG, PNG, WebP)",
+                alertReadError: "Error reading file",
+                placeholderPass: " Enter password to access",
+                placeholderImg: "Image URL",
+                placeholderVidUrl: "Video URL",
+                placeholderVidTitle: "Video Title",
+                uploadedTitle: "📚 Uploaded Images",
+                useBtn: "Use",
+                noUploads: "No uploaded images yet"
+            },
+            zh: {
+                loginTitle: "管理员登录",
+                loginBtn: "登录",
+                loginHint: "仅限管理员",
+                adminTitle: "管理面板",
+                tabContent: " 内容",
+                tabImages: "️ 图片",
+                tabVideos: " 视频",
+                tabUpload: " 上传",
+                select: " 选择游乐设施",
+                selectPlaceholder: "-- 选择游乐设施 --",
+                titleTh: "📌 标题（泰语）",
+                titleEn: "📌 标题（英语）",
+                subTh: "🏷️ 副标题（泰语）",
+                subEn: "🏷️ 副标题（英语）",
+                descTh: "📄 描述（泰语）",
+                descEn: " 描述（英语）",
+                hero: "🖼️ 主图（URL）",
+                map: "📍 地图链接",
+                saveContent: "💾 保存内容",
+                saveImg: "💾 保存图片",
+                saveVid: "💾 保存视频",
+                addImg: "➕ 添加图片",
+                addVid: "➕ 添加视频",
+                delete: "删除",
+                export: "📤 导出 JSON",
+                import: "📥 导入 JSON",
+                apply: "✨ 立即应用",
+                home: " 返回首页",
+                infoBox: "<strong>📌 使用方法：</strong><br>1. 在此页面编辑数据<br>2. 点击<strong>\"保存\"</strong><br>3. 点击<strong>\"导出 JSON\"</strong>下载data.json<br>4. 上传新data.json到GitHub或Cloudflare",
+                uploadInfo: "<strong>📤 上传方法：</strong><br>1. <strong>图片：</strong>从电脑选择 → 复制链接 → 在\"图片\"标签使用<br>2. <strong>视频：</strong>上传到YouTube → 复制URL → 在\"视频\"标签使用",
+                successSave: "内容保存成功！",
+                successImg: "图片保存成功！",
+                successVid: "视频保存成功！",
+                successExport: "data.json下载成功！",
+                successImport: "数据导入成功！",
+                successUpload: "上传成功！",
+                copyLink: "📋 复制链接",
+                copied: "✅ 已复制！",
+                useDirect: "➕ 立即使用",
+                uploadText: "点击选择图片或拖放此处",
+                youtubeDesc: "对于视频，请先上传到YouTube，然后将URL复制到\"视频\"标签",
+                youtubeBtn: "上传视频到YouTube",
+                tipsTitle: "💡 上传提示",
+                tips: [
+                    "<strong>图片：</strong>支持JPG、PNG、WebP（最大5MB）",
+                    "<strong>视频：</strong>上传到YouTube后使用嵌入链接",
+                    "<strong>推荐尺寸：</strong>主图1200x800像素",
+                    "<strong>图库尺寸：</strong>800x800像素（正方形）"
+                ],
+                alertSelect: "请选择游乐设施",
+                alertWrongPass: "❌ 密码错误！",
+                alertLogout: "确定要退出登录吗？",
+                alertApply: "✅ 数据已保存！\n\n点击OK打开主页",
+                alertFileInvalid: "文件无效",
+                alertFileError: "JSON文件无效：",
+                alertLargeFile: "图片文件超过5MB，请先缩小尺寸",
+                alertInvalidImage: "请选择图片文件（JPG、PNG、WebP）",
+                alertReadError: "读取文件时出错",
+                placeholderPass: "🔑 输入密码访问",
+                placeholderImg: "图片URL",
+                placeholderVidUrl: "视频URL",
+                placeholderVidTitle: "视频标题",
+                uploadedTitle: "📚 已上传的图片",
+                useBtn: "使用",
+                noUploads: "还没有上传的图片"
+            },
+            jp: {
+                loginTitle: "管理者ログイン",
+                loginBtn: "ログイン",
+                loginHint: "管理者専用",
+                adminTitle: "管理パネル",
+                tabContent: "📝 コンテンツ",
+                tabImages: "️ 画像",
+                tabVideos: " 動画",
+                tabUpload: " アップロード",
+                select: " アトラクションを選択",
+                selectPlaceholder: "-- アトラクションを選択 --",
+                titleTh: "📌 タイトル（タイ語）",
+                titleEn: "📌 タイトル（英語）",
+                subTh: "️ サブタイトル（タイ語）",
+                subEn: "🏷️ サブタイトル（英語）",
+                descTh: "📄 説明（タイ語）",
+                descEn: "📄 説明（英語）",
+                hero: "🖼️ メイン画像（URL）",
+                map: "📍 地図リンク",
+                saveContent: "💾 コンテンツを保存",
+                saveImg: " 画像を保存",
+                saveVid: "💾 動画を保存",
+                addImg: "➕ 画像を追加",
+                addVid: "➕ 動画を追加",
+                delete: "削除",
+                export: " JSONをエクスポート",
+                import: "📥 JSONをインポート",
+                apply: "✨ 今すぐ適用",
+                home: "🏠 ホームに戻る",
+                infoBox: "<strong>📌 使い方：</strong><br>1. このページでデータを編集<br>2. <strong>「保存」</strong>をクリック<br>3. <strong>「JSONをエクスポート」</strong>でdata.jsonをダウンロード<br>4. 新しいdata.jsonをGitHubまたはCloudflareにアップロード",
+                uploadInfo: "<strong> アップロード方法：</strong><br>1. <strong>画像：</strong>パソコンから選択 → リンクをコピー → 「画像」タブで使用<br>2. <strong>動画：</strong>YouTubeにアップロード → URLをコピー → 「動画」タブで使用",
+                successSave: "コンテンツ保存成功！",
+                successImg: "画像保存成功！",
+                successVid: "動画保存成功！",
+                successExport: "data.jsonダウンロード成功！",
+                successImport: "データインポート成功！",
+                successUpload: "アップロード成功！",
+                copyLink: "📋 リンクをコピー",
+                copied: "✅ コピーしました！",
+                useDirect: " 今すぐ使用",
+                uploadText: "クリックして画像を選択、またはドラッグ＆ドロップ",
+                youtubeDesc: "動画の場合は、まずYouTubeにアップロードし、URLを「動画」タブにコピーしてください",
+                youtubeBtn: "YouTubeに動画をアップロード",
+                tipsTitle: "💡 アップロードのヒント",
+                tips: [
+                    "<strong>画像：</strong>JPG、PNG、WebP対応（最大5MB）",
+                    "<strong>動画：</strong>YouTubeにアップロードして埋め込みリンクを使用",
+                    "<strong>推奨サイズ：</strong>メイン画像1200x800px",
+                    "<strong>ギャラリーサイズ：</strong>800x800px（正方形）"
+                ],
+                alertSelect: "アトラクションを選択してください",
+                alertWrongPass: "❌ パスワードが間違っています！",
+                alertLogout: "ログアウトしますか？",
+                alertApply: "✅ データ保存完了！\n\nOKをクリックしてメインページを開く",
+                alertFileInvalid: "無効なファイル",
+                alertFileError: "無効なJSONファイル：",
+                alertLargeFile: "画像ファイルが5MBを超えています。サイズを縮小してください",
+                alertInvalidImage: "画像ファイルを選択してください（JPG、PNG、WebP）",
+                alertReadError: "ファイル読み込みエラー",
+                placeholderPass: "🔑 パスワードを入力",
+                placeholderImg: "画像URL",
+                placeholderVidUrl: "動画URL",
+                placeholderVidTitle: "動画タイトル",
+                uploadedTitle: "📚 アップロード済み画像",
+                useBtn: "使用",
+                noUploads: "アップロードされた画像はありません"
+            },
+            ru: {
+                loginTitle: "Вход для администратора",
+                loginBtn: "Войти",
+                loginHint: "Только для администраторов",
+                adminTitle: "Панель администратора",
+                tabContent: " Контент",
+                tabImages: "🖼️ Изображения",
+                tabVideos: "🎬 Видео",
+                tabUpload: "📤 Загрузка",
+                select: "🎢 Выберите аттракцион",
+                selectPlaceholder: "-- Выберите аттракцион --",
+                titleTh: "📌 Название (тайский)",
+                titleEn: "📌 Название (английский)",
+                subTh: "🏷️ Подзаголовок (тайский)",
+                subEn: "🏷️ Подзаголовок (английский)",
+                descTh: "📄 Описание (тайский)",
+                descEn: "📄 Описание (английский)",
+                hero: "🖼️ Главное изображение (URL)",
+                map: "📍 Ссылка на карту",
+                saveContent: "💾 Сохранить контент",
+                saveImg: "💾 Сохранить изображения",
+                saveVid: "💾 Сохранить видео",
+                addImg: "➕ Добавить изображение",
+                addVid: "➕ Добавить видео",
+                delete: "Удалить",
+                export: " Экспорт JSON",
+                import: " Импорт JSON",
+                apply: "✨ Применить сейчас",
+                home: " На главную",
+                infoBox: "<strong>📌 Как использовать:</strong><br>1. Отредактируйте данные на этой странице<br>2. Нажмите <strong>\"Сохранить\"</strong><br>3. Нажмите <strong>\"Экспорт JSON\"</strong> для скачивания data.json<br>4. Загрузите новый data.json на GitHub или Cloudflare",
+                uploadInfo: "<strong>📤 Как загрузить:</strong><br>1. <strong>Изображения:</strong> Выберите с компьютера → Скопируйте ссылку → Используйте во вкладке \"Изображения\"<br>2. <strong>Видео:</strong> Загрузите на YouTube → Скопируйте URL → Используйте во вкладке \"Видео\"",
+                successSave: "Контент сохранён!",
+                successImg: "Изображения сохранены!",
+                successVid: "Видео сохранены!",
+                successExport: "data.json скачан!",
+                successImport: "Данные импортированы!",
+                successUpload: "Загрузка успешна!",
+                copyLink: "📋 Копировать ссылку",
+                copied: "✅ Скопировано!",
+                useDirect: "➕ Использовать сейчас",
+                uploadText: "Нажмите, чтобы выбрать изображение, или перетащите сюда",
+                youtubeDesc: "Для видео сначала загрузите на YouTube, затем скопируйте URL во вкладку \"Видео\"",
+                youtubeBtn: "Загрузить видео на YouTube",
+                tipsTitle: "💡 Советы по загрузке",
+                tips: [
+                    "<strong>Изображения:</strong> Поддержка JPG, PNG, WebP (макс. 5MB)",
+                    "<strong>Видео:</strong> Загрузите на YouTube и используйте ссылку для встраивания",
+                    "<strong>Рекомендуемый размер:</strong> 1200x800px для главного изображения",
+                    "<strong>Размер галереи:</strong> 800x800px (квадрат)"
+                ],
+                alertSelect: "Пожалуйста, выберите аттракцион",
+                alertWrongPass: "❌ Неверный пароль!",
+                alertLogout: "Выйти из системы?",
+                alertApply: "✅ Данные сохранены!\n\nНажмите OK, чтобы открыть главную страницу",
+                alertFileInvalid: "Неверный файл",
+                alertFileError: "Неверный JSON файл: ",
+                alertLargeFile: "Файл изображения больше 5MB. Пожалуйста, уменьшите размер",
+                alertInvalidImage: "Пожалуйста, выберите файл изображения (JPG, PNG, WebP)",
+                alertReadError: "Ошибка чтения файла",
+                placeholderPass: "🔑 Введите пароль",
+                placeholderImg: "URL изображения",
+                placeholderVidUrl: "URL видео",
+                placeholderVidTitle: "Название видео",
+                uploadedTitle: "📚 Загруженные изображения",
+                useBtn: "Использовать",
+                noUploads: "Загруженных изображений пока нет"
+            },
+            ar: {
+                loginTitle: "تسجيل دخول المشرف",
+                loginBtn: "تسجيل الدخول",
+                loginHint: "للمشرفين فقط",
+                adminTitle: "لوحة التحكم",
+                tabContent: "📝 المحتوى",
+                tabImages: "🖼️ الصور",
+                tabVideos: "🎬 الفيديوهات",
+                tabUpload: "📤 رفع",
+                select: "🎢 اختر اللعبة",
+                selectPlaceholder: "-- اختر اللعبة --",
+                titleTh: "📌 العنوان (التايلاندية)",
+                titleEn: " العنوان (الإنجليزية)",
+                subTh: "🏷️ العنوان الفرعي (التايلاندية)",
+                subEn: "️ العنوان الفرعي (الإنجليزية)",
+                descTh: "📄 الوصف (التايلاندية)",
+                descEn: " الوصف (الإنجليزية)",
+                hero: "🖼️ الصورة الرئيسية (URL)",
+                map: "📍 رابط الخريطة",
+                saveContent: "💾 حفظ المحتوى",
+                saveImg: "💾 حفظ الصور",
+                saveVid: "💾 حفظ الفيديوهات",
+                addImg: "➕ إضافة صورة",
+                addVid: "➕ إضافة فيديو",
+                delete: "حذف",
+                export: " تصدير JSON",
+                import: " استيراد JSON",
+                apply: "✨ تطبيق الآن",
+                home: "🏠 العودة للرئيسية",
+                infoBox: "<strong>📌 كيفية الاستخدام:</strong><br>1. قم بتعديل البيانات في هذه الصفحة<br>2. اضغط على <strong>\"حفظ\"</strong><br>3. اضغط على <strong>\"تصدير JSON\"</strong> لتحميل data.json<br>4. ارفع data.json الجديد إلى GitHub أو Cloudflare",
+                uploadInfo: "<strong>📤 كيفية الرفع:</strong><br>1. <strong>الصور:</strong> اختر من الكمبيوتر → انسخ الرابط → استخدم في علامة تبويب \"الصور\"<br>2. <strong>الفيديوهات:</strong> ارفع إلى YouTube → انسخ URL → استخدم في علامة تبويب \"الفيديوهات\"",
+                successSave: "تم حفظ المحتوى!",
+                successImg: "تم حفظ الصور!",
+                successVid: "تم حفظ الفيديوهات!",
+                successExport: "تم تحميل data.json!",
+                successImport: "تم استيراد البيانات!",
+                successUpload: "تم الرفع بنجاح!",
+                copyLink: "📋 نسخ الرابط",
+                copied: "✅ تم النسخ!",
+                useDirect: "➕ استخدم الآن",
+                uploadText: "انقر لاختيار صورة أو اسحب وأفلت هنا",
+                youtubeDesc: "بالنسبة للفيديوهات، ارفع إلى YouTube أولاً ثم انسخ URL إلى علامة تبويب \"الفيديوهات\"",
+                youtubeBtn: "رفع فيديو إلى YouTube",
+                tipsTitle: "💡 نصائح الرفع",
+                tips: [
+                    "<strong>الصور:</strong> يدعم JPG، PNG، WebP (حد أقصى 5MB)",
+                    "<strong>الفيديوهات:</strong> ارفع إلى YouTube ثم استخدم رابط التضمين",
+                    "<strong>الحجم الموصى به:</strong> 1200x800 بكسل للصورة الرئيسية",
+                    "<strong>حجم المعرض:</strong> 800x800 بكسل (مربع)"
+                ],
+                alertSelect: "يرجى اختيار لعبة",
+                alertWrongPass: "❌ كلمة المرور غير صحيحة!",
+                alertLogout: "هل تريد تسجيل الخروج؟",
+                alertApply: "✅ تم حفظ البيانات!\n\nاضغط OK لفتح الصفحة الرئيسية",
+                alertFileInvalid: "ملف غير صالح",
+                alertFileError: "ملف JSON غير صالح: ",
+                alertLargeFile: "ملف الصورة أكبر من 5MB. يرجى تقليل الحجم",
+                alertInvalidImage: "يرجى اختيار ملف صورة (JPG، PNG، WebP)",
+                alertReadError: "خطأ في قراءة الملف",
+                placeholderPass: "🔑 أدخل كلمة المرور",
+                placeholderImg: "URL الصورة",
+                placeholderVidUrl: "URL الفيديو",
+                placeholderVidTitle: "عنوان الفيديو",
+                uploadedTitle: "📚 الصور المرفوعة",
+                useBtn: "استخدام",
+                noUploads: "لا توجد صور مرفوعة بعد"
+            },
+            he: {
+                loginTitle: "כניסת מנהל",
+                loginBtn: "התחבר",
+                loginHint: "למנהלים בלבד",
+                adminTitle: "לוח בקרה",
+                tabContent: "📝 תוכן",
+                tabImages: "🖼️ תמונות",
+                tabVideos: " סרטונים",
+                tabUpload: "📤 העלאה",
+                select: "🎢 בחר אטרקציה",
+                selectPlaceholder: "-- בחר אטרקציה --",
+                titleTh: "📌 כותרת (תאילנדית)",
+                titleEn: "📌 כותרת (אנגלית)",
+                subTh: "🏷️ כותרת משנה (תאילנדית)",
+                subEn: "🏷️ כותרת משנה (אנגלית)",
+                descTh: "📄 תיאור (תאילנדית)",
+                descEn: "📄 תיאור (אנגלית)",
+                hero: "🖼️ תמונה ראשית (URL)",
+                map: "📍 קישור למפה",
+                saveContent: "💾 שמור תוכן",
+                saveImg: "💾 שמור תמונות",
+                saveVid: "💾 שמור סרטונים",
+                addImg: "➕ הוסף תמונה",
+                addVid: "➕ הוסף סרטון",
+                delete: "מחק",
+                export: "📤 ייצא JSON",
+                import: " ייבא JSON",
+                apply: "✨ החל עכשיו",
+                home: "🏠 חזור לדף הבית",
+                infoBox: "<strong>📌 כיצד להשתמש:</strong><br>1. ערוך נתונים בדף זה<br>2. לחץ על <strong>\"שמור\"</strong><br>3. לחץ על <strong>\"ייצא JSON\"</strong> להורדת data.json<br>4. העלה את data.json החדש ל-GitHub או Cloudflare",
+                uploadInfo: "<strong>📤 כיצד להעלות:</strong><br>1. <strong>תמונות:</strong> בחר מהמחשב → העתק קישור → השתמש בלשונית \"תמונות\"<br>2. <strong>סרטונים:</strong> העלה ל-YouTube → העתק URL → השתמש בלשונית \"סרטונים\"",
+                successSave: "התוכן נשמר!",
+                successImg: "התמונות נשמרו!",
+                successVid: "הסרטונים נשמרו!",
+                successExport: "data.json הורד!",
+                successImport: "הנתונים יובאו!",
+                successUpload: "ההעלאה הצליחה!",
+                copyLink: "📋 העתק קישור",
+                copied: "✅ הועתק!",
+                useDirect: "➕ השתמש עכשיו",
+                uploadText: "לחץ לבחירת תמונה או גרור ושחרר כאן",
+                youtubeDesc: "עבור סרטונים, העלה תחילה ל-YouTube ואז העתק את URL ללשונית \"סרטונים\"",
+                youtubeBtn: "העלה סרטון ל-YouTube",
+                tipsTitle: "💡 טיפים להעלאה",
+                tips: [
+                    "<strong>תמונות:</strong> תומך ב-JPG, PNG, WebP (מקסימום 5MB)",
+                    "<strong>סרטונים:</strong> העלה ל-YouTube ואז השתמש בקישור הטמעה",
+                    "<strong>גודל מומלץ:</strong> 1200x800 פיקסלים לתמונה ראשית",
+                    "<strong>גודל גלריה:</strong> 800x800 פיקסלים (ריבוע)"
+                ],
+                alertSelect: "אנא בחר אטרקציה",
+                alertWrongPass: " סיסמה שגויה!",
+                alertLogout: "האם ברצונך להתנתק?",
+                alertApply: "✅ הנתונים נשמרו!\n\nלחץ OK לפתיחת הדף הראשי",
+                alertFileInvalid: "קובץ לא תקין",
+                alertFileError: "קובץ JSON לא תקין: ",
+                alertLargeFile: "קובץ התמונה גדול מ-5MB. אנא הקטן את הגודל",
+                alertInvalidImage: "אנא בחר קובץ תמונה (JPG, PNG, WebP)",
+                alertReadError: "שגיאה בקריאת הקובץ",
+                placeholderPass: "🔑 הזן סיסמה",
+                placeholderImg: "URL תמונה",
+                placeholderVidUrl: "URL סרטון",
+                placeholderVidTitle: "כותרת סרטון",
+                uploadedTitle: "📚 תמונות שהועלו",
+                useBtn: "השתמש",
+                noUploads: "אין תמונות שהועלו עדיין"
+            }
+        };
+
         window.onload = function() {
+            document.getElementById('adminLangSelector').value = adminLang;
+            applyAdminLang();
             if (sessionStorage.getItem('adminLoggedIn') === 'true') {
                 showAdminPanel();
             }
@@ -164,7 +1033,7 @@
                 sessionStorage.setItem('adminLoggedIn', 'true');
                 showAdminPanel();
             } else {
-                alert('❌ รหัสผ่านไม่ถูกต้อง!');
+                alert(adminTranslations[adminLang].alertWrongPass);
                 document.getElementById('adminPass').value = '';
             }
         }
@@ -176,10 +1045,79 @@
         }
 
         function logout() {
-            if (confirm('ต้องการออกจากระบบ?')) {
+            if (confirm(adminTranslations[adminLang].alertLogout)) {
                 sessionStorage.removeItem('adminLoggedIn');
                 location.reload();
             }
+        }
+
+        function changeAdminLang(lang) {
+            adminLang = lang;
+            localStorage.setItem('adminLang', lang);
+            applyAdminLang();
+            if (currentIndex !== -1) {
+                if (document.getElementById('tab-content').classList.contains('active')) loadContent();
+                if (document.getElementById('tab-images').classList.contains('active')) loadImages();
+                if (document.getElementById('tab-videos').classList.contains('active')) loadVideos();
+            }
+            loadUploadedList();
+        }
+
+        function applyAdminLang() {
+            const t = adminTranslations[adminLang];
+            if (!t) return;
+            document.getElementById('loginTitle').textContent = t.loginTitle;
+            document.getElementById('loginBtn').textContent = t.loginBtn;
+            document.getElementById('loginHint').textContent = t.loginHint;
+            document.getElementById('adminPass').placeholder = t.placeholderPass;
+            document.getElementById('adminTitle').textContent = t.adminTitle;
+            document.getElementById('tabBtn1').textContent = t.tabContent;
+            document.getElementById('tabBtn2').textContent = t.tabImages;
+            document.getElementById('tabBtn3').textContent = t.tabVideos;
+            document.getElementById('tabBtn4').textContent = t.tabUpload;
+            document.getElementById('labelSelect').textContent = t.select;
+            document.getElementById('labelSelectImg').textContent = t.select;
+            document.getElementById('labelSelectVid').textContent = t.select;
+            document.getElementById('labelTitleTh').textContent = t.titleTh;
+            document.getElementById('labelTitleEn').textContent = t.titleEn;
+            document.getElementById('labelSubTh').textContent = t.subTh;
+            document.getElementById('labelSubEn').textContent = t.subEn;
+            document.getElementById('labelDescTh').textContent = t.descTh;
+            document.getElementById('labelDescEn').textContent = t.descEn;
+            document.getElementById('labelHero').textContent = t.hero;
+            document.getElementById('labelMap').textContent = t.map;
+            document.getElementById('btnSaveContent').textContent = t.saveContent;
+            document.getElementById('btnSaveImg').textContent = t.saveImg;
+            document.getElementById('btnSaveVid').textContent = t.saveVid;
+            document.getElementById('btnAddImg').textContent = t.addImg;
+            document.getElementById('btnAddVid').textContent = t.addVid;
+            document.getElementById('btnExport').textContent = t.export;
+            document.getElementById('btnImport').textContent = t.import;
+            document.getElementById('btnApply').textContent = t.apply;
+            document.getElementById('btnHome').textContent = t.home;
+            document.getElementById('infoBox').innerHTML = t.infoBox;
+            document.getElementById('uploadText').textContent = t.uploadText;
+            document.getElementById('uploadSuccessText').textContent = t.successUpload;
+            document.getElementById('btnCopyLink').textContent = t.copyLink;
+            document.getElementById('btnUseDirect').textContent = t.useDirect;
+            document.getElementById('youtubeDesc').textContent = t.youtubeDesc;
+            document.getElementById('youtubeBtnText').textContent = t.youtubeBtn;
+            document.getElementById('tipsTitle').innerHTML = t.tipsTitle;
+            
+            const tipsList = document.getElementById('tipsList');
+            tipsList.innerHTML = '';
+            t.tips.forEach(tip => {
+                const li = document.createElement('li');
+                li.innerHTML = tip;
+                tipsList.appendChild(li);
+            });
+            
+            document.querySelectorAll('#imageList input[type="text"]').forEach(inp => inp.placeholder = t.placeholderImg);
+            document.querySelectorAll('#videoList input[type="text"]').forEach((inp, i) => {
+                inp.placeholder = (i % 2 === 0) ? t.placeholderVidUrl : t.placeholderVidTitle;
+            });
+            document.querySelectorAll('.btn-delete').forEach(btn => btn.textContent = t.delete);
+            document.querySelectorAll('select option[value=""]').forEach(opt => opt.textContent = t.selectPlaceholder);
         }
 
         async function loadData() {
@@ -190,6 +1128,7 @@
                 await loadFromJson();
             }
             populateSelects();
+            loadUploadedList();
         }
 
         async function loadFromJson() {
@@ -200,9 +1139,10 @@
         }
 
         function populateSelects() {
+            const t = adminTranslations[adminLang];
             ['selectAttraction', 'selectAttractionImg', 'selectAttractionVid'].forEach(id => {
                 const select = document.getElementById(id);
-                select.innerHTML = '<option value="">-- เลือกเครื่องเล่น --</option>';
+                select.innerHTML = `<option value="">${t.selectPlaceholder}</option>`;
                 attractions.forEach((a, i) => {
                     const option = document.createElement('option');
                     option.value = i;
@@ -217,6 +1157,7 @@
             document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
             event.target.classList.add('active');
             document.getElementById('tab-' + tab).classList.add('active');
+            if (tab === 'upload') loadUploadedList();
         }
 
         function loadContent() {
@@ -235,7 +1176,7 @@
         }
 
         function saveContent() {
-            if (currentIndex === -1) { alert('กรุณาเลือกเครื่องเล่น'); return; }
+            if (currentIndex === -1) { alert(adminTranslations[adminLang].alertSelect); return; }
             const a = attractions[currentIndex];
             a.title = a.title || {};
             a.subtitle = a.subtitle || {};
@@ -249,7 +1190,7 @@
             a.heroImage = document.getElementById('heroImage').value;
             a.mapUrl = document.getElementById('mapUrl').value;
             saveToLocalStorage();
-            showSuccess('บันทึกเนื้อหาสำเร็จ!');
+            showSuccess(adminTranslations[adminLang].successSave);
             populateSelects();
         }
 
@@ -258,21 +1199,23 @@
             if (index === '') return;
             currentIndex = parseInt(index);
             const list = document.getElementById('imageList');
+            const t = adminTranslations[adminLang];
             list.innerHTML = '';
             if (!attractions[currentIndex].images) attractions[currentIndex].images = [];
             attractions[currentIndex].images.forEach((img, i) => {
                 const row = document.createElement('div');
                 row.className = 'list-item';
-                row.innerHTML = `<input type="text" value="${img}"><button class="btn-delete" onclick="deleteImage(${i})">ลบ</button>`;
+                row.innerHTML = `<input type="text" value="${img}" placeholder="${t.placeholderImg}"><button class="btn-delete" onclick="deleteImage(${i})">${t.delete}</button>`;
                 list.appendChild(row);
             });
         }
 
         function addImage() {
             const list = document.getElementById('imageList');
+            const t = adminTranslations[adminLang];
             const row = document.createElement('div');
             row.className = 'list-item';
-            row.innerHTML = `<input type="text" placeholder="URL รูปภาพ"><button class="btn-delete" onclick="this.parentElement.remove()">ลบ</button>`;
+            row.innerHTML = `<input type="text" placeholder="${t.placeholderImg}"><button class="btn-delete" onclick="this.parentElement.remove()">${t.delete}</button>`;
             list.appendChild(row);
         }
 
@@ -282,12 +1225,12 @@
         }
 
         function saveImages() {
-            if (currentIndex === -1) { alert('กรุณาเลือกเครื่องเล่น'); return; }
+            if (currentIndex === -1) { alert(adminTranslations[adminLang].alertSelect); return; }
             const inputs = document.querySelectorAll('#imageList input');
             attractions[currentIndex].images = [];
             inputs.forEach(input => { if (input.value.trim()) attractions[currentIndex].images.push(input.value.trim()); });
             saveToLocalStorage();
-            showSuccess('บันทึกรูปภาพสำเร็จ!');
+            showSuccess(adminTranslations[adminLang].successImg);
         }
 
         function loadVideos() {
@@ -295,21 +1238,23 @@
             if (index === '') return;
             currentIndex = parseInt(index);
             const list = document.getElementById('videoList');
+            const t = adminTranslations[adminLang];
             list.innerHTML = '';
             if (!attractions[currentIndex].videos) attractions[currentIndex].videos = [];
             attractions[currentIndex].videos.forEach((v, i) => {
                 const row = document.createElement('div');
                 row.className = 'list-item';
-                row.innerHTML = `<input type="text" value="${v.url || ''}" placeholder="URL วิดีโอ"><input type="text" value="${v.title?.th || ''}" placeholder="ชื่อวิดีโอ"><button class="btn-delete" onclick="deleteVideo(${i})">ลบ</button>`;
+                row.innerHTML = `<input type="text" value="${v.url || ''}" placeholder="${t.placeholderVidUrl}"><input type="text" value="${v.title?.th || ''}" placeholder="${t.placeholderVidTitle}"><button class="btn-delete" onclick="deleteVideo(${i})">${t.delete}</button>`;
                 list.appendChild(row);
             });
         }
 
         function addVideo() {
             const list = document.getElementById('videoList');
+            const t = adminTranslations[adminLang];
             const row = document.createElement('div');
             row.className = 'list-item';
-            row.innerHTML = `<input type="text" placeholder="URL วิดีโอ"><input type="text" placeholder="ชื่อวิดีโอ"><button class="btn-delete" onclick="this.parentElement.remove()">ลบ</button>`;
+            row.innerHTML = `<input type="text" placeholder="${t.placeholderVidUrl}"><input type="text" placeholder="${t.placeholderVidTitle}"><button class="btn-delete" onclick="this.parentElement.remove()">${t.delete}</button>`;
             list.appendChild(row);
         }
 
@@ -319,7 +1264,7 @@
         }
 
         function saveVideos() {
-            if (currentIndex === -1) { alert('กรุณาเลือกเครื่องเล่น'); return; }
+            if (currentIndex === -1) { alert(adminTranslations[adminLang].alertSelect); return; }
             const rows = document.querySelectorAll('#videoList .list-item');
             attractions[currentIndex].videos = [];
             rows.forEach(row => {
@@ -329,7 +1274,7 @@
                 if (url) attractions[currentIndex].videos.push({ url, title: { th: title, en: title } });
             });
             saveToLocalStorage();
-            showSuccess('บันทึกวิดีโอสำเร็จ!');
+            showSuccess(adminTranslations[adminLang].successVid);
         }
 
         function saveToLocalStorage() {
@@ -351,7 +1296,7 @@
             a.download = 'data.json';
             a.click();
             URL.revokeObjectURL(url);
-            showSuccess('ดาวน์โหลดไฟล์ data.json สำเร็จ!');
+            showSuccess(adminTranslations[adminLang].successExport);
         }
 
         function importJSON(event) {
@@ -365,9 +1310,9 @@
                         attractions = data;
                         saveToLocalStorage();
                         populateSelects();
-                        showSuccess('นำเข้าข้อมูลสำเร็จ!');
-                    } else { alert('ไฟล์ไม่ถูกต้อง'); }
-                } catch(err) { alert('ไฟล์ JSON ไม่ถูกต้อง: ' + err.message); }
+                        showSuccess(adminTranslations[adminLang].successImport);
+                    } else { alert(adminTranslations[adminLang].alertFileInvalid); }
+                } catch(err) { alert(adminTranslations[adminLang].alertFileError + err.message); }
             };
             reader.readAsText(file);
             event.target.value = '';
@@ -375,8 +1320,127 @@
 
         function applyToSite() {
             saveToLocalStorage();
-            alert('✅ ข้อมูลถูกบันทึกแล้ว!\n\nกด OK เพื่อเปิดหน้าหลักดูผลลัพธ์');
+            alert(adminTranslations[adminLang].alertApply);
             window.open('index.html', '_blank');
+        }
+
+        // Upload Functions
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const t = adminTranslations[adminLang];
+            
+            if (file.size > 5 * 1024 * 1024) {
+                alert(t.alertLargeFile);
+                return;
+            }
+            
+            if (!file.type.match('image.*')) {
+                alert(t.alertInvalidImage);
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64String = e.target.result;
+                
+                const preview = document.getElementById('uploadPreview');
+                preview.src = base64String;
+                preview.style.display = 'block';
+                
+                document.getElementById('uploadedImageUrl').value = base64String;
+                document.getElementById('imageUploadResult').style.display = 'block';
+                
+                const uploadedImages = JSON.parse(localStorage.getItem('uploadedImages') || '[]');
+                uploadedImages.push({
+                    name: file.name,
+                    url: base64String,
+                    date: new Date().toISOString()
+                });
+                localStorage.setItem('uploadedImages', JSON.stringify(uploadedImages));
+                
+                showSuccess(t.successUpload);
+                loadUploadedList();
+            };
+            reader.onerror = function() {
+                alert(t.alertReadError);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function copyImageUrl() {
+            const urlInput = document.getElementById('uploadedImageUrl');
+            urlInput.select();
+            urlInput.setSelectionRange(0, 99999);
+            document.execCommand('copy');
+            
+            const btn = document.getElementById('btnCopyLink');
+            const t = adminTranslations[adminLang];
+            const originalText = btn.textContent;
+            btn.textContent = t.copied;
+            setTimeout(() => {
+                btn.textContent = t.copyLink;
+            }, 2000);
+        }
+
+        function useImageDirectly() {
+            const url = document.getElementById('uploadedImageUrl').value;
+            if (!url) return;
+            
+            document.getElementById('tabBtn2').click();
+            
+            setTimeout(() => {
+                const list = document.getElementById('imageList');
+                const t = adminTranslations[adminLang];
+                const row = document.createElement('div');
+                row.className = 'list-item';
+                row.innerHTML = `<input type="text" value="${url}" placeholder="${t.placeholderImg}"><button class="btn-delete" onclick="this.parentElement.remove()">${t.delete}</button>`;
+                list.appendChild(row);
+                showSuccess(adminTranslations[adminLang].successImg);
+            }, 100);
+        }
+
+        function loadUploadedList() {
+            const t = adminTranslations[adminLang];
+            const uploadedImages = JSON.parse(localStorage.getItem('uploadedImages') || '[]');
+            const listDiv = document.getElementById('uploadedList');
+            
+            if (uploadedImages.length === 0) {
+                listDiv.innerHTML = `<p style="color: rgba(255,255,255,0.5); text-align: center; padding: 1rem;">${t.noUploads}</p>`;
+                return;
+            }
+            
+            let html = `<h3 style="color: var(--accent); margin: 1.5rem 0 1rem;">${t.uploadedTitle}</h3>`;
+            uploadedImages.forEach((img, index) => {
+                html += `
+                    <div class="uploaded-item">
+                        <img src="${img.url}" alt="${img.name}">
+                        <div class="uploaded-item-info">
+                            <p style="color: #fff;">${img.name}</p>
+                            <p style="color: rgba(255,255,255,0.6);">${new Date(img.date).toLocaleDateString('th-TH')}</p>
+                        </div>
+                        <button class="btn-use" onclick="useUploadedImage(${index})">${t.useBtn}</button>
+                    </div>
+                `;
+            });
+            listDiv.innerHTML = html;
+        }
+
+        function useUploadedImage(index) {
+            const uploadedImages = JSON.parse(localStorage.getItem('uploadedImages') || '[]');
+            if (uploadedImages[index]) {
+                document.getElementById('tabBtn2').click();
+                setTimeout(() => {
+                    const list = document.getElementById('imageList');
+                    const t = adminTranslations[adminLang];
+                    const row = document.createElement('div');
+                    row.className = 'list-item';
+                    row.innerHTML = `<input type="text" value="${uploadedImages[index].url}" placeholder="${t.placeholderImg}"><button class="btn-delete" onclick="this.parentElement.remove()">${t.delete}</button>`;
+                    list.appendChild(row);
+                    showSuccess(adminTranslations[adminLang].successImg);
+                }, 100);
+            }
         }
 
         document.getElementById('adminPass').addEventListener('keypress', function(e) {
