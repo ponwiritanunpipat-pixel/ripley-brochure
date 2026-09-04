@@ -2,19 +2,89 @@
   "attractions": [
     {
       "id": "museum",
-      "title": {"th": "️ พิพิธภัณฑ์ เชื่อหรือไม่!", "en": "️ Ripley's Museum", "zh": "🏛️ 里普利博物馆", "jp": "🏛️ リプリーズ博物館", "ru": "🏛️ Музей Рипли", "ar": "🏛️ متحف ريبلي", "he": "🏛️ מוזיאון ריפלי"},
+      "title": {"th": "🏛️ พิพิธภัณฑ์ เชื่อหรือไม่!", "en": "🏛️ Ripley's Museum", "zh": "🏛️ 里普利博物馆", "jp": "️ リプリーズ博物館", "ru": "🏛️ Музей Рипли", "ar": "🏛️ متحف ريبلي", "he": "🏛️ מוזיאון ריפלי"},
       "subtitle": {"th": "ความจริงที่ต้องพิสูจน์ด้วยตาคุณเอง", "en": "Truth you must see with your own eyes", "zh": "你必须亲眼所见的真相", "jp": "あなたの目で確かめるべき真実", "ru": "Правда, которую нужно увидеть своими глазами", "ar": "الحقيقة التي يجب أن تراها بعينيك", "he": "אמת שאתה חייב לראות בעיניים שלך"},
-      "desc": {"th": "พิพิธภัณฑ์ริบลีส์ เชื่อหรือไม่! หนึ่งในพิพิธภัณฑ์ที่มีชื่อเสียงของโลก", "en": "Ripley's Believe It or Not! One of the world's most famous museums.", "zh": "里普利信不信由你！世界上最著名的博物馆之一。", "jp": "リプリーズ・ビリーブ・イット・オア・ノット！世界で最も有名な博物館の一つ。", "ru": "Ripley's Believe It or Not! Один из самых известных музеев мира.", "ar": "ريبلي تصدق أو لا تصدق! أحد أشهر المتاحف في العالم.", "he": "ריפלי - תאמין או לא! אחד המוזיאונים המפורסמים בעולם."},
+      "desc": {"th": "พิพิธภัณฑ์ริบลีส์ เชื่อหรือไม่! หนึ่งในพิพิธภัณฑ์ที่มีชื่อเสียงของโลก ต้นกำเนิดจากประเทศสหรัฐอเมริกา หนึ่งเดียวที่รวบรวมความมหัศจรรย์จากทั่วทุกมุมโลก ที่มีทั้งความลี้ลับ พิสดาร ความงดงามที่น่าประทับใจ พบและสัมผัสของจริงกว่า 350 ประเภท", "en": "Ripley's Believe It or Not! One of the world's most famous museums, originating from the USA. Collecting wonders from around the world with over 350 real exhibits.", "zh": "里普利信不信由你！世界上最著名的博物馆之一，起源于美国。收集来自世界各地的奇观，超过350件真实展品。", "jp": "リプリーズ・ビリーブ・イット・オア・ノット！アメリカ発祥の世界で最も有名な博物館の一つ。世界中の驚異を350以上の実物展示品で収集。", "ru": "Ripley's Believe It or Not! Один из самых известных музеев мира, родом из США. Собирает чудеса со всего мира с более чем 350 реальными экспонатами.", "ar": "ريبلي تصدق أو لا تصدق! أحد أشهر المتاحف في العالم، نشأ في الولايات المتحدة. يجمع العجائب من جميع أنحاء العالم مع أكثر من 350 معروضة حقيقية.", "he": "ריפלי - תאמין או לא! אחד המוזיאונים המפורסמים בעולם, ממקורו בארה\"ב. אוסף פלאים מרחבי העולם עם יותר מ-350 תצוגות אמיתיות."},
       "heroImage": "https://kimi-web-img.kimi.ai/img/media-cdn.tripadvisor.com/a1833167d141abadda5ebff4a78290a2f80f0405.jpg",
-      "images": ["https://kimi-web-img.kimi.ai/img/media-cdn.tripadvisor.com/a1833167d141abadda5ebff4a78290a2f80f0405.jpg"],
+      "images": ["https://kimi-web-img.kimi.ai/img/media-cdn.tripadvisor.com/a1833167d141abadda5ebff4a78290a2f80f0405.jpg", "https://kimi-web-img.kimi.ai/img/chillpainai.com/6b6ca55bf23d39e1c10f3d998c584e554a8a3b57.jpg", "https://kimi-web-img.kimi.ai/img/thethaitourism.com/eb26aad509896244c365b0b274baedbb2b56e847.webp"],
       "videos": [{"url": "https://www.youtube.com/embed/dQw4w9WgXcQ", "title": {"th": "แนะนำพิพิธภัณฑ์", "en": "Museum Introduction", "zh": "博物馆介绍", "jp": "博物館紹介", "ru": "Введение в музей", "ar": "مقدمة المتحف", "he": "הקדמה למוזיאון"}}],
       "mapUrl": "https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5"
     },
     {
+      "id": "scream",
+      "title": {"th": "😱 Scream in the Dark", "en": "😱 Scream in the Dark", "zh": "😱 黑暗尖叫", "jp": "😱 スクリーム・イン・ザ・ダーク", "ru": "😱 Крик во тьме", "ar": "😱 الصراخ في الظلام", "he": "😱 צריחה בחושך"},
+      "subtitle": {"th": "สวนสนุกสุดสยอง", "en": "Ultimate Horror Amusement", "zh": "终极恐怖娱乐", "jp": "究極のホラーアミューズメント", "ru": "Ультимативные ужасы", "ar": "الترفيه الرعب المطلق", "he": "בידור אימה אולטימטיבי"},
+      "desc": {"th": "เครื่องเล่นใหม่ล่าสุดของ Ripley World Pattaya เครื่องเล่นสุดมันส์อันดับที่ 6 ที่จะมาต้อนรับเหล่าบรรดาคนรักความท้าทายแบบสยองขวัญ", "en": "The latest ride at Ripley World Pattaya, ranked #6 most thrilling ride welcoming horror challenge lovers.", "zh": "Ripley World Pattaya的最新游乐设施，排名第6的惊险游乐设施，欢迎恐怖挑战爱好者。", "jp": "リプリーワールドパタヤの最新アトラクション、スリル満点ランキング第6位。ホラーチャレンジ愛好家を歓迎。", "ru": "Новейший аттракцион в Ripley World Pattaya, занявший 6-е место в рейтинге самых захватывающих.", "ar": "أحدث ألعاب ريبلي وورلد باتايا، المرتبة السادسة في الألعاب الأكثر إثارة.", "he": "המתקן החדש ביותר בריפלי וורלד פטאיה, מדורג במקום ה-6 במתקנים המרגשים ביותר."},
+      "heroImage": "https://kimi-web-img.kimi.ai/img/www.renown-travel.com/f6c691678a5907f4b190eea56c681331ecc3732f.jpg",
+      "images": ["https://kimi-web-img.kimi.ai/img/www.renown-travel.com/f6c691678a5907f4b190eea56c681331ecc3732f.jpg", "https://kimi-web-img.kimi.ai/img/www.renown-travel.com/664f819353525a8d1379331964c6005472e15535.jpg"],
+      "videos": [{"url": "https://www.youtube.com/embed/dQw4w9WgXcQ", "title": {"th": "ตัวอย่าง Scream in the Dark", "en": "Scream in the Dark Preview", "zh": "黑暗尖叫预览", "jp": "スクリーム・イン・ザ・ダーク予告", "ru": "Превью Крика во тьме", "ar": "معاينة الصراخ في الظلام", "he": "תצוגה מקדימה של צריחה בחושך"}}],
+      "mapUrl": "https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5",
+      "gameRules": {
+        "th": {
+          "howToPlay": ["สำรวจสวนสนุกที่ถูกทิ้งร้างในความมืด", "ค้นหาทางออกท่ามกลางความหวาดกลัว", "หลีกเลี่ยงสิ่งมีชีวิตที่น่ากลัว", "ทำให้สำเร็จภายในเวลาที่กำหนด"],
+          "couponRules": ["สำเร็จภายใน 10 นาที = รับคูปองส่วนลด 10%", "สำเร็จภายใน 6 นาที = รับคูปองส่วนลด 20%"]
+        },
+        "en": {
+          "howToPlay": ["Explore the abandoned amusement park in darkness", "Find the exit amidst the terror", "Avoid the scary creatures", "Complete within the time limit"],
+          "couponRules": ["Complete within 10 minutes = Get 10% discount coupon", "Complete within 6 minutes = Get 20% discount coupon"]
+        },
+        "zh": {
+          "howToPlay": ["在黑暗中探索废弃的游乐园", "在恐怖中找到出口", "避开可怕的生物", "在规定时间内完成"],
+          "couponRules": ["10分钟内完成 = 获得10%折扣券", "6分钟内完成 = 获得20%折扣券"]
+        },
+        "jp": {
+          "howToPlay": ["暗闇で廃墟の遊園地を探索", "恐怖の中で出口を見つける", "怖い生き物を避ける", "時間内に完了する"],
+          "couponRules": ["10分以内クリア = 10%割引クーポン獲得", "6分以内クリア = 20%割引クーポン獲得"]
+        },
+        "ru": {
+          "howToPlay": ["Исследуйте заброшенный парк развлечений в темноте", "Найдите выход среди ужаса", "Избегайте страшных существ", "Завершите за отведенное время"],
+          "couponRules": ["Пройти за 10 минут = Получить купон на скидку 10%", "Пройти за 6 минут = Получить купон на скидку 20%"]
+        },
+        "ar": {
+          "howToPlay": ["استكشف مدينة الملاهي المهجورة في الظلام", "ابحث عن المخرج وسط الرعب", "تجنب المخلوقات المخيفة", "أكمل في الوقت المحدد"],
+          "couponRules": ["أكمل في 10 دقائق = كوبون خصم 10%", "أكمل في 6 دقائق = كوبون خصم 20%"]
+        },
+        "he": {
+          "howToPlay": ["חקור את פארק השעשועים הנטוש בחושך", "מצא את היציאה בתוך האימה", "הימנע מהיצורים המפחידים", "השלם בזמן המוגבל"],
+          "couponRules": ["השלם תוך 10 דקות = קבל קופון הנחה 10%", "השלם תוך 6 דקות = קבל קופון הנחה 20%"]
+        }
+      }
+    },
+    {
+      "id": "haunted",
+      "title": {"th": "👻 โกดังผีสิง", "en": "👻 Haunted Adventure", "zh": " 鬼屋冒险", "jp": "👻 ホーンテッド・アドベンチャー", "ru": "👻 Приключение с привидениями", "ar": " مغامرة مسكونة", "he": "👻 הרפתקה רדופה"},
+      "subtitle": {"th": "เมื่อฝันร้ายมาเยือน", "en": "When Nightmares Come True", "zh": "当噩梦成真", "jp": "悪夢が現実になる時", "ru": "Когда кошмары становятся явью", "ar": "عندما تصبح الكوابيس حقيقة", "he": "כשסיוטים הופכים למציאות"},
+      "desc": {"th": "โกดังเก็บโลงศพที่ใหญ่ที่สุดในจำนวน 5 แห่งในโลก ที่มีตำนานอันน่ากลัวและความหฤโหดที่ถูกกล่าวขานมากว่า 80 ปี พบกับภูตผีปีศาจและแขกไม่ได้รับเชิญจากอีกภพ", "en": "One of the world's 5 largest coffin warehouses with terrifying legends told for over 80 years.", "zh": "世界上最大的5个棺材仓库之一，拥有超过80年的恐怖传说。", "jp": "世界で5番目に大きい棺の倉庫の一つ。80年以上にわたる恐ろしい伝説。", "ru": "Один из 5 крупнейших в мире складов гробов с ужасающими легендами, рассказываемыми более 80 лет.", "ar": "أحد أكبر 5 مستودعات توابيت في العالم، مع أساطير مرعبة تُروى منذ أكثر من 80 عامًا.", "he": "אחד מ-5 מחסני הארונות הגדולים בעולם, עם אגדות מפחידות המסופרות מעל 80 שנה."},
+      "heroImage": "https://kimi-web-img.kimi.ai/img/www.renown-travel.com/ee2487528046ba93492c01c3d675890011590d50.jpg",
+      "images": ["https://kimi-web-img.kimi.ai/img/www.renown-travel.com/ee2487528046ba93492c01c3d675890011590d50.jpg"],
+      "videos": [{"url": "https://www.youtube.com/embed/dQw4w9WgXcQ", "title": {"th": "โกดังผีสิง", "en": "Haunted Adventure", "zh": "鬼屋冒险", "jp": "ホーンテッド・アドベンチャー", "ru": "Приключение с привидениями", "ar": "مغامرة مسكونة", "he": "הרפתקה רדופה"}}],
+      "mapUrl": "https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5"
+    },
+    {
+      "id": "waxworks",
+      "title": {"th": "🎭 พิพิธภัณฑ์หุ่นขี้ผึ้งหลุยส์ ทุสโซด์ส", "en": "🎭 Louis Tussaud's Waxworks", "zh": " 路易斯杜莎蜡像馆", "jp": "🎭 ルイス・タッソー・ワックスワークス", "ru": "🎭 Восковые фигуры Луи Тюссо", "ar": "🎭 تماثيل شمع لويس توسو", "he": " פסלי השעווה של לואי טוסו"},
+      "subtitle": {"th": "ความอัศจรรย์ที่คุณต้องตะลึง", "en": "Wonders That Will Amaze You", "zh": "让你惊叹的奇迹", "jp": "あなたを驚かせる驚異", "ru": "Чудеса, которые вас поразят", "ar": "عجائب ستذهلك", "he": "פלאים שישאירו אותך המום"},
+      "desc": {"th": "เป็นสาขาที่ 5 ของโลก ครั้งแรกของประเทศไทย สำหรับพิพิธภัณฑ์หุ่นขี้ผึ้งที่จัดแสดงหุ่นขี้ผึ้งเสมือนจริงของบุคคลสำคัญและคนดังระดับโลกทั้งไทยและเทศ รวมมากกว่า 84 ตัว", "en": "The world's 5th branch, first in Thailand. A wax museum displaying lifelike wax figures of world-class celebrities.", "zh": "全球第5家分店，泰国首家。展示84多位泰国和国际名人的逼真蜡像。", "jp": "世界で5番目、タイ初の支店。世界クラスの有名人の84体以上のリアルな人形を展示。", "ru": "5-я в мире филиал, первый в Таиланде. Музей восковых фигур демонстрирует 84+ реалистичные фигуры мировых знаменитостей.", "ar": "الفرع الخامس في العالم، الأول في تايلاند. متحف تماثيل الشمع يعرض أكثر من 84 تمثالاً حقيقياً لمشاهير عالميين.", "he": "הסניף החמישי בעולם, הראשון בתאילנד. מוזיאון פסלי שעווה המציג יותר מ-84 פסלים מציאותיים של מפורסמים עולמיים."},
+      "heroImage": "https://kimi-web-img.kimi.ai/img/www.royalgardenplaza.co.th/9d0d2ecede95dea4e1c9045d7a15a76f1e7c95fe.jpg",
+      "images": ["https://kimi-web-img.kimi.ai/img/www.royalgardenplaza.co.th/9d0d2ecede95dea4e1c9045d7a15a76f1e7c95fe.jpg", "https://kimi-web-img.kimi.ai/img/image.makewebcdn.com/e9c1ff522a9afe370d307f689464bc975e6d7296.jpg"],
+      "videos": [{"url": "https://www.youtube.com/embed/dQw4w9WgXcQ", "title": {"th": "หุ่นขี้ผึ้งหลุยส์ ทุสโซด์ส", "en": "Louis Tussaud's Waxworks", "zh": "路易斯杜莎蜡像馆", "jp": "ルイス・タッソー・ワックスワークス", "ru": "Восковые фигуры Луи Тюссо", "ar": "تماثيل شمع لويس توسو", "he": "פסלי השעווה של לואי טוסו"}}],
+      "mapUrl": "https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5"
+    },
+    {
+      "id": "infinity",
+      "title": {"th": "🌀 มหัศจรรย์เขาวงกต", "en": "🌀 Infinity Maze", "zh": "🌀 无限迷宫", "jp": "🌀 インフィニティ・メイズ", "ru": "🌀 Лабиринт Бесконечности", "ar": "🌀 متاهة اللانهاية", "he": "🌀 מבוך האינסוף"},
+      "subtitle": {"th": "เปิดโลกแห่งจินตนาการ", "en": "Open the World of Imagination", "zh": "打开想象世界", "jp": "想像力の世界を開く", "ru": "Откройте мир воображения", "ar": "افتح عالم الخيال", "he": "פתח את עולם הדמיון"},
+      "desc": {"th": "ที่สุดของความบันเทิงที่ต้องพิสูจน์ด้วยสายตา ตลอด 20 นาทีของการเดินทางใน 'อินฟินนิตี้' เพลินเพลินกับแว่นสุดพิเศษที่จะพาคุณไปพบกับความอัศจรรย์ของแสง-สี-เสียง", "en": "The ultimate entertainment. A 20-minute journey through 'Infinity' with special glasses.", "zh": "终极娱乐。20分钟的'无限'之旅，戴上特殊眼镜。", "jp": "究極のエンターテイメント。特殊メガネで\"インフィニティ\"を20分間の旅。", "ru": "Развлечение высшего класса. 20-минутное путешествие через 'Бесконечность' со специальными очками.", "ar": "أقصى درجات الترفيه. رحلة 20 دقيقة عبر 'اللانهاية' مع نظارات خاصة.", "he": "בידור אולטימטיבי. מסע של 20 דקות דרך 'אינסוף' עם משקפיים מיוחדות."},
+      "heroImage": "https://kimi-web-img.kimi.ai/img/www.renown-travel.com/ef422a4440a823195b6cbcc06b3dbd27cdf73ab1.jpg",
+      "images": ["https://kimi-web-img.kimi.ai/img/www.renown-travel.com/ef422a4440a823195b6cbcc06b3dbd27cdf73ab1.jpg"],
+      "videos": [{"url": "https://www.youtube.com/embed/dQw4w9WgXcQ", "title": {"th": "มหัศจรรย์เขาวงกต", "en": "Infinity Maze", "zh": "无限迷宫", "jp": "インフィニティ・メイズ", "ru": "Лабиринт Бесконечности", "ar": "متاهة اللانهاية", "he": "מבוך האינסוף"}}],
+      "mapUrl": "https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5"
+    },
+    {
       "id": "laser",
-      "title": {"th": "🔦 The Vault Laser Maze", "en": "🔦 The Vault Laser Maze", "zh": "🔦 激光迷宫", "jp": " レーザーメイズ", "ru": " Лазерный лабиринт", "ar": "🔦 متاهة الليزر", "he": "🔦 מבוך הלייזר"},
+      "title": {"th": " The Vault Laser Maze", "en": " The Vault Laser Maze", "zh": " 激光迷宫", "jp": " レーザーメイズ", "ru": "🔦 Лазерный лабиринт", "ar": " متاهة الليزر", "he": "🔦 מבוך הלייזר"},
       "subtitle": {"th": "ภารกิจสุดระทึก", "en": "Thrilling Mission", "zh": "惊险任务", "jp": "スリリングなミッション", "ru": "Захватывающая миссия", "ar": "مهمة مثيرة", "he": "משימה מרגשת"},
-      "desc": {"th": "เกมที่ทำให้คุณต้องสวมวิญญาณนักจารกรรมเหมือนในภาพยนตร์", "en": "A game that makes you feel like a movie spy.", "zh": "让你感觉像电影间谍的游戏。", "jp": "映画のスパイになった気分になれるゲーム。", "ru": "Игра, в которой вы почувствуете себя шпионом из кино.", "ar": "لعبة تجعلك تشعر وكأنك جاسوس من الأفلام.", "he": "משחק שיגרום לך להרגיש כמו מרגל בסרט."},
+      "desc": {"th": "เกมที่ทำให้คุณต้องสวมวิญญาณนักจารกรรมเหมือนในภาพยนตร์ เพียงย่างก้าวแรกเข้าสู่ห้องปฏิบัติภารกิจที่สุดแสนจะลึกลับ ดั่งเขาวงกตลำแสงเลเซอร์สีเขียวจะปรากฏขึ้นเบื้องหน้า", "en": "A game that makes you feel like a movie spy. Navigate through a laser maze.", "zh": "让你感觉像电影间谍的游戏。穿越激光迷宫。", "jp": "映画のスパイになった気分になれるゲーム。レーザーメイズを攻略。", "ru": "Игра, в которой вы почувствуете себя шпионом из кино. Пройдите через лазерный лабиринт.", "ar": "لعبة تجعلك تشعر وكأنك جاسوس من الأفلام. اجتاز متاهة الليزر.", "he": "משחק שיגרום לך להרגיש כמו מרגל בסרט. נווט דרך מבוך הלייזר."},
       "heroImage": "https://kimi-web-img.kimi.ai/img/www.renown-travel.com/4aaf70ec9e9b88cadb1c53498b9bf759dc1a0d44.jpg",
       "images": ["https://kimi-web-img.kimi.ai/img/www.renown-travel.com/4aaf70ec9e9b88cadb1c53498b9bf759dc1a0d44.jpg"],
       "videos": [{"url": "https://www.youtube.com/embed/dQw4w9WgXcQ", "title": {"th": "ตะลุยเลเซอร์", "en": "Laser Maze Challenge", "zh": "激光迷宫挑战", "jp": "レーザー・メイズ・チャレンジ", "ru": "Лазерный лабиринт", "ar": "تحدي متاهة الليزر", "he": "אתגר מבוך הלייזר"}}],
@@ -51,44 +121,44 @@
       }
     },
     {
-      "id": "scream",
-      "title": {"th": "😱 Scream in the Dark", "en": "😱 Scream in the Dark", "zh": "😱 黑暗尖叫", "jp": "😱 スクリーム・イン・ザ・ダーク", "ru": "😱 Крик во тьме", "ar": " الصراخ في الظلام", "he": "😱 צריחה בחושך"},
-      "subtitle": {"th": "สวนสนุกสุดสยอง", "en": "Ultimate Horror Amusement", "zh": "终极恐怖娱乐", "jp": "究極のホラーアミューズメント", "ru": "Ультимативные ужасы", "ar": "الترفيه الرعب المطلق", "he": "בידור אימה אולטימטיבי"},
-      "desc": {"th": "เครื่องเล่นใหม่ล่าสุดของ Ripley World Pattaya", "en": "The latest ride at Ripley World Pattaya.", "zh": "Ripley World Pattaya的最新游乐设施。", "jp": "リプリーワールドパタヤの最新アトラクション。", "ru": "Новейший аттракцион в Ripley World Pattaya.", "ar": "أحدث ألعاب ريبلي وورلد باتايا.", "he": "המתקן החדש ביותר בריפלי וורלד פטאיה."},
-      "heroImage": "https://kimi-web-img.kimi.ai/img/www.renown-travel.com/f6c691678a5907f4b190eea56c681331ecc3732f.jpg",
-      "images": ["https://kimi-web-img.kimi.ai/img/www.renown-travel.com/f6c691678a5907f4b190eea56c681331ecc3732f.jpg"],
-      "videos": [{"url": "https://www.youtube.com/embed/dQw4w9WgXcQ", "title": {"th": "ตัวอย่าง Scream in the Dark", "en": "Scream in the Dark Preview", "zh": "黑暗尖叫预览", "jp": "スクリーム・イン・ザ・ダーク予告", "ru": "Превью Крика во тьме", "ar": "معاينة الصراخ في الظلام", "he": "תצוגה מקדימה של צריחה בחושך"}}],
-      "mapUrl": "https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5",
-      "gameRules": {
-        "th": {
-          "howToPlay": ["สำรวจสวนสนุกที่ถูกทิ้งร้างในความมืด", "ค้นหาทางออกท่ามกลางความหวาดกลัว", "หลีกเลี่ยงสิ่งมีชีวิตที่น่ากลัว", "ทำให้สำเร็จภายในเวลาที่กำหนด"],
-          "couponRules": ["สำเร็จภายใน 10 นาที = รับคูปองส่วนลด 10%", "สำเร็จภายใน 6 นาที = รับคูปองส่วนลด 20%"]
-        },
-        "en": {
-          "howToPlay": ["Explore the abandoned amusement park in darkness", "Find the exit amidst the terror", "Avoid the scary creatures", "Complete within the time limit"],
-          "couponRules": ["Complete within 10 minutes = Get 10% discount coupon", "Complete within 6 minutes = Get 20% discount coupon"]
-        },
-        "zh": {
-          "howToPlay": ["在黑暗中探索废弃的游乐园", "在恐怖中找到出口", "避开可怕的生物", "在规定时间内完成"],
-          "couponRules": ["10分钟内完成 = 获得10%折扣券", "6分钟内完成 = 获得20%折扣券"]
-        },
-        "jp": {
-          "howToPlay": ["暗闇で廃墟の遊園地を探索", "恐怖の中で出口を見つける", "怖い生き物を避ける", "時間内に完了する"],
-          "couponRules": ["10分以内クリア = 10%割引クーポン獲得", "6分以内クリア = 20%割引クーポン獲得"]
-        },
-        "ru": {
-          "howToPlay": ["Исследуйте заброшенный парк развлечений в темноте", "Найдите выход среди ужаса", "Избегайте страшных существ", "Завершите за отведенное время"],
-          "couponRules": ["Пройти за 10 минут = Получить купон на скидку 10%", "Пройти за 6 минут = Получить купон на скидку 20%"]
-        },
-        "ar": {
-          "howToPlay": ["استكشف مدينة الملاهي المهجورة في الظلام", "ابحث عن المخرج وسط الرعب", "تجنب المخلوقات المخيفة", "أكمل في الوقت المحدد"],
-          "couponRules": ["أكمل في 10 دقائق = كوبون خصم 10%", "أكمل في 6 دقائق = كوبون خصم 20%"]
-        },
-        "he": {
-          "howToPlay": ["חקור את פארק השעשועים הנטוש בחושך", "מצא את היציאה בתוך האימה", "הימנע מהיצורים המפחידים", "השלם בזמן המוגבל"],
-          "couponRules": ["השלם תוך 10 דקות = קבל קופון הנחה 10%", "השלם תוך 6 דקות = קבל קופון הנחה 20%"]
-        }
-      }
+      "id": "hospital",
+      "title": {"th": "🏥 โรงพยาบาลหลอน", "en": "🏥 The Horror Hospital", "zh": "🏥 恐怖医院", "jp": "🏥 ホラー・ホスピタル", "ru": " Больница Ужасов", "ar": "🏥 مستشفى الرعب", "he": "🏥 בית החולים האימה"},
+      "subtitle": {"th": "สุดเฮี้ยน ไม่เหมาะสำหรับคนขวัญอ่อน", "en": "Extremely Haunted - Not for the Faint-hearted", "zh": "极度闹鬼 - 不适合胆小者", "jp": "極度の幽霊屋敷 - 心臓の弱い人は注意", "ru": "Крайне жутко - Не для слабонервных", "ar": "مسكون للغاية - ليس لضعاف القلوب", "he": "רדוף בצורה קיצונית - לא לחלשי לב"},
+      "desc": {"th": "ณ เมืองหนึ่งทางตอนใต้อันห่างไกลของประเทศอังกฤษ สืบเนื่องจากคำเล่าขานของญาติและผู้ใกล้ชิดของผู้ป่วยมากมายที่เข้ารับการรักษาในโรงพยาบาลแห่งนี้", "en": "In a town in the remote south of England, a haunted hospital with terrifying tales.", "zh": "在英格兰偏远南部的一个小镇，一家闹鬼的医院，有着恐怖的故事。", "jp": "イングランドの遠い南部の町で、恐ろしい話を持つ幽霊病院。", "ru": "В городке в отдаленном юге Англии, жуткая больница с ужасающими рассказами.", "ar": "في بلدة في جنوب إنجلترا النائي، مستشفى مسكون بقصص مرعبة.", "he": "בעיירה בדרום אנגליה הנידח, בית חולים רדוף עם סיפורים מפחידים."},
+      "heroImage": "https://kimi-web-img.kimi.ai/img/thepattayanews.com/3a58c10c63179d60dc2d856ec557b39f6dc79ec0.webp",
+      "images": ["https://kimi-web-img.kimi.ai/img/thepattayanews.com/3a58c10c63179d60dc2d856ec557b39f6dc79ec0.webp", "https://kimi-web-img.kimi.ai/img/static.ticket2attraction.com/a6360aa29e26b849de4505fc38e3bdb494f71c88.webp"],
+      "videos": [{"url": "https://www.youtube.com/embed/dQw4w9WgXcQ", "title": {"th": "โรงพยาบาลหลอน", "en": "The Horror Hospital", "zh": "恐怖医院", "jp": "ホラー・ホスピタル", "ru": "Больница Ужасов", "ar": "مستشفى الرعب", "he": "בית החולים האימה"}}],
+      "mapUrl": "https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5"
+    },
+    {
+      "id": "pyramid",
+      "title": {"th": " พีระมิดที่สาบสูญ", "en": "🔺 The Lost Pyramid", "zh": "🔺 失落金字塔", "jp": "🔺 失われたピラミッド", "ru": "🔺 Потерянная Пирамида", "ar": "🔺 الهرم المفقود", "he": "🔺 הפירמידה האבודה"},
+      "subtitle": {"th": "Edutainment จากอียิปต์โบราณ", "en": "Ancient Egypt Edutainment", "zh": "古埃及教育娱乐", "jp": "古代エジプトのエデュテインメント", "ru": "Древнеегипетский эдютейнмент", "ar": "ترفيه تعليمي من مصر القديمة", "he": "אדוטיינמנט ממצרים העתיקה"},
+      "desc": {"th": "ยกความลึกลับมาจากอียิปต์เมื่อกว่า 4,700 ปีที่แล้ว เป็นหนึ่งใน 7 สิ่งมหัศจรรย์ของโลก ดินแดนของกษัตริย์ฟาโรห์", "en": "Bringing mystery from Egypt over 4,700 years ago. One of the 7 Wonders of the World.", "zh": "带来4700多年前埃及的神秘。世界七大奇迹之一。", "jp": "4700年以上前のエジプトから謎を持ち込みました。世界7不思議の一つ。", "ru": "Принося тайну из Египта более 4700 лет назад. Одно из 7 чудес света.", "ar": "جلب الغموض من مصر منذ أكثر من 4700 عام. واحدة من عجائب الدنيا السبع.", "he": "מביא תעלומה ממצרים מלפני יותר מ-4700 שנה. אחד מ-7 פלאי העולם."},
+      "heroImage": "https://kimi-web-img.kimi.ai/img/www.royalgardenplaza.co.th/de998875599620173057496e15bb3e1463ad799f.jpg",
+      "images": ["https://kimi-web-img.kimi.ai/img/www.royalgardenplaza.co.th/de998875599620173057496e15bb3e1463ad799f.jpg", "https://kimi-web-img.kimi.ai/img/ripleysthailand.com/600e292e1fae9a2a45ac10e9c3eafb95e5980d08.webp"],
+      "videos": [{"url": "https://www.youtube.com/embed/dQw4w9WgXcQ", "title": {"th": "พีระมิดที่สาบสูญ", "en": "The Lost Pyramid", "zh": "失落金字塔", "jp": "失われたピラミッド", "ru": "Потерянная Пирамида", "ar": "الهرم المفقود", "he": "הפירמידה האבודה"}}],
+      "mapUrl": "https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5"
+    },
+    {
+      "id": "interactive",
+      "title": {"th": "🎮 Play Neo (เกมอินเตอร์แอคทีฟ)", "en": "🎮 Play Neo", "zh": "🎮 互动游戏", "jp": "🎮 インタラクティブ・ゲーム", "ru": "🎮 Интерактивная игра", "ar": "🎮 لعبة تفاعلية", "he": "🎮 משחק אינטראקטיבי"},
+      "subtitle": {"th": "สนุก ตื่นเต้น ทุกวินาที", "en": "Fun and Exciting Every Second", "zh": "每秒都充满乐趣和刺激", "jp": "毎秒が楽しくてエキサイティング", "ru": "Весело и захватывающе каждую секунду", "ar": "ممتعة ومثيرة كل ثانية", "he": "כיף ומרגש כל שנייה"},
+      "desc": {"th": "เกมอินเตอร์แอคทีฟสุดล้ำที่จะทำให้คุณต้องขยับ สนุก และตื่นเต้นทุกวินาที รวมการเคลื่อนไหวเข้ากับภาพกราฟิกสุดมันส์", "en": "A cutting-edge interactive game that will make you move, have fun, and excite you every second.", "zh": "一款前沿的互动游戏，让您每一秒都在运动、享受乐趣和感到兴奋。", "jp": "最先端のインタラクティブゲームで、毎秒動いて、楽しくて、エキサイティングです。", "ru": "Ультрасовременная интерактивная игра, которая заставит вас двигаться, веселиться и волноваться каждую секунду.", "ar": "لعبة تفاعلية متطورة للغاية ستجعلك تتحرك وتستمتع وتنبهر كل ثانية.", "he": "משחק אינטראקטיבי חדשני שיגרום לך לזוז, ליהנות ולהתרגש כל שנייה."},
+      "heroImage": "https://kimi-web-img.kimi.ai/img/thethaitourism.com/eb26aad509896244c365b0b274baedbb2b56e847.webp",
+      "images": ["https://kimi-web-img.kimi.ai/img/thethaitourism.com/eb26aad509896244c365b0b274baedbb2b56e847.webp", "https://kimi-web-img.kimi.ai/img/res.klook.com/ed417e0c253f58090e8beab07687c4753674ce99.jpg"],
+      "videos": [{"url": "https://www.youtube.com/embed/dQw4w9WgXcQ", "title": {"th": "เกมอินเตอร์แอคทีฟ", "en": "Interactive Game", "zh": "互动游戏", "jp": "インタラクティブ・ゲーム", "ru": "Интерактивная игра", "ar": "لعبة تفاعلية", "he": "משחק אינטראקטיבי"}}],
+      "mapUrl": "https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5"
+    },
+    {
+      "id": "escape",
+      "title": {"th": " The Garden Escape(หนีตายสวนสยอง)", "en": "🌳 The Garden Escape", "zh": "🌳 逃离闹鬼公园", "jp": "🌳 ホーンテッド・パークからの脱出", "ru": " Побег из парка с привидениями", "ar": "🌳 الهروب من الحديقة المسكونة", "he": "🌳 בריחה מהפארק הרדוף"},
+      "subtitle": {"th": "ปี 1945 สงครามโลกครั้งที่สอง", "en": "1945 - World War II", "zh": "1945年 - 第二次世界大战", "jp": "1945年 - 第二次世界大戦", "ru": "1945 - Вторая мировая война", "ar": "1945 - الحرب العالمية الثانية", "he": "1945 - מלחמת העולם השנייה"},
+      "desc": {"th": "ปี ค.ศ. 1945 ท่ามกลางสงครามโลกครั้งที่สอง โรงพยาบาลแห่งหนึ่งบนเกาะทางตอนใต้ของอังกฤษ ตั้งอยู่เคียงข้างสวนสาธารณะที่เต็มไปด้วยเสียงหัวเราะ", "en": "In 1945, during World War II, a hospital on an island in southern England stood next to a public park.", "zh": "1945年，第二次世界大战期间，英格兰南部岛屿上的一家医院坐落在充满欢声笑语的公园旁边。", "jp": "1945年、第二次世界大戦中、イングランド南部の島にある病院は、笑い声に満ちた公園の隣に立っていました。", "ru": "В 1945 году, во время Второй мировой войны, больница на острове в южной Англии стояла рядом с общественным парком.", "ar": "في عام 1945، خلال الحرب العالمية الثانية، كانت مستشفى في جزيرة في جنوب إنجلترا تقع بجانب حديقة عامة.", "he": "בשנת 1945, במהלך מלחמת העולם השנייה, בית חולים באי בדרום אנגליה עמד ליד פארק ציבורי."},
+      "heroImage": "https://kimi-web-img.kimi.ai/img/static.ticket2attraction.com/a6360aa29e26b849de4505fc38e3bdb494f71c88.webp",
+      "images": ["https://kimi-web-img.kimi.ai/img/static.ticket2attraction.com/a6360aa29e26b849de4505fc38e3bdb494f71c88.webp", "https://kimi-web-img.kimi.ai/img/thepattayanews.com/3a58c10c63179d60dc2d856ec557b39f6dc79ec0.webp"],
+      "videos": [{"url": "https://www.youtube.com/embed/dQw4w9WgXcQ", "title": {"th": "หนีตายสวนสยอง", "en": "Escape from the Haunted Park", "zh": "逃离闹鬼公园", "jp": "ホーンテッド・パークからの脱出", "ru": "Побег из парка с привидениями", "ar": "الهروب من الحديقة المسكونة", "he": "בריחה מהפארק הרדוף"}}],
+      "mapUrl": "https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5"
     }
   ]
 }
