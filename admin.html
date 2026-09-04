@@ -5,204 +5,600 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - Ripley's Pattaya</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #1a1a2e; color: white; padding: 20px; }
-        .container { max-width: 1200px; margin: 0 auto; }
-        h1 { color: #ffd700; margin-bottom: 10px; }
-        .tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
-        .tab { background: rgba(255,255,255,0.1); color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        .tab.active { background: #e31e24; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        .success { background: #4CAF50; padding: 15px; border-radius: 5px; margin-bottom: 20px; display: none; }
-        .attraction { background: rgba(255,255,255,0.1); padding: 25px; margin-bottom: 25px; border-radius: 10px; border-left: 4px solid #ffd700; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; color: #ffd700; }
-        input, textarea { width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #333; background: #0a0a1a; color: white; font-family: inherit; }
-        textarea { min-height: 80px; resize: vertical; }
-        button { background: #e31e24; color: white; padding: 12px 25px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 16px; margin-right: 10px; margin-top: 10px; }
-        button:hover { background: #ff6b6b; }
-        .btn-download { background: #2196F3; }
-        .btn-download:hover { background: #64b5f6; }
-        .btn-add { background: #4CAF50; }
-        .btn-add:hover { background: #81c784; }
-        .btn-delete { background: #f44336; padding: 8px 15px; font-size: 14px; }
-        .btn-delete:hover { background: #ef5350; }
-        a { color: #ffd700; text-decoration: none; margin-left: 10px; }
-        a:hover { text-decoration: underline; }
-        .info { background: rgba(33,150,243,0.2); padding: 15px; border-radius: 5px; margin-bottom: 20px; border-left: 4px solid #2196F3; }
-        .item-row { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%); 
+            color: white; 
+            padding: 20px; 
+            min-height: 100vh;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #ffd700 0%, #e31e24 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .header p { opacity: 0.9; }
+        
+        /* Info Box */
+        .info-box {
+            background: rgba(33,150,243,0.2);
+            border-left: 4px solid #2196F3;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        .info-box h3 { color: #2196F3; margin-bottom: 1rem; }
+        .info-box ol { margin-left: 1.5rem; }
+        .info-box li { margin: 0.5rem 0; line-height: 1.6; }
+        
+        /* Success Message */
+        .success { 
+            background: #4CAF50; 
+            padding: 1rem; 
+            border-radius: 10px; 
+            margin-bottom: 1.5rem; 
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* Dropdown Section */
+        .dropdown-section {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+        .dropdown-section label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #ffd700;
+        }
+        .dropdown-section select {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 10px;
+            border: 2px solid rgba(255,215,0,0.3);
+            background: rgba(10,10,26,0.8);
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .dropdown-section select:hover {
+            border-color: #ffd700;
+            background: rgba(10,10,26,0.9);
+        }
+        .dropdown-section select:focus {
+            outline: none;
+            border-color: #ffd700;
+            box-shadow: 0 0 15px rgba(255,215,0,0.3);
+        }
+        
+        /* Form Section */
+        .form-section {
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        .form-section.active { display: block; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .form-section h2 {
+            color: #ffd700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(255,215,0,0.3);
+        }
+        
+        /* Form Groups */
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #ffd700;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(10,10,26,0.6);
+            color: white;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #ffd700;
+            box-shadow: 0 0 10px rgba(255,215,0,0.2);
+        }
+        .form-group textarea { min-height: 100px; resize: vertical; }
+        
+        /* Language Tabs */
+        .lang-tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+        .lang-tab {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .lang-tab:hover { background: rgba(255,215,0,0.2); }
+        .lang-tab.active { background: #ffd700; color: #1a1a2e; }
+        
+        .lang-content { display: none; }
+        .lang-content.active { display: block; }
+        
+        /* Item Lists */
+        .item-list { margin-top: 1rem; }
+        .item-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: center;
+            background: rgba(255,255,255,0.05);
+            padding: 1rem;
+            border-radius: 8px;
+        }
         .item-row input { flex: 1; }
+        
+        /* Buttons */
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            transition: all 0.3s;
+        }
+        .btn-add { background: #4CAF50; color: white; }
+        .btn-add:hover { background: #45a049; transform: translateY(-2px); }
+        .btn-delete { background: #f44336; color: white; padding: 0.5rem 1rem; }
+        .btn-delete:hover { background: #da190b; }
+        .btn-save { 
+            background: linear-gradient(135deg, #e31e24 0%, #ff6b6b 100%); 
+            color: white;
+            font-size: 1.2rem;
+            padding: 1rem 2rem;
+            margin-top: 2rem;
+            width: 100%;
+        }
+        .btn-save:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 10px 20px rgba(227,30,36,0.3);
+        }
+        .btn-download { background: #2196F3; color: white; }
+        .btn-download:hover { background: #1976D2; }
+        .btn-back { background: rgba(255,255,255,0.2); color: white; }
+        .btn-back:hover { background: rgba(255,255,255,0.3); }
+        
+        /* Tabs */
+        .tabs { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+        .tab {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .tab:hover { background: rgba(255,215,0,0.2); }
+        .tab.active { background: #ffd700; color: #1a1a2e; }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.8rem; }
+            .item-row { flex-direction: column; align-items: stretch; }
+            .btn { width: 100%; margin: 0.5rem 0; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🔧 Admin Panel - Ripley's Pattaya</h1>
-        <div class="info">
-            <strong>📝 วิธีใช้งาน:</strong>
-            <ol style="margin: 10px 0 0 20px;">
-                <li>แก้ไขข้อมูลในฟอร์มด้านล่าง</li>
-                <li>กดปุ่ม " บันทึกและดาวน์โหลดไฟล์"</li>
-                <li>อัพโหลดไฟล์ data.json ใหม่ขึ้น GitHub</li>
+        <!-- Header -->
+        <div class="header">
+            <h1>🔧 Admin Panel</h1>
+            <p>Ripley's Believe It or Not! Pattaya</p>
+        </div>
+        
+        <!-- Info Box -->
+        <div class="info-box">
+            <h3>📝 วิธีใช้งาน</h3>
+            <ol>
+                <li><strong>เลือกเครื่องเล่น</strong> จากเมนู Dropdown ด้านบน</li>
+                <li><strong>แก้ไขข้อมูล</strong> ในฟอร์ม (รองรับ 7 ภาษา)</li>
+                <li><strong>เพิ่ม/ลบ</strong> รูปภาพและวิดีโอตามต้องการ</li>
+                <li><strong>กดปุ่ม "💾 บันทึกและดาวน์โหลดไฟล์"</strong></li>
+                <li><strong>อัพโหลดไฟล์ data.json</strong> ใหม่ขึ้น GitHub</li>
                 <li>Cloudflare จะอัพเดทอัตโนมัติภายใน 1 นาที</li>
             </ol>
         </div>
-        <div id="success" class="success">✅ บันทึกข้อมูลสำเร็จ! กรุณาอัพโหลดไฟล์ data.json ใหม่</div>
         
+        <!-- Success Message -->
+        <div id="success" class="success">
+            ✅ <strong>บันทึกข้อมูลสำเร็จ!</strong> กรุณาอัพโหลดไฟล์ data.json ใหม่ขึ้น GitHub
+        </div>
+        
+        <!-- Tabs -->
         <div class="tabs">
             <button class="tab active" onclick="showTab('attractions')"> เครื่องเล่น</button>
-            <button class="tab" onclick="showTab('export')"> Export/Import</button>
+            <button class="tab" onclick="showTab('export')">💾 Export/Import</button>
         </div>
-
+        
+        <!-- Attractions Tab -->
         <div id="tab-attractions" class="tab-content active">
-            <div id="attractionsList"></div>
+            <!-- Dropdown Section -->
+            <div class="dropdown-section">
+                <label for="attractionSelect"> เลือกเครื่องเล่นที่ต้องการแก้ไข:</label>
+                <select id="attractionSelect" onchange="loadAttraction()">
+                    <option value="">-- เลือกเครื่องเล่น --</option>
+                </select>
+            </div>
+            
+            <!-- Form Section -->
+            <div id="formSection" class="form-section">
+                <h2 id="formTitle">แก้ไขข้อมูลเครื่องเล่น</h2>
+                
+                <!-- Basic Info -->
+                <div class="form-group">
+                    <label>📸 รูปหลัก (URL)</label>
+                    <input type="text" id="heroImage" placeholder="https://example.com/image.jpg">
+                </div>
+                
+                <div class="form-group">
+                    <label>📍 ลิงก์แผนที่ Google Maps</label>
+                    <input type="text" id="mapUrl" placeholder="https://maps.app.goo.gl/...">
+                </div>
+                
+                <!-- Multi-language Fields -->
+                <div class="form-group">
+                    <label>🌐 ชื่อเครื่องเล่น (หลายภาษา)</label>
+                    <div class="lang-tabs">
+                        <button class="lang-tab active" onclick="showLang('title', 'th')">🇭 ไทย</button>
+                        <button class="lang-tab" onclick="showLang('title', 'en')">🇬🇧 English</button>
+                        <button class="lang-tab" onclick="showLang('title', 'zh')">🇨🇳 中文</button>
+                        <button class="lang-tab" onclick="showLang('title', 'jp')">🇯🇵 日本語</button>
+                        <button class="lang-tab" onclick="showLang('title', 'ru')">🇷🇺 Русский</button>
+                        <button class="lang-tab" onclick="showLang('title', 'ar')">🇸🇦 العربية</button>
+                        <button class="lang-tab" onclick="showLang('title', 'he')">🇱 עברית</button>
+                    </div>
+                    <div id="title-th" class="lang-content active">
+                        <input type="text" id="titleTh" placeholder="ชื่อภาษาไทย">
+                    </div>
+                    <div id="title-en" class="lang-content">
+                        <input type="text" id="titleEn" placeholder="Name in English">
+                    </div>
+                    <div id="title-zh" class="lang-content">
+                        <input type="text" id="titleZh" placeholder="中文名称">
+                    </div>
+                    <div id="title-jp" class="lang-content">
+                        <input type="text" id="titleJp" placeholder="日本語の名前">
+                    </div>
+                    <div id="title-ru" class="lang-content">
+                        <input type="text" id="titleRu" placeholder="Название на русском">
+                    </div>
+                    <div id="title-ar" class="lang-content">
+                        <input type="text" id="titleAr" placeholder="الاسم بالعربية">
+                    </div>
+                    <div id="title-he" class="lang-content">
+                        <input type="text" id="titleHe" placeholder="שם בעברית">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>📝 คำบรรยายสั้น (หลายภาษา)</label>
+                    <div class="lang-tabs">
+                        <button class="lang-tab active" onclick="showLang('subtitle', 'th')">🇹🇭 ไทย</button>
+                        <button class="lang-tab" onclick="showLang('subtitle', 'en')">🇧 English</button>
+                    </div>
+                    <div id="subtitle-th" class="lang-content active">
+                        <input type="text" id="subtitleTh" placeholder="คำบรรยายสั้นภาษาไทย">
+                    </div>
+                    <div id="subtitle-en" class="lang-content">
+                        <input type="text" id="subtitleEn" placeholder="Short description in English">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>📖 รายละเอียด (หลายภาษา)</label>
+                    <div class="lang-tabs">
+                        <button class="lang-tab active" onclick="showLang('desc', 'th')">🇹🇭 ไทย</button>
+                        <button class="lang-tab" onclick="showLang('desc', 'en')">🇧 English</button>
+                    </div>
+                    <div id="desc-th" class="lang-content active">
+                        <textarea id="descTh" placeholder="รายละเอียดภาษาไทย"></textarea>
+                    </div>
+                    <div id="desc-en" class="lang-content">
+                        <textarea id="descEn" placeholder="Description in English"></textarea>
+                    </div>
+                </div>
+                
+                <!-- Images Section -->
+                <div class="form-group">
+                    <label>️ รูปภาพในแกลเลอรี่</label>
+                    <div id="imagesList" class="item-list"></div>
+                    <button class="btn btn-add" onclick="addImage()">+ เพิ่มรูปภาพ</button>
+                </div>
+                
+                <!-- Videos Section -->
+                <div class="form-group">
+                    <label>🎬 วิดีโอ</label>
+                    <div id="videosList" class="item-list"></div>
+                    <button class="btn btn-add" onclick="addVideo()">+ เพิ่มวิดีโอ</button>
+                </div>
+                
+                <!-- Save Button -->
+                <button class="btn btn-save" onclick="saveCurrentAttraction()">
+                    💾 บันทึกและดาวน์โหลดไฟล์
+                </button>
+            </div>
         </div>
-
+        
+        <!-- Export/Import Tab -->
         <div id="tab-export" class="tab-content">
-            <div class="info">
+            <div class="info-box">
                 <h3>💾 สำรองและกู้คืนข้อมูล</h3>
                 <p>ใช้ฟังก์ชันนี้เพื่อสำรองข้อมูลทั้งหมดหรือกู้คืนจากไฟล์สำรอง</p>
             </div>
-            <button onclick="exportData()" class="btn-download"> Export JSON (ดาวน์โหลดข้อมูล)</button>
-            <div style="margin-top: 20px;">
-                <label>Import JSON (อัพโหลดข้อมูล):</label>
-                <input type="file" id="importFile" accept=".json" onchange="importData(this)">
+            <button class="btn btn-download" onclick="exportData()">📥 Export JSON (ดาวน์โหลดข้อมูล)</button>
+            <div style="margin-top: 2rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">📤 Import JSON (อัพโหลดข้อมูล):</label>
+                <input type="file" id="importFile" accept=".json" onchange="importData(this)" style="width: 100%; padding: 1rem; border-radius: 8px; background: rgba(10,10,26,0.6); border: 1px solid rgba(255,255,255,0.2); color: white;">
             </div>
         </div>
-
-        <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid rgba(255,255,255,0.1);">
-            <button onclick="saveAll()" style="font-size: 18px; padding: 15px 30px;">💾 บันทึกและดาวน์โหลดไฟล์</button>
-            <button onclick="downloadJSON()" class="btn-download"> ดาวน์โหลด JSON</button>
-            <a href="index.html">← กลับหน้าหลัก</a>
+        
+        <!-- Bottom Buttons -->
+        <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px solid rgba(255,255,255,0.1);">
+            <a href="index.html" class="btn btn-back">← กลับหน้าหลัก</a>
         </div>
     </div>
 
     <script>
         let data = { attractions: [] };
+        let currentIndex = -1;
 
+        // Load data on startup
         async function loadData() {
             try {
                 const response = await fetch('data.json');
                 data = await response.json();
                 if (!data.attractions) data.attractions = [];
-                renderAttractions();
+                populateDropdown();
             } catch (e) {
                 alert('ไม่สามารถโหลดไฟล์ data.json ได้');
             }
         }
 
-        function showTab(tabName) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
-            document.getElementById('tab-' + tabName).classList.add('active');
-        }
-
-        function renderAttractions() {
-            const html = data.attractions.map((a, index) => `
-                <div class="attraction">
-                    <h2>🎢 ${a.title?.th || a.title?.en || 'เครื่องเล่น ' + (index + 1)} (#${index + 1})</h2>
-                    <div class="form-group">
-                        <label>ชื่อ (ไทย)</label>
-                        <input type="text" id="attr-title-th-${index}" value="${a.title?.th || ''}">
-                    </div>
-                    <div class="form-group">
-                        <label>ชื่อ (อังกฤษ)</label>
-                        <input type="text" id="attr-title-en-${index}" value="${a.title?.en || ''}">
-                    </div>
-                    <div class="form-group">
-                        <label>คำบรรยายสั้น (ไทย)</label>
-                        <input type="text" id="attr-subtitle-th-${index}" value="${a.subtitle?.th || ''}">
-                    </div>
-                    <div class="form-group">
-                        <label>คำบรรยายสั้น (อังกฤษ)</label>
-                        <input type="text" id="attr-subtitle-en-${index}" value="${a.subtitle?.en || ''}">
-                    </div>
-                    <div class="form-group">
-                        <label>รายละเอียด (ไทย)</label>
-                        <textarea id="attr-desc-th-${index}">${a.desc?.th || ''}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>รายละเอียด (อังกฤษ)</label>
-                        <textarea id="attr-desc-en-${index}">${a.desc?.en || ''}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>รูปหลัก (URL)</label>
-                        <input type="text" id="attr-heroImage-${index}" value="${a.heroImage || ''}">
-                    </div>
-                    <div class="form-group">
-                        <label>ลิงก์แผนที่</label>
-                        <input type="text" id="attr-mapUrl-${index}" value="${a.mapUrl || ''}">
-                    </div>
-                    <div class="form-group">
-                        <label>รูปภาพ (${(a.images || []).length} รูป)</label>
-                        <div id="attr-images-${index}">
-                            ${(a.images || []).map((img, i) => `
-                                <div class="item-row">
-                                    <input type="text" value="${img}" id="attr-img-${index}-${i}">
-                                    <button class="btn-delete" onclick="removeImage(${index}, ${i})">ลบ</button>
-                                </div>
-                            `).join('')}
-                        </div>
-                        <button class="btn-add" onclick="addImage(${index})">+ เพิ่มรูปภาพ</button>
-                    </div>
-                    <div class="form-group">
-                        <label>วิดีโอ (${(a.videos || []).length} วิดีโอ)</label>
-                        <div id="attr-videos-${index}">
-                            ${(a.videos || []).map((v, i) => `
-                                <div class="item-row">
-                                    <input type="text" value="${v.url || ''}" placeholder="Video URL" id="attr-vid-url-${index}-${i}">
-                                    <input type="text" value="${v.title?.th || ''}" placeholder="ชื่อวิดีโอ (ไทย)" id="attr-vid-title-${index}-${i}">
-                                    <button class="btn-delete" onclick="removeVideo(${index}, ${i})">ลบ</button>
-                                </div>
-                            `).join('')}
-                        </div>
-                        <button class="btn-add" onclick="addVideo(${index})">+ เพิ่มวิดีโอ</button>
-                    </div>
-                </div>
-            `).join('');
-            document.getElementById('attractionsList').innerHTML = html;
-        }
-
-        function addImage(attrIndex) {
-            data.attractions[attrIndex].images = data.attractions[attrIndex].images || [];
-            data.attractions[attrIndex].images.push('');
-            renderAttractions();
-        }
-
-        function removeImage(attrIndex, imgIndex) {
-            data.attractions[attrIndex].images.splice(imgIndex, 1);
-            renderAttractions();
-        }
-
-        function addVideo(attrIndex) {
-            data.attractions[attrIndex].videos = data.attractions[attrIndex].videos || [];
-            data.attractions[attrIndex].videos.push({ url: '', title: { th: '', en: '' } });
-            renderAttractions();
-        }
-
-        function removeVideo(attrIndex, vidIndex) {
-            data.attractions[attrIndex].videos.splice(vidIndex, 1);
-            renderAttractions();
-        }
-
-        function saveAll() {
-            data.attractions.forEach((a, index) => {
-                a.title = { th: document.getElementById(`attr-title-th-${index}`).value, en: document.getElementById(`attr-title-en-${index}`).value };
-                a.subtitle = { th: document.getElementById(`attr-subtitle-th-${index}`).value, en: document.getElementById(`attr-subtitle-en-${index}`).value };
-                a.desc = { th: document.getElementById(`attr-desc-th-${index}`).value, en: document.getElementById(`attr-desc-en-${index}`).value };
-                a.heroImage = document.getElementById(`attr-heroImage-${index}`).value;
-                a.mapUrl = document.getElementById(`attr-mapUrl-${index}`).value;
-                a.images = (a.images || []).map((_, i) => document.getElementById(`attr-img-${index}-${i}`).value).filter(v => v);
-                a.videos = (a.videos || []).map((_, i) => ({
-                    url: document.getElementById(`attr-vid-url-${index}-${i}`).value,
-                    title: { th: document.getElementById(`attr-vid-title-${index}-${i}`).value, en: '' }
-                })).filter(v => v.url);
+        // Populate dropdown
+        function populateDropdown() {
+            const select = document.getElementById('attractionSelect');
+            select.innerHTML = '<option value="">-- เลือกเครื่องเล่น --</option>';
+            
+            data.attractions.forEach((attr, index) => {
+                const name = attr.title?.th || attr.title?.en || `เครื่องเล่น ${index + 1}`;
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = name;
+                select.appendChild(option);
             });
-            document.getElementById('success').style.display = 'block';
-            downloadJSON();
-            setTimeout(() => document.getElementById('success').style.display = 'none', 5000);
         }
 
+        // Load selected attraction
+        function loadAttraction() {
+            const select = document.getElementById('attractionSelect');
+            currentIndex = parseInt(select.value);
+            
+            if (currentIndex === -1 || isNaN(currentIndex)) {
+                document.getElementById('formSection').classList.remove('active');
+                return;
+            }
+            
+            const attr = data.attractions[currentIndex];
+            document.getElementById('formSection').classList.add('active');
+            document.getElementById('formTitle').textContent = `แก้ไข: ${attr.title?.th || attr.title?.en || 'เครื่องเล่น'}`;
+            
+            // Fill basic info
+            document.getElementById('heroImage').value = attr.heroImage || '';
+            document.getElementById('mapUrl').value = attr.mapUrl || '';
+            
+            // Fill multi-language fields
+            document.getElementById('titleTh').value = attr.title?.th || '';
+            document.getElementById('titleEn').value = attr.title?.en || '';
+            document.getElementById('titleZh').value = attr.title?.zh || '';
+            document.getElementById('titleJp').value = attr.title?.jp || '';
+            document.getElementById('titleRu').value = attr.title?.ru || '';
+            document.getElementById('titleAr').value = attr.title?.ar || '';
+            document.getElementById('titleHe').value = attr.title?.he || '';
+            
+            document.getElementById('subtitleTh').value = attr.subtitle?.th || '';
+            document.getElementById('subtitleEn').value = attr.subtitle?.en || '';
+            
+            document.getElementById('descTh').value = attr.desc?.th || '';
+            document.getElementById('descEn').value = attr.desc?.en || '';
+            
+            // Render images and videos
+            renderImages();
+            renderVideos();
+        }
+
+        // Show language tab
+        function showLang(field, lang) {
+            // Hide all tabs for this field
+            document.querySelectorAll(`[onclick^="showLang('${field}'"]`).forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll(`[id^="${field}-"]`).forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Show selected tab
+            event.target.classList.add('active');
+            document.getElementById(`${field}-${lang}`).classList.add('active');
+        }
+
+        // Render images list
+        function renderImages() {
+            const attr = data.attractions[currentIndex];
+            const container = document.getElementById('imagesList');
+            container.innerHTML = '';
+            
+            (attr.images || []).forEach((img, index) => {
+                const row = document.createElement('div');
+                row.className = 'item-row';
+                row.innerHTML = `
+                    <input type="text" value="${img}" placeholder="Image URL ${index + 1}" onchange="updateImage(${index}, this.value)">
+                    <button class="btn btn-delete" onclick="removeImage(${index})">ลบ</button>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        // Render videos list
+        function renderVideos() {
+            const attr = data.attractions[currentIndex];
+            const container = document.getElementById('videosList');
+            container.innerHTML = '';
+            
+            (attr.videos || []).forEach((vid, index) => {
+                const row = document.createElement('div');
+                row.className = 'item-row';
+                row.innerHTML = `
+                    <input type="text" value="${vid.url || ''}" placeholder="Video URL" onchange="updateVideo(${index}, 'url', this.value)" style="flex: 2;">
+                    <input type="text" value="${vid.title?.th || ''}" placeholder="ชื่อวิดีโอ (ไทย)" onchange="updateVideo(${index}, 'titleTh', this.value)">
+                    <button class="btn btn-delete" onclick="removeVideo(${index})">ลบ</button>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        // Add image
+        function addImage() {
+            if (currentIndex === -1) return;
+            if (!data.attractions[currentIndex].images) {
+                data.attractions[currentIndex].images = [];
+            }
+            data.attractions[currentIndex].images.push('');
+            renderImages();
+        }
+
+        // Update image
+        function updateImage(index, value) {
+            if (currentIndex === -1) return;
+            data.attractions[currentIndex].images[index] = value;
+        }
+
+        // Remove image
+        function removeImage(index) {
+            if (currentIndex === -1) return;
+            data.attractions[currentIndex].images.splice(index, 1);
+            renderImages();
+        }
+
+        // Add video
+        function addVideo() {
+            if (currentIndex === -1) return;
+            if (!data.attractions[currentIndex].videos) {
+                data.attractions[currentIndex].videos = [];
+            }
+            data.attractions[currentIndex].videos.push({ url: '', title: { th: '', en: '' } });
+            renderVideos();
+        }
+
+        // Update video
+        function updateVideo(index, field, value) {
+            if (currentIndex === -1) return;
+            if (field === 'url') {
+                data.attractions[currentIndex].videos[index].url = value;
+            } else if (field === 'titleTh') {
+                if (!data.attractions[currentIndex].videos[index].title) {
+                    data.attractions[currentIndex].videos[index].title = {};
+                }
+                data.attractions[currentIndex].videos[index].title.th = value;
+            }
+        }
+
+        // Remove video
+        function removeVideo(index) {
+            if (currentIndex === -1) return;
+            data.attractions[currentIndex].videos.splice(index, 1);
+            renderVideos();
+        }
+
+        // Save current attraction
+        function saveCurrentAttraction() {
+            if (currentIndex === -1) {
+                alert('กรุณาเลือกเครื่องเล่นก่อนบันทึก');
+                return;
+            }
+            
+            const attr = data.attractions[currentIndex];
+            
+            // Save basic info
+            attr.heroImage = document.getElementById('heroImage').value;
+            attr.mapUrl = document.getElementById('mapUrl').value;
+            
+            // Save multi-language fields
+            attr.title = {
+                th: document.getElementById('titleTh').value,
+                en: document.getElementById('titleEn').value,
+                zh: document.getElementById('titleZh').value,
+                jp: document.getElementById('titleJp').value,
+                ru: document.getElementById('titleRu').value,
+                ar: document.getElementById('titleAr').value,
+                he: document.getElementById('titleHe').value
+            };
+            
+            attr.subtitle = {
+                th: document.getElementById('subtitleTh').value,
+                en: document.getElementById('subtitleEn').value
+            };
+            
+            attr.desc = {
+                th: document.getElementById('descTh').value,
+                en: document.getElementById('descEn').value
+            };
+            
+            // Show success message
+            document.getElementById('success').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('success').style.display = 'none';
+            }, 5000);
+            
+            // Download JSON
+            downloadJSON();
+        }
+
+        // Download JSON
         function downloadJSON() {
             const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
@@ -213,17 +609,31 @@
             URL.revokeObjectURL(url);
         }
 
-        function exportData() { downloadJSON(); }
+        // Show tab
+        function showTab(tabName) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+        }
 
+        // Export data
+        function exportData() {
+            downloadJSON();
+        }
+
+        // Import data
         function importData(input) {
             const file = input.files[0];
             if (!file) return;
+            
             const reader = new FileReader();
             reader.onload = function(e) {
                 try {
                     data = JSON.parse(e.target.result);
                     if (!data.attractions) data.attractions = [];
-                    renderAttractions();
+                    populateDropdown();
                     alert('✅ นำเข้าข้อมูลสำเร็จ!');
                 } catch (err) {
                     alert('❌ ไฟล์ JSON ไม่ถูกต้อง: ' + err.message);
@@ -233,6 +643,7 @@
             input.value = '';
         }
 
+        // Initialize
         loadData();
     </script>
 </body>
