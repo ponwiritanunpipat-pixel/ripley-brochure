@@ -7,12 +7,13 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Ripley's Believe It or Not! Pattaya</title>
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700;900&family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+Arabic:wght@400;700&family=Noto+Sans+Hebrew:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root { --primary: #e31e24; --accent: #ffd700; --dark: #0a0a1a; --card-bg: rgba(255,255,255,0.05); --glass: rgba(255,255,255,0.1); }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Prompt', sans-serif; background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0a0a1a 100%); color: #fff; min-height: 100vh; }
+        body { font-family: 'Prompt', 'Noto Sans SC', 'Noto Sans JP', 'Noto Sans Arabic', 'Noto Sans Hebrew', sans-serif; background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0a0a1a 100%); color: #fff; min-height: 100vh; }
+        body.rtl { direction: rtl; }
         header { position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(10,10,26,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.1); }
         .header-container { max-width: 1400px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
         .logo { font-size: 1.5rem; font-weight: 900; color: var(--accent); cursor: pointer; }
@@ -20,6 +21,7 @@
         .nav-links a { color: #fff; text-decoration: none; font-weight: 600; cursor: pointer; transition: color 0.3s; }
         .nav-links a:hover { color: var(--accent); }
         .lang-selector { background: var(--glass); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 0.5rem 1rem; border-radius: 25px; cursor: pointer; }
+        .lang-selector option { background: #1a1a2e; color: #fff; }
         .btn-admin { background: #4CAF50; color: #fff; padding: 0.5rem 1rem; border-radius: 25px; text-decoration: none; font-weight: 600; }
         main { margin-top: 80px; min-height: calc(100vh - 80px); }
         .page { display: none; animation: fadeIn 0.5s; }
@@ -59,26 +61,45 @@
         .map-container iframe { width: 100%; height: 400px; border: 0; }
         .btn-directions { background: var(--accent); color: var(--dark); border: none; padding: 1rem 2rem; border-radius: 10px; cursor: pointer; font-weight: 700; width: 100%; margin-top: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
         .btn-back { background: var(--primary); color: #fff; border: none; padding: 1rem 2rem; border-radius: 10px; cursor: pointer; font-weight: 600; margin-top: 2rem; }
-        .promotion-card { background: var(--card-bg); border-radius: 20px; padding: 2rem; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s; }
-        .promotion-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(227,30,36,0.3); border-color: var(--accent); }
-        .promotion-card h3 { color: var(--accent); margin-bottom: 1rem; font-size: 1.5rem; }
-        .promotion-card .price { font-size: 2rem; color: var(--accent); font-weight: 700; margin: 1rem 0; }
-        .promotion-card .original-price { text-decoration: line-through; color: rgba(255,255,255,0.5); font-size: 1.2rem; }
-        .promotion-card ul { list-style: none; margin: 1rem 0; }
-        .promotion-card ul li { padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .promotion-card ul li:before { content: "✓ "; color: var(--accent); font-weight: bold; }
+        .game-rules-section { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .game-card { background: var(--card-bg); border-radius: 20px; padding: 2rem; margin-bottom: 2rem; border: 2px solid rgba(255,215,0,0.3); transition: all 0.3s; }
+        .game-card:hover { border-color: var(--accent); box-shadow: 0 10px 30px rgba(255,215,0,0.2); }
+        .game-card h2 { color: var(--accent); margin-bottom: 1rem; font-size: 2rem; }
+        .rules-box { background: rgba(0,0,0,0.3); border-radius: 15px; padding: 1.5rem; margin: 1rem 0; }
+        .rules-box h3 { color: var(--accent); margin-bottom: 1rem; font-size: 1.3rem; }
+        .rules-box ul { list-style: none; padding: 0; margin: 0; }
+        .rules-box li { padding: 0.5rem 0; padding-left: 2rem; position: relative; line-height: 1.6; }
+        .rules-box li:before { content: "▸"; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
+        body.rtl .rules-box li { padding-left: 0; padding-right: 2rem; }
+        body.rtl .rules-box li:before { left: auto; right: 0; }
+        .coupon-tier { background: linear-gradient(135deg, rgba(255,215,0,0.1) 0%, rgba(227,30,36,0.1) 100%); border: 2px solid var(--accent); border-radius: 15px; padding: 1.5rem; margin: 1rem 0; text-align: center; transition: all 0.3s; }
+        .coupon-tier:hover { transform: scale(1.02); box-shadow: 0 10px 30px rgba(255,215,0,0.3); }
+        .coupon-tier .discount { font-size: 3rem; font-weight: bold; color: var(--accent); margin-bottom: 0.5rem; }
+        .coupon-tier .code { background: var(--accent); color: var(--dark); padding: 0.5rem 1rem; border-radius: 25px; font-weight: bold; font-family: 'Courier New', monospace; display: inline-block; margin: 0.5rem 0; }
+        .coupon-tier .condition { color: rgba(255,255,255,0.8); margin-top: 0.5rem; font-size: 0.95rem; }
+        .coupon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .redemption-info { background: rgba(76,175,80,0.1); border-left: 4px solid #4CAF50; padding: 1.5rem; border-radius: 10px; margin-top: 2rem; }
+        body.rtl .redemption-info { border-left: none; border-right: 4px solid #4CAF50; }
+        .redemption-info h3 { color: #4CAF50; margin-bottom: 1rem; }
+        .redemption-info ol { padding-left: 1.5rem; }
+        body.rtl .redemption-info ol { padding-left: 0; padding-right: 1.5rem; }
+        .redemption-info li { padding: 0.5rem 0; line-height: 1.6; }
+        .valid-badge { background: rgba(255,215,0,0.2); color: var(--accent); padding: 0.5rem 1rem; border-radius: 25px; display: inline-block; margin-top: 1rem; font-weight: bold; }
         .how-to-section { max-width: 900px; margin: 0 auto; padding: 2rem; }
         .how-to-card { background: var(--card-bg); border-radius: 15px; padding: 2rem; margin-bottom: 2rem; border-left: 4px solid var(--accent); }
+        body.rtl .how-to-card { border-left: none; border-right: 4px solid var(--accent); }
         .how-to-card h3 { color: var(--accent); margin-bottom: 1rem; font-size: 1.5rem; }
         .how-to-card ol { margin-left: 2rem; }
+        body.rtl .how-to-card ol { margin-left: 0; margin-right: 2rem; }
         .how-to-card ol li { padding: 0.5rem 0; line-height: 1.6; }
         footer { text-align: center; padding: 2rem; background: rgba(0,0,0,0.5); color: rgba(255,255,255,0.6); margin-top: 4rem; }
         .update-badge { position: fixed; bottom: 20px; right: 20px; background: #4CAF50; color: white; padding: 10px 20px; border-radius: 25px; display: none; z-index: 9999; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        body.rtl .update-badge { right: auto; left: 20px; }
         .loading { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 10000; }
         .loading.active { display: flex; }
         .loading-spinner { border: 4px solid rgba(255,255,255,0.3); border-top: 4px solid var(--accent); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @media (max-width: 768px) { .nav-links { display: none; } .hero h1 { font-size: 2rem; } .attractions-grid { grid-template-columns: 1fr; padding: 1rem; } }
+        @media (max-width: 768px) { .nav-links { display: none; } .hero h1 { font-size: 2rem; } .attractions-grid { grid-template-columns: 1fr; padding: 1rem; } .game-card h2 { font-size: 1.5rem; } .coupon-tier .discount { font-size: 2rem; } }
     </style>
 </head>
 <body>
@@ -86,69 +107,69 @@
         <div class="header-container">
             <div class="logo" onclick="showPage('home')">Ripley's Pattaya</div>
             <nav class="nav-links">
-                <a onclick="showPage('home')">🏠 หน้าแรก</a>
-                <a onclick="showPage('attractions')">🎢 เครื่องเล่น</a>
-                <a onclick="showPage('promotion')">🎁 โปรโมชั่น</a>
-                <a onclick="showPage('howto')"> วิธีใช้งาน</a>
+                <a onclick="showPage('home')" data-i18n="navHome"> หน้าแรก</a>
+                <a onclick="showPage('attractions')" data-i18n="navAttractions">🎢 เครื่องเล่น</a>
+                <a onclick="showPage('coupons')" data-i18n="navCoupons"> คูปอง</a>
+                <a onclick="showPage('howto')" data-i18n="navHowto">📖 วิธีใช้งาน</a>
                 <select class="lang-selector" id="langSelector" onchange="changeLang(this.value)">
-                    <option value="th">🇭 TH</option>
-                    <option value="en">🇬🇧 EN</option>
-                    <option value="zh">🇳 CN</option>
-                    <option value="jp">🇯🇵 JP</option>
-                    <option value="ru">🇺 RU</option>
-                    <option value="ar">🇸🇦 AR</option>
-                    <option value="he">🇱 HE</option>
+                    <option value="th">🇹🇭 ไทย</option>
+                    <option value="en">🇬🇧 English</option>
+                    <option value="zh">🇨🇳 中文</option>
+                    <option value="jp">🇯🇵 日本語</option>
+                    <option value="ru">🇺 Русский</option>
+                    <option value="ar">🇸🇦 العربية</option>
+                    <option value="he">🇱 עברית</option>
                 </select>
-                <a href="admin.html" class="btn-admin">🔧 Admin</a>
+                <a href="admin.html" class="btn-admin" data-i18n="navAdmin">🔧 Admin</a>
             </nav>
         </div>
     </header>
     <main>
         <div id="page-home" class="page active">
             <div class="hero">
-                <h1>Ripley's Believe It or Not! Pattaya</h1>
-                <p>สัมผัสประสบการณ์สุดระทึกใจ กับ 10 เครื่องเล่นสุดมันส์</p>
+                <h1 data-i18n="heroTitle">Ripley's Believe It or Not! Pattaya</h1>
+                <p data-i18n="heroDesc">สัมผัสประสบการณ์สุดระทึกใจ กับ 10 เครื่องเล่นสุดมันส์</p>
             </div>
             <div class="attractions-grid" id="homeAttractions"></div>
         </div>
         <div id="page-attractions" class="page">
             <div class="hero">
-                <h1>เครื่องเล่นทั้งหมด</h1>
-                <p>เลือกสัมผัสประสบการณ์ที่คุณชื่นชอบ</p>
+                <h1 data-i18n="allAttractions">เครื่องเล่นทั้งหมด</h1>
+                <p data-i18n="attractionsDesc">เลือกสัมผัสประสบการณ์ที่คุณชื่นชอบ</p>
             </div>
             <div class="attractions-grid" id="allAttractions"></div>
         </div>
-        <div id="page-promotion" class="page">
+        <div id="page-coupons" class="page">
             <div class="hero">
-                <h1>🎁 โปรโมชั่นพิเศษ</h1>
-                <p>ส่วนลดและแพ็กเกจสุดคุ้มสำหรับคุณ</p>
+                <h1 data-i18n="couponPageTitle"> คูปองส่วนลดจากการเล่นเกม</h1>
+                <p data-i18n="couponPageDesc">รับคูปองส่วนลดเมื่อเล่นเกมตามกติกา</p>
             </div>
-            <div class="attractions-grid" id="promotionGrid"></div>
+            <div class="game-rules-section" id="gameRulesContent"></div>
         </div>
         <div id="page-howto" class="page">
             <div class="hero">
-                <h1>❓ วิธีใช้งานเว็บไซต์</h1>
-                <p>คำแนะนำสำหรับผู้เข้าชมและผู้ดูแลระบบ</p>
+                <h1 data-i18n="howtoTitle">❓ วิธีใช้งานเว็บไซต์</h1>
+                <p data-i18n="howtoDesc">คำแนะนำสำหรับผู้เข้าชมและผู้ดูแลระบบ</p>
             </div>
             <div class="how-to-section">
                 <div class="how-to-card">
-                    <h3>👤 สำหรับผู้เข้าชม</h3>
+                    <h3 data-i18n="howtoUserTitle"> สำหรับผู้เข้าชม</h3>
                     <ol>
-                        <li><strong>เลือกภาษา:</strong> คลิกที่เมนูภาษา มุมขวาบน (รองรับ 7 ภาษา)</li>
-                        <li><strong>ดูเครื่องเล่น:</strong> คลิกที่การ์ดเครื่องเล่นเพื่อดูรายละเอียด รูปภาพ วิดีโอ และแผนที่</li>
-                        <li><strong>ดูรูปภาพ:</strong> คลิกที่รูปภาพในแกลเลอรี่เพื่อดูแบบเต็มจอ</li>
-                        <li><strong>ดูเส้นทาง:</strong> คลิกปุ่ม "ดูเส้นทางใน Google Maps" เพื่อนำทางไปยังสถานที่</li>
-                        <li><strong>ดูโปรโมชั่น:</strong> คลิกเมนู "โปรโมชั่น" เพื่อดูส่วนลดและแพ็กเกจพิเศษ</li>
+                        <li data-i18n="howtoUser1"><strong>เลือกภาษา:</strong> คลิกที่เมนูภาษา มุมขวาบน (รองรับ 7 ภาษา)</li>
+                        <li data-i18n="howtoUser2"><strong>ดูเครื่องเล่น:</strong> คลิกที่การ์ดเครื่องเล่นเพื่อดูรายละเอียด รูปภาพ วิดีโอ และแผนที่</li>
+                        <li data-i18n="howtoUser3"><strong>ดูรูปภาพ:</strong> คลิกที่รูปภาพในแกลเลอรี่เพื่อดูแบบเต็มจอ</li>
+                        <li data-i18n="howtoUser4"><strong>ดูเส้นทาง:</strong> คลิกปุ่ม "ดูเส้นทางใน Google Maps" เพื่อนำทางไปยังสถานที่</li>
+                        <li data-i18n="howtoUser5"><strong>ดูคูปอง:</strong> คลิกเมนู "คูปอง" เพื่อดูกติกาและวิธีแลกใช้คูปองส่วนลด</li>
                     </ol>
                 </div>
                 <div class="how-to-card">
-                    <h3>🔧 สำหรับผู้ดูแลระบบ (Admin)</h3>
+                    <h3 data-i18n="howtoAdminTitle">🔧 สำหรับผู้ดูแลระบบ (Admin)</h3>
                     <ol>
-                        <li><strong>เข้าสู่ระบบ:</strong> คลิกปุ่ม "Admin" มุมขวาบน</li>
-                        <li><strong>แก้ไขข้อมูล:</strong> แก้ไขชื่อ คำบรรยาย รายละเอียด รูปภาพ และลิงก์แผนที่</li>
-                        <li><strong>เพิ่มรูปภาพ/วิดีโอ:</strong> คลิกแท็บ "รูปภาพ" หรือ "วิดีโอ" เพื่อเพิ่ม URL</li>
-                        <li><strong>บันทึก:</strong> กดปุ่ม "บันทึก" ทุกครั้งหลังแก้ไข</li>
-                        <li><strong>สำรองข้อมูล:</strong> ใช้ปุ่ม Export/Import JSON เพื่อสำรองหรือกู้คืนข้อมูล</li>
+                        <li data-i18n="howtoAdmin1"><strong>เข้าสู่ระบบ:</strong> คลิกปุ่ม "Admin" มุมขวาบน</li>
+                        <li data-i18n="howtoAdmin2"><strong>แก้ไขข้อมูล:</strong> แก้ไขชื่อ คำบรรยาย รายละเอียด รูปภาพ และลิงก์แผนที่</li>
+                        <li data-i18n="howtoAdmin3"><strong>เพิ่มรูปภาพ/วิดีโอ:</strong> คลิกแท็บ "รูปภาพ" หรือ "วิดีโอ" เพื่อเพิ่ม URL</li>
+                        <li data-i18n="howtoAdmin4"><strong>บันทึก:</strong> กดปุ่ม "บันทึก" ทุกครั้งหลังแก้ไข</li>
+                        <li data-i18n="howtoAdmin5"><strong>สำรองข้อมูล:</strong> ใช้ปุ่ม Export/Import JSON เพื่อสำรองหรือกู้คืนข้อมูล</li>
                     </ol>
                 </div>
             </div>
@@ -162,28 +183,282 @@
                 </div>
             </div>
             <div class="detail-container">
-                <div class="detail-section"><h2> เกี่ยวกับ</h2><p id="detailDesc"></p></div>
-                <div class="detail-section"><h2>📸 แกลเลอรี่ภาพ</h2><div class="gallery-grid" id="detailGallery"></div></div>
-                <div class="detail-section"><h2>🎬 วิดีโอ</h2><div class="video-grid" id="detailVideos"></div></div>
+                <div class="detail-section"><h2 data-i18n="about">📖 เกี่ยวกับ</h2><p id="detailDesc"></p></div>
+                <div class="detail-section"><h2 data-i18n="gallery">📸 แกลเลอรี่ภาพ</h2><div class="gallery-grid" id="detailGallery"></div></div>
+                <div class="detail-section"><h2 data-i18n="videos">🎬 วิดีโอ</h2><div class="video-grid" id="detailVideos"></div></div>
                 <div class="detail-section">
-                    <h2>📍 ที่ตั้ง</h2>
+                    <h2 data-i18n="location">📍 ที่ตั้ง</h2>
                     <div class="map-container"><iframe id="detailMap" src="" allowfullscreen="" loading="lazy"></iframe></div>
                     <button id="mapDirectionBtn" class="btn-directions" onclick="openMapDirection()">
-                        <i class="fas fa-directions"></i> ดูเส้นทางใน Google Maps
+                        <i class="fas fa-directions"></i> <span data-i18n="getDirections">ดูเส้นทางใน Google Maps</span>
                     </button>
                 </div>
-                <button class="btn-back" onclick="showPage('attractions')">⬅️ กลับ</button>
+                <button class="btn-back" onclick="showPage('attractions')" data-i18n="back">️ กลับ</button>
             </div>
         </div>
     </main>
-    <footer>© 2026 Ripley's Believe It or Not! Pattaya. All Rights Reserved.</footer>
-    <div class="update-badge" id="updateBadge">✅ อัพเดทข้อมูลล่าสุดแล้ว</div>
+    <footer>© 2026 Ripley's Believe It or Not! Pattaya. <span data-i18n="rights">All Rights Reserved</span>.</footer>
+    <div class="update-badge" id="updateBadge" data-i18n="updated">✅ อัพเดทข้อมูลล่าสุดแล้ว</div>
     <div class="loading" id="loading"><div class="loading-spinner"></div></div>
 
 <script>
+const translations = {
+    th: {
+        navHome: "🏠 หน้าแรก", navAttractions: "🎢 เครื่องเล่น", navCoupons: "🎫 คูปอง", navHowto: "📖 วิธีใช้งาน", navAdmin: "🔧 Admin",
+        heroTitle: "Ripley's Believe It or Not! Pattaya", heroDesc: "สัมผัสประสบการณ์สุดระทึกใจ กับ 10 เครื่องเล่นสุดมันส์",
+        allAttractions: "เครื่องเล่นทั้งหมด", attractionsDesc: "เลือกสัมผัสประสบการณ์ที่คุณชื่นชอบ",
+        couponPageTitle: "🎫 คูปองส่วนลดจากการเล่นเกม", couponPageDesc: "รับคูปองส่วนลดเมื่อเล่นเกมตามกติกา",
+        howtoTitle: "❓ วิธีใช้งานเว็บไซต์", howtoDesc: "คำแนะนำสำหรับผู้เข้าชมและผู้ดูแลระบบ",
+        howtoUserTitle: "👤 สำหรับผู้เข้าชม",
+        howtoUser1: "<strong>เลือกภาษา:</strong> คลิกที่เมนูภาษา มุมขวาบน (รองรับ 7 ภาษา)",
+        howtoUser2: "<strong>ดูเครื่องเล่น:</strong> คลิกที่การ์ดเครื่องเล่นเพื่อดูรายละเอียด รูปภาพ วิดีโอ และแผนที่",
+        howtoUser3: "<strong>ดูรูปภาพ:</strong> คลิกที่รูปภาพในแกลเลอรี่เพื่อดูแบบเต็มจอ",
+        howtoUser4: "<strong>ดูเส้นทาง:</strong> คลิกปุ่ม \"ดูเส้นทางใน Google Maps\" เพื่อนำทางไปยังสถานที่",
+        howtoUser5: "<strong>ดูคูปอง:</strong> คลิกเมนู \"คูปอง\" เพื่อดูกติกาและวิธีแลกใช้คูปองส่วนลด",
+        howtoAdminTitle: "🔧 สำหรับผู้ดูแลระบบ (Admin)",
+        howtoAdmin1: "<strong>เข้าสู่ระบบ:</strong> คลิกปุ่ม \"Admin\" มุมขวาบน",
+        howtoAdmin2: "<strong>แก้ไขข้อมูล:</strong> แก้ไขชื่อ คำบรรยาย รายละเอียด รูปภาพ และลิงก์แผนที่",
+        howtoAdmin3: "<strong>เพิ่มรูปภาพ/วิดีโอ:</strong> คลิกแท็บ \"รูปภาพ\" หรือ \"วิดีโอ\" เพื่อเพิ่ม URL",
+        howtoAdmin4: "<strong>บันทึก:</strong> กดปุ่ม \"บันทึก\" ทุกครั้งหลังแก้ไข",
+        howtoAdmin5: "<strong>สำรองข้อมูล:</strong> ใช้ปุ่ม Export/Import JSON เพื่อสำรองหรือกู้คืนข้อมูล",
+        about: "📖 เกี่ยวกับ", gallery: "📸 แกลเลอรี่ภาพ", videos: "🎬 วิดีโอ", location: " ที่ตั้ง",
+        getDirections: "ดูเส้นทางใน Google Maps", back: "⬅️ กลับ", rights: "สงวนลิขสิทธิ์", updated: "✅ อัพเดทข้อมูลล่าสุดแล้ว",
+        noData: "ไม่มีข้อมูล", noImages: "ไม่มีรูปภาพ", noVideos: "ไม่มีวิดีโอ", photos: "รูป", videoCount: "วิดีโอ",
+        gameRules: "🎮 กติกาการเล่น", howToPlay: "วิธีการเล่น", couponRules: "กติกาการรับคูปอง",
+        couponTiers: "🎫 ระดับคูปองส่วนลด", redemption: "📍 วิธีการแลกใช้คูปอง",
+        validUntil: " หมดอายุ", validUntilDate: "31 ธันวาคม 2026",
+        coupon10: "คูปองส่วนลด 10%", coupon20: "คูปองส่วนลด 20%",
+        code10: "RIPLEY10", code20: "RIPLEY20",
+        condition10: "ได้คะแนน 80-89% (เลเซอร์) หรือ สำเร็จภายใน 10 นาที (Scream)",
+        condition20: "ได้คะแนน 96-100% (เลเซอร์) หรือ สำเร็จภายใน 6 นาที (Scream)",
+        redemptionSteps: [
+            "แสดงคูปองที่เคาน์เตอร์ขายตั๋ว Ripley's Believe It or Not! Pattaya",
+            "1 คูปอง ต่อ 1 คนเท่านั้น",
+            "คูปองต้องไม่ชำรุดหรือฉีกขาด",
+            "ไม่สามารถใช้ร่วมกับโปรโมชั่นอื่น",
+            "ไม่สามารถแลกเปลี่ยนเป็นเงินสด"
+        ]
+    },
+    en: {
+        navHome: " Home", navAttractions: "🎢 Attractions", navCoupons: "🎫 Coupons", navHowto: "📖 How to Use", navAdmin: "🔧 Admin",
+        heroTitle: "Ripley's Believe It or Not! Pattaya", heroDesc: "Experience thrilling adventures with 10 exciting attractions",
+        allAttractions: "All Attractions", attractionsDesc: "Choose your favorite experience",
+        couponPageTitle: "🎫 Discount Coupons from Games", couponPageDesc: "Get discount coupons by playing games according to rules",
+        howtoTitle: "❓ How to Use This Website", howtoDesc: "Guide for visitors and administrators",
+        howtoUserTitle: "👤 For Visitors",
+        howtoUser1: "<strong>Select Language:</strong> Click the language menu at top right (supports 7 languages)",
+        howtoUser2: "<strong>View Attractions:</strong> Click on an attraction card to see details, photos, videos, and map",
+        howtoUser3: "<strong>View Photos:</strong> Click on gallery photos to view in full screen",
+        howtoUser4: "<strong>Get Directions:</strong> Click 'Get Directions in Google Maps' button to navigate",
+        howtoUser5: "<strong>View Coupons:</strong> Click 'Coupons' menu to see rules and how to redeem discount coupons",
+        howtoAdminTitle: "🔧 For Administrators",
+        howtoAdmin1: "<strong>Access Admin:</strong> Click 'Admin' button at top right",
+        howtoAdmin2: "<strong>Edit Data:</strong> Edit names, descriptions, details, images, and map links",
+        howtoAdmin3: "<strong>Add Images/Videos:</strong> Click 'Images' or 'Videos' tab to add URLs",
+        howtoAdmin4: "<strong>Save:</strong> Click 'Save' button after every edit",
+        howtoAdmin5: "<strong>Backup:</strong> Use Export/Import JSON to backup or restore data",
+        about: "📖 About", gallery: "📸 Gallery", videos: "🎬 Videos", location: "📍 Location",
+        getDirections: "Get Directions in Google Maps", back: "⬅️ Back", rights: "All Rights Reserved", updated: "✅ Data updated successfully",
+        noData: "No data available", noImages: "No images", noVideos: "No videos", photos: "Photos", videoCount: "Videos",
+        gameRules: "🎮 Game Rules", howToPlay: "How to Play", couponRules: "Coupon Rules",
+        couponTiers: "🎫 Discount Coupon Tiers", redemption: "📍 How to Redeem Coupons",
+        validUntil: "📅 Valid Until", validUntilDate: "December 31, 2026",
+        coupon10: "10% Discount Coupon", coupon20: "20% Discount Coupon",
+        code10: "RIPLEY10", code20: "RIPLEY20",
+        condition10: "Score 80-89% (Laser) or Complete within 10 min (Scream)",
+        condition20: "Score 96-100% (Laser) or Complete within 6 min (Scream)",
+        redemptionSteps: [
+            "Present coupon at Ripley's Believe It or Not! Pattaya ticket counter",
+            "1 coupon per 1 person only",
+            "Coupon must not be damaged or torn",
+            "Cannot be used with other promotions",
+            "Cannot be exchanged for cash"
+        ]
+    },
+    zh: {
+        navHome: " 首页", navAttractions: "🎢 游乐设施", navCoupons: "🎫 优惠券", navHowto: "📖 使用说明", navAdmin: "🔧 管理",
+        heroTitle: "Ripley's Believe It or Not! Pattaya", heroDesc: "体验10个惊险刺激的游乐设施",
+        allAttractions: "所有游乐设施", attractionsDesc: "选择您喜欢的体验",
+        couponPageTitle: " 游戏优惠券", couponPageDesc: "按照游戏规则玩游戏即可获得优惠券",
+        howtoTitle: "❓ 如何使用本网站", howtoDesc: "访客和管理员指南",
+        howtoUserTitle: "👤 访客指南",
+        howtoUser1: "<strong>选择语言:</strong> 点击右上角语言菜单(支持7种语言)",
+        howtoUser2: "<strong>查看设施:</strong> 点击设施卡片查看详细信息、照片、视频和地图",
+        howtoUser3: "<strong>查看照片:</strong> 点击图库中的照片全屏查看",
+        howtoUser4: "<strong>获取路线:</strong> 点击\"在Google Maps中获取路线\"按钮导航",
+        howtoUser5: "<strong>查看优惠券:</strong> 点击\"优惠券\"菜单查看规则和兑换方式",
+        howtoAdminTitle: "🔧 管理员指南",
+        howtoAdmin1: "<strong>进入管理:</strong> 点击右上角\"管理\"按钮",
+        howtoAdmin2: "<strong>编辑数据:</strong> 编辑名称、描述、详情、图片和地图链接",
+        howtoAdmin3: "<strong>添加图片/视频:</strong> 点击\"图片\"或\"视频\"标签添加URL",
+        howtoAdmin4: "<strong>保存:</strong> 每次编辑后点击\"保存\"按钮",
+        howtoAdmin5: "<strong>备份:</strong> 使用导出/导入JSON备份或恢复数据",
+        about: "📖 关于", gallery: "📸 图库", videos: "🎬 视频", location: "📍 位置",
+        getDirections: "在Google Maps中获取路线", back: "⬅️ 返回", rights: "版权所有", updated: "✅ 数据更新成功",
+        noData: "暂无数据", noImages: "暂无图片", noVideos: "暂无视频", photos: "照片", videoCount: "视频",
+        gameRules: "🎮 游戏规则", howToPlay: "玩法说明", couponRules: "优惠券规则",
+        couponTiers: " 优惠券等级", redemption: " 兑换方式",
+        validUntil: " 有效期至", validUntilDate: "2026年12月31日",
+        coupon10: "10% 折扣券", coupon20: "20% 折扣券",
+        code10: "RIPLEY10", code20: "RIPLEY20",
+        condition10: "得分80-89%(激光) 或 10分钟内完成(Scream)",
+        condition20: "得分96-100%(激光) 或 6分钟内完成(Scream)",
+        redemptionSteps: [
+            "在Ripley's Believe It or Not! Pattaya售票处出示优惠券",
+            "每人限用1张优惠券",
+            "优惠券不得损坏或撕裂",
+            "不可与其他优惠同时使用",
+            "不可兑换现金"
+        ]
+    },
+    jp: {
+        navHome: "🏠 ホーム", navAttractions: "🎢 アトラクション", navCoupons: "🎫 クーポン", navHowto: "📖 使い方", navAdmin: "🔧 管理",
+        heroTitle: "Ripley's Believe It or Not! Pattaya", heroDesc: "10のスリリングなアトラクションを体験",
+        allAttractions: "すべてのアトラクション", attractionsDesc: "お好みの体験をお選びください",
+        couponPageTitle: " ゲームクーポン", couponPageDesc: "ルールに従ってゲームをプレイするとクーポンがもらえます",
+        howtoTitle: "❓ ウェブサイトの使い方", howtoDesc: "訪問者と管理者のためのガイド",
+        howtoUserTitle: " 訪問者向け",
+        howtoUser1: "<strong>言語選択:</strong> 右上の言語メニューをクリック(7言語対応)",
+        howtoUser2: "<strong>アトラクションを見る:</strong> カードをクリックして詳細、写真、動画、地図を確認",
+        howtoUser3: "<strong>写真を見る:</strong> ギャラリーの写真をクリックして全画面表示",
+        howtoUser4: "<strong>ルート案内:</strong> 「Google Mapsでルート案内」ボタンをクリック",
+        howtoUser5: "<strong>クーポンを見る:</strong> 「クーポン」メニューでルールと交換方法を確認",
+        howtoAdminTitle: "🔧 管理者向け",
+        howtoAdmin1: "<strong>管理画面:</strong> 右上の「管理」ボタンをクリック",
+        howtoAdmin2: "<strong>データ編集:</strong> 名前、説明、詳細、画像、地図リンクを編集",
+        howtoAdmin3: "<strong>画像/動画追加:</strong> 「画像」または「動画」タブでURLを追加",
+        howtoAdmin4: "<strong>保存:</strong> 編集後に「保存」ボタンをクリック",
+        howtoAdmin5: "<strong>バックアップ:</strong> JSONのエクスポート/インポートでデータをバックアップ",
+        about: "📖 概要", gallery: "📸 ギャラリー", videos: "🎬 動画", location: "📍 場所",
+        getDirections: "Google Mapsでルート案内", back: "⬅️ 戻る", rights: "無断転載禁止", updated: "✅ データ更新完了",
+        noData: "データがありません", noImages: "画像がありません", noVideos: "動画がありません", photos: "枚の写真", videoCount: "本の動画",
+        gameRules: "🎮 ゲームルール", howToPlay: "遊び方", couponRules: "クーポンルール",
+        couponTiers: "🎫 クーポン等級", redemption: "📍 交換方法",
+        validUntil: "📅 有効期限", validUntilDate: "2026年12月31日",
+        coupon10: "10%割引クーポン", coupon20: "20%割引クーポン",
+        code10: "RIPLEY10", code20: "RIPLEY20",
+        condition10: "スコア80-89%(レーザー) または 10分以内クリア(Scream)",
+        condition20: "スコア96-100%(レーザー) または 6分以内クリア(Scream)",
+        redemptionSteps: [
+            "Ripley's Believe It or Not! Pattayaチケットカウンターでクーポンを提示",
+            "1人につきクーポン1枚のみ",
+            "クーポンの破損・裂け目は不可",
+            "他のプロモーションとの併用不可",
+            "現金との交換不可"
+        ]
+    },
+    ru: {
+        navHome: "🏠 Главная", navAttractions: "🎢 Аттракционы", navCoupons: "🎫 Купоны", navHowto: "📖 Инструкция", navAdmin: "🔧 Админ",
+        heroTitle: "Ripley's Believe It or Not! Pattaya", heroDesc: "Испытайте 10 захватывающих аттракционов",
+        allAttractions: "Все аттракционы", attractionsDesc: "Выберите понравившийся опыт",
+        couponPageTitle: "🎫 Купоны на скидку от игр", couponPageDesc: "Получите купоны на скидку, играя по правилам",
+        howtoTitle: "❓ Как использовать сайт", howtoDesc: "Руководство для посетителей и администраторов",
+        howtoUserTitle: "👤 Для посетителей",
+        howtoUser1: "<strong>Выбор языка:</strong> Нажмите меню языка в правом верхнем углу (7 языков)",
+        howtoUser2: "<strong>Смотреть аттракционы:</strong> Нажмите на карточку для просмотра деталей, фото, видео и карты",
+        howtoUser3: "<strong>Смотреть фото:</strong> Нажмите на фото в галерее для полноэкранного просмотра",
+        howtoUser4: "<strong>Маршрут:</strong> Нажмите кнопку \"Маршрут в Google Maps\" для навигации",
+        howtoUser5: "<strong>Смотреть купоны:</strong> Нажмите меню \"Купоны\" для просмотра правил и обмена",
+        howtoAdminTitle: "🔧 Для администраторов",
+        howtoAdmin1: "<strong>Вход:</strong> Нажмите кнопку \"Админ\" в правом верхнем углу",
+        howtoAdmin2: "<strong>Редактирование:</strong> Изменяйте названия, описания, детали, изображения и ссылки на карту",
+        howtoAdmin3: "<strong>Добавить фото/видео:</strong> Нажмите вкладку \"Изображения\" или \"Видео\" для добавления URL",
+        howtoAdmin4: "<strong>Сохранить:</strong> Нажмите кнопку \"Сохранить\" после каждого редактирования",
+        howtoAdmin5: "<strong>Резервная копия:</strong> Используйте Экспорт/Импорт JSON для резервного копирования",
+        about: "📖 О нас", gallery: "📸 Галерея", videos: "🎬 Видео", location: " Местоположение",
+        getDirections: "Маршрут в Google Maps", back: "⬅️ Назад", rights: "Все права защищены", updated: "✅ Данные обновлены",
+        noData: "Нет данных", noImages: "Нет изображений", noVideos: "Нет видео", photos: "фото", videoCount: "видео",
+        gameRules: "🎮 Правила игры", howToPlay: "Как играть", couponRules: "Правила купонов",
+        couponTiers: "🎫 Уровни купонов на скидку", redemption: "📍 Как обменять купоны",
+        validUntil: "📅 Действует до", validUntilDate: "31 декабря 2026 г.",
+        coupon10: "Купон на скидку 10%", coupon20: "Купон на скидку 20%",
+        code10: "RIPLEY10", code20: "RIPLEY20",
+        condition10: "Набрать 80-89% (Лазер) или Пройти за 10 мин (Scream)",
+        condition20: "Набрать 96-100% (Лазер) или Пройти за 6 мин (Scream)",
+        redemptionSteps: [
+            "Предъявите купон на кассе Ripley's Believe It or Not! Pattaya",
+            "1 купон на 1 человека",
+            "Купон не должен быть поврежден или порван",
+            "Нельзя использовать с другими акциями",
+            "Нельзя обменять на наличные"
+        ]
+    },
+    ar: {
+        navHome: "🏠 الرئيسية", navAttractions: "🎢 الألعاب", navCoupons: " الكوبونات", navHowto: "📖 كيفية الاستخدام", navAdmin: " المشرف",
+        heroTitle: "Ripley's Believe It or Not! Pattaya", heroDesc: "استمتع بـ 10 ألعاب مثيرة",
+        allAttractions: "جميع الألعاب", attractionsDesc: "اختر تجربتك المفضلة",
+        couponPageTitle: "🎫 كوبونات الخصم من الألعاب", couponPageDesc: "احصل على كوبونات خصم باللعب وفق القواعد",
+        howtoTitle: "❓ كيفية استخدام الموقع", howtoDesc: "دليل للزوار والمشرفين",
+        howtoUserTitle: "👤 للزوار",
+        howtoUser1: "<strong>اختر اللغة:</strong> انقر على قائمة اللغة في أعلى اليمين (7 لغات)",
+        howtoUser2: "<strong>عرض الألعاب:</strong> انقر على بطاقة اللعبة لعرض التفاصيل والصور والفيديو والخريطة",
+        howtoUser3: "<strong>عرض الصور:</strong> انقر على الصور في المعرض لعرضها بملء الشاشة",
+        howtoUser4: "<strong>الاتجاهات:</strong> انقر على زر \"الاتجاهات في خرائط جوجل\" للملاحة",
+        howtoUser5: "<strong>عرض الكوبونات:</strong> انقر على قائمة \"الكوبونات\" لعرض القواعد وطريقة الاستبدال",
+        howtoAdminTitle: "🔧 للمشرفين",
+        howtoAdmin1: "<strong>الدخول:</strong> انقر على زر \"المشرف\" في أعلى اليمين",
+        howtoAdmin2: "<strong>التحرير:</strong> حرر الأسماء والأوصاف والتفاصيل والصور وروابط الخريطة",
+        howtoAdmin3: "<strong>إضافة صور/فيديو:</strong> انقر على علامة تبويب \"الصور\" أو \"الفيديو\" لإضافة عناوين URL",
+        howtoAdmin4: "<strong>حفظ:</strong> انقر على زر \"حفظ\" بعد كل تحرير",
+        howtoAdmin5: "<strong>النسخ الاحتياطي:</strong> استخدم تصدير/استيراد JSON للنسخ الاحتياطي",
+        about: " حول", gallery: "📸 المعرض", videos: "🎬 فيديوهات", location: "📍 الموقع",
+        getDirections: "الاتجاهات في خرائط جوجل", back: "⬅️ رجوع", rights: "جميع الحقوق محفوظة", updated: "✅ تم تحديث البيانات",
+        noData: "لا توجد بيانات", noImages: "لا توجد صور", noVideos: "لا توجد فيديوهات", photos: "صور", videoCount: "فيديوهات",
+        gameRules: " قواعد اللعبة", howToPlay: "كيفية اللعب", couponRules: "قواعد الكوبونات",
+        couponTiers: "🎫 مستويات كوبونات الخصم", redemption: " كيفية استبدال الكوبونات",
+        validUntil: "📅 صالح حتى", validUntilDate: "31 ديسمبر 2026",
+        coupon10: "كوبون خصم 10%", coupon20: "كوبون خصم 20%",
+        code10: "RIPLEY10", code20: "RIPLEY20",
+        condition10: "احصل على 80-89% (ليزر) أو أكمل في 10 دقائق (Scream)",
+        condition20: "احصل على 96-100% (ليزر) أو أكمل في 6 دقائق (Scream)",
+        redemptionSteps: [
+            "قدم الكوبون في شباك تذاكر Ripley's Believe It or Not! Pattaya",
+            "كوبون واحد لكل شخص فقط",
+            "يجب ألا يكون الكوبون تالفاً أو ممزقاً",
+            "لا يمكن استخدامه مع عروض أخرى",
+            "لا يمكن استبداله نقداً"
+        ]
+    },
+    he: {
+        navHome: "🏠 בית", navAttractions: "🎢 אטרקציות", navCoupons: "🎫 קופונים", navHowto: "📖 הוראות שימוש", navAdmin: "🔧 מנהל",
+        heroTitle: "Ripley's Believe It or Not! Pattaya", heroDesc: "חווה 10 אטרקציות מרגשות",
+        allAttractions: "כל האטרקציות", attractionsDesc: "בחר את החוויה המועדפת עליך",
+        couponPageTitle: "🎫 קופוני הנחה ממשחקים", couponPageDesc: "קבל קופוני הנחה על ידי משחק לפי הכללים",
+        howtoTitle: "❓ כיצד להשתמש באתר", howtoDesc: "מדריך למבקרים ומנהלים",
+        howtoUserTitle: "👤 למבקרים",
+        howtoUser1: "<strong>בחירת שפה:</strong> לחץ על תפריט השפה בפינה הימנית העליונה (7 שפות)",
+        howtoUser2: "<strong>צפייה באטרקציות:</strong> לחץ על כרטיס האטרקציה לצפייה בפרטים, תמונות, סרטונים ומפה",
+        howtoUser3: "<strong>צפייה בתמונות:</strong> לחץ על תמונות בגלריה לצפייה במסך מלא",
+        howtoUser4: "<strong>הוראות הגעה:</strong> לחץ על כפתור \"הוראות הגעה ב-Google Maps\" לניווט",
+        howtoUser5: "<strong>צפייה בקופונים:</strong> לחץ על תפריט \"קופונים\" לצפייה בכללים ואופן המימוש",
+        howtoAdminTitle: "🔧 למנהלים",
+        howtoAdmin1: "<strong>כניסה:</strong> לחץ על כפתור \"מנהל\" בפינה הימנית העליונה",
+        howtoAdmin2: "<strong>עריכה:</strong> ערוך שמות, תיאורים, פרטים, תמונות וקישורי מפה",
+        howtoAdmin3: "<strong>הוספת תמונות/סרטונים:</strong> לחץ על לשונית \"תמונות\" או \"סרטונים\" להוספת URL",
+        howtoAdmin4: "<strong>שמירה:</strong> לחץ על כפתור \"שמור\" לאחר כל עריכה",
+        howtoAdmin5: "<strong>גיבוי:</strong> השתמש בייצוא/ייבוא JSON לגיבוי או שחזור נתונים",
+        about: "📖 אודות", gallery: "📸 גלריה", videos: "🎬 סרטונים", location: "📍 מיקום",
+        getDirections: "הוראות הגעה ב-Google Maps", back: "⬅️ חזור", rights: "כל הזכויות שמורות", updated: "✅ הנתונים עודכנו",
+        noData: "אין נתונים", noImages: "אין תמונות", noVideos: "אין סרטונים", photos: "תמונות", videoCount: "סרטונים",
+        gameRules: "🎮 חוקי המשחק", howToPlay: "איך לשחק", couponRules: "חוקי הקופונים",
+        couponTiers: " רמות קופוני הנחה", redemption: "📍 איך לממש קופונים",
+        validUntil: "📅 תקף עד", validUntilDate: "31 בדצמבר 2026",
+        coupon10: "קופון הנחה 10%", coupon20: "קופון הנחה 20%",
+        code10: "RIPLEY10", code20: "RIPLEY20",
+        condition10: "ציון 80-89% (לייזר) או השלמה תוך 10 דקות (Scream)",
+        condition20: "ציון 96-100% (לייזר) או השלמה תוך 6 דקות (Scream)",
+        redemptionSteps: [
+            "הצג קופון בדלפק הכרטיסים של Ripley's Believe It or Not! Pattaya",
+            "קופון אחד לאדם אחד בלבד",
+            "הקופון לא يجب أن يكون תפוג או קרוע",
+            "לא ניתן לשימוש עם מבצעים אחרים",
+            "לא ניתן להמרה במזומן"
+        ]
+    }
+};
+
 let currentLang = localStorage.getItem('ripleyLang') || 'th';
 let attractions = [];
-let promotions = [];
 let lastDataVersion = null;
 let checkInterval = null;
 
@@ -193,35 +468,42 @@ function getCacheBustUrl(url) {
     return url + separator + 'v=' + Date.now();
 }
 
+function applyTranslations() {
+    const t = translations[currentLang] || translations.th;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (t[key]) el.innerHTML = t[key];
+    });
+    if (currentLang === 'ar' || currentLang === 'he') {
+        document.body.classList.add('rtl');
+    } else {
+        document.body.classList.remove('rtl');
+    }
+    document.getElementById('langSelector').value = currentLang;
+}
+
 async function loadData(showLoading = true) {
     try {
         if (showLoading) document.getElementById('loading').classList.add('active');
-        
         const timestamp = Date.now();
         const url = `data.json?t=${timestamp}`;
-        
         const response = await fetch(url, {
             cache: 'no-store',
-            headers: {
-                'Cache-Control': 'no-cache, no-store, must-revalidate',
-                'Pragma': 'no-cache'
-            }
+            headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate', 'Pragma': 'no-cache' }
         });
-        
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        
         const newData = await response.json();
         const newDataVersion = JSON.stringify(newData);
-        
         if (newDataVersion !== lastDataVersion && lastDataVersion !== null) {
             showUpdateBadge();
         }
-        
         attractions = newData.attractions || newData;
-        promotions = newData.promotions || [];
         lastDataVersion = newDataVersion;
-        
-        init();
+        applyTranslations();
+        renderAttractions();
+        if (document.getElementById('page-coupons').classList.contains('active')) {
+            renderCouponsPage();
+        }
     } catch (error) {
         console.error('Error loading data:', error);
     } finally {
@@ -235,17 +517,14 @@ function showUpdateBadge() {
     setTimeout(() => badge.style.display = 'none', 3000);
 }
 
-function init() {
-    document.getElementById('langSelector').value = currentLang;
-    renderAttractions();
-    renderPromotions();
-}
-
 function changeLang(lang) {
     currentLang = lang;
     localStorage.setItem('ripleyLang', lang);
+    applyTranslations();
     renderAttractions();
-    renderPromotions();
+    if (document.getElementById('page-coupons').classList.contains('active')) {
+        renderCouponsPage();
+    }
     if (document.getElementById('page-detail').classList.contains('active')) {
         const id = document.getElementById('detailTitle').dataset.id;
         if (id) showDetail(id);
@@ -259,12 +538,12 @@ function t(obj) {
 }
 
 function renderAttractions() {
+    const trans = translations[currentLang] || translations.th;
     if (!attractions || attractions.length === 0) {
-        document.getElementById('homeAttractions').innerHTML = '<p style="text-align:center;grid-column:1/-1;">ไม่มีข้อมูล</p>';
-        document.getElementById('allAttractions').innerHTML = '<p style="text-align:center;grid-column:1/-1;">ไม่มีข้อมูล</p>';
+        document.getElementById('homeAttractions').innerHTML = `<p style="text-align:center;grid-column:1/-1;">${trans.noData}</p>`;
+        document.getElementById('allAttractions').innerHTML = `<p style="text-align:center;grid-column:1/-1;">${trans.noData}</p>`;
         return;
     }
-    
     const html = attractions.map(a => `
         <div class="attraction-card" onclick="showDetail('${a.id}')">
             <img class="card-image" src="${getCacheBustUrl(a.heroImage)}" alt="${t(a.title)}" onerror="this.src='https://via.placeholder.com/400x220?text=Ripley'">
@@ -272,77 +551,121 @@ function renderAttractions() {
                 <h3>${t(a.title)}</h3>
                 <p>${t(a.desc)}</p>
                 <div class="card-tags">
-                    <span class="tag">📸 ${a.images ? a.images.length : 0} รูป</span>
-                    <span class="tag">🎬 ${a.videos ? a.videos.length : 0} วิดีโอ</span>
+                    <span class="tag">📸 ${a.images ? a.images.length : 0} ${trans.photos}</span>
+                    <span class="tag"> ${a.videos ? a.videos.length : 0} ${trans.videoCount}</span>
                 </div>
             </div>
         </div>
     `).join('');
-    
     document.getElementById('homeAttractions').innerHTML = html;
     document.getElementById('allAttractions').innerHTML = html;
 }
 
-function renderPromotions() {
-    if (!promotions || promotions.length === 0) {
-        document.getElementById('promotionGrid').innerHTML = '<p style="text-align:center;grid-column:1/-1;">ยังไม่มีโปรโมชั่น</p>';
-        return;
+function renderCouponsPage() {
+    const trans = translations[currentLang] || translations.th;
+    const laserGame = attractions.find(a => a.id === 'laser');
+    const screamGame = attractions.find(a => a.id === 'scream');
+    
+    let html = '';
+    
+    if (laserGame) {
+        const rules = laserGame.gameRules?.[currentLang] || laserGame.gameRules?.en || laserGame.gameRules?.th;
+        html += `
+            <div class="game-card">
+                <h2>${t(laserGame.title)}</h2>
+                <p style="color: rgba(255,255,255,0.8); margin-bottom: 1rem;">${t(laserGame.subtitle)}</p>
+                <div class="rules-box">
+                    <h3>🎮 ${trans.howToPlay}</h3>
+                    <ul>${(rules?.howToPlay || []).map(r => `<li>${r}</li>`).join('')}</ul>
+                </div>
+                <div class="rules-box">
+                    <h3>🎫 ${trans.couponRules}</h3>
+                    <ul>${(rules?.couponRules || []).map(r => `<li>${r}</li>`).join('')}</ul>
+                </div>
+            </div>
+        `;
     }
     
-    const html = promotions.map(p => `
-        <div class="promotion-card">
-            <h3>${t(p.title)}</h3>
-            <div class="price">
-                ${p.price}
-                ${p.originalPrice ? `<span class="original-price">${p.originalPrice}</span>` : ''}
+    if (screamGame) {
+        const rules = screamGame.gameRules?.[currentLang] || screamGame.gameRules?.en || screamGame.gameRules?.th;
+        html += `
+            <div class="game-card">
+                <h2>${t(screamGame.title)}</h2>
+                <p style="color: rgba(255,255,255,0.8); margin-bottom: 1rem;">${t(screamGame.subtitle)}</p>
+                <div class="rules-box">
+                    <h3>🎮 ${trans.howToPlay}</h3>
+                    <ul>${(rules?.howToPlay || []).map(r => `<li>${r}</li>`).join('')}</ul>
+                </div>
+                <div class="rules-box">
+                    <h3> ${trans.couponRules}</h3>
+                    <ul>${(rules?.couponRules || []).map(r => `<li>${r}</li>`).join('')}</ul>
+                </div>
             </div>
-            <p>${t(p.desc)}</p>
-            <ul>
-                ${(p.features || []).map(f => `<li>${t(f)}</li>`).join('')}
-            </ul>
-            ${p.buttonText ? `<button class="btn-directions" onclick="window.open('${p.buttonLink || '#'}', '_blank')">${t(p.buttonText)}</button>` : ''}
-        </div>
-    `).join('');
+        `;
+    }
     
-    document.getElementById('promotionGrid').innerHTML = html;
+    html += `
+        <div class="game-card">
+            <h2>${trans.couponTiers}</h2>
+            <div class="coupon-grid">
+                <div class="coupon-tier">
+                    <div class="discount">10%</div>
+                    <div class="code">${trans.code10}</div>
+                    <div class="condition">${trans.condition10}</div>
+                </div>
+                <div class="coupon-tier">
+                    <div class="discount">20%</div>
+                    <div class="code">${trans.code20}</div>
+                    <div class="condition">${trans.condition20}</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="redemption-info">
+            <h3>${trans.redemption}</h3>
+            <ol>${(trans.redemptionSteps || []).map(s => `<li>${s}</li>`).join('')}</ol>
+            <div class="valid-badge">${trans.validUntil}: ${trans.validUntilDate}</div>
+        </div>
+    `;
+    
+    document.getElementById('gameRulesContent').innerHTML = html;
 }
 
 function showPage(page) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + page).classList.add('active');
+    if (page === 'coupons') renderCouponsPage();
     window.scrollTo(0, 0);
 }
 
 function showDetail(id) {
+    const trans = translations[currentLang] || translations.th;
     const a = attractions.find(x => x.id === id);
     if (!a) return;
-    
     document.getElementById('detailHeroImage').src = getCacheBustUrl(a.heroImage);
     document.getElementById('detailTitle').textContent = t(a.title);
     document.getElementById('detailTitle').dataset.id = id;
     document.getElementById('detailSubtitle').textContent = t(a.subtitle);
     document.getElementById('detailDesc').textContent = t(a.desc);
-
-    document.getElementById('detailGallery').innerHTML = (a.images || []).map(img => `
-        <div class="gallery-item">
-            <img src="${getCacheBustUrl(img)}" onerror="this.src='https://via.placeholder.com/200?text=Image'">
-        </div>
-    `).join('');
-
-    document.getElementById('detailVideos').innerHTML = (a.videos || []).map(v => `
-        <div class="video-card">
-            <div class="video-wrapper">
-                <iframe src="${getCacheBustUrl(v.url)}" allowfullscreen></iframe>
+    if (a.images && a.images.length > 0) {
+        document.getElementById('detailGallery').innerHTML = a.images.map(img => `
+            <div class="gallery-item"><img src="${getCacheBustUrl(img)}" onerror="this.src='https://via.placeholder.com/200?text=Image'"></div>
+        `).join('');
+    } else {
+        document.getElementById('detailGallery').innerHTML = `<p>${trans.noImages}</p>`;
+    }
+    if (a.videos && a.videos.length > 0) {
+        document.getElementById('detailVideos').innerHTML = a.videos.map(v => `
+            <div class="video-card">
+                <div class="video-wrapper"><iframe src="${getCacheBustUrl(v.url)}" allowfullscreen></iframe></div>
+                <div class="video-info"><h4>${t(v.title)}</h4></div>
             </div>
-            <div class="video-info">
-                <h4>${t(v.title)}</h4>
-            </div>
-        </div>
-    `).join('');
-
+        `).join('');
+    } else {
+        document.getElementById('detailVideos').innerHTML = `<p>${trans.noVideos}</p>`;
+    }
     document.getElementById('detailMap').src = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3885.547499847876!2d100.8767083153126!3d12.928577990346636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310268f0b0b0b0b0%3A0x0!2sRipley\'s%20Believe%20It%20or%20Not!%20Pattaya!5e0!3m2!1sen!2sth!4v1600000000000';
     document.getElementById('mapDirectionBtn').dataset.mapUrl = a.mapUrl || 'https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5';
-
     showPage('detail');
 }
 
