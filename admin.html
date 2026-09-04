@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Ripley's Pattaya</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #1a1a2e; color: white; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        h1 { color: #ffd700; margin-bottom: 10px; }
+        .success { background: #4CAF50; padding: 15px; border-radius: 5px; margin-bottom: 20px; display: none; }
+        .attraction { background: rgba(255,255,255,0.1); padding: 25px; margin-bottom: 25px; border-radius: 10px; border-left: 4px solid #ffd700; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #ffd700; }
+        input, textarea { width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #333; background: #0a0a1a; color: white; font-family: inherit; }
+        textarea { min-height: 80px; resize: vertical; }
+        button { background: #e31e24; color: white; padding: 12px 25px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 16px; margin-right: 10px; }
+        button:hover { background: #ff6b6b; }
+        .btn-download { background: #2196F3; }
+        .btn-download:hover { background: #64b5f6; }
+        a { color: #ffd700; text-decoration: none; margin-left: 10px; }
+        a:hover { text-decoration: underline; }
+        .info { background: rgba(33,150,243,0.2); padding: 15px; border-radius: 5px; margin-bottom: 20px; border-left: 4px solid #2196F3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Admin Panel - แก้ไขข้อมูล Ripley's Pattaya</h1>
+        <div class="info">
+            <strong>📝 วิธีใช้งาน:</strong>
+            <ol style="margin: 10px 0 0 20px;">
+                <li>แก้ไขข้อมูลในฟอร์มด้านล่าง</li>
+                <li>กดปุ่ม "💾 บันทึกและดาวน์โหลดไฟล์"</li>
+                <li>อัพโหลดไฟล์ data.json ใหม่ขึ้น GitHub หรือ Cloudflare</li>
+            </ol>
+        </div>
+        <div id="success" class="success">✅ บันทึกข้อมูลสำเร็จ! กรุณาอัพโหลดไฟล์ data.json ใหม่</div>
+        
+        <div id="attractions"></div>
+        
+        <button onclick="saveAll()">💾 บันทึกและดาวน์โหลดไฟล์</button>
+        <button onclick="downloadJSON()" class="btn-download">📥 ดาวน์โหลด JSON</button>
+        <a href="index.html">← กลับหน้าหลัก</a>
+    </div>
+
+    <script>
+        let attractions = [];
+
+        async function loadData() {
+            try {
+                const response = await fetch('data.json');
+                attractions = await response.json();
+                renderForm();
+            } catch (e) {
+                alert('ไม่สามารถโหลดไฟล์ data.json ได้');
+            }
+        }
+
+        function renderForm() {
+            const html = attractions.map((a, index) => `
+                <div class="attraction">
+                    <h2>🎢 ${a.title.th || a.title.en} (#${index + 1})</h2>
+                    
+                    <div class="form-group">
+                        <label>ชื่อ (ไทย)</label>
+                        <input type="text" id="title-th-${index}" value="${a.title.th || ''}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>ชื่อ (อังกฤษ)</label>
+                        <input type="text" id="title-en-${index}" value="${a.title.en || ''}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>คำบรรยายสั้น (ไทย)</label>
+                        <input type="text" id="subtitle-th-${index}" value="${a.subtitle?.th || ''}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>คำบรรยายสั้น (อังกฤษ)</label>
+                        <input type="text" id="subtitle-en-${index}" value="${a.subtitle?.en || ''}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>รายละเอียด (ไทย)</label>
+                        <textarea id="desc-th-${index}">${a.desc.th || ''}</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>รายละเอียด (อังกฤษ)</label>
+                        <textarea id="desc-en-${index}">${a.desc.en || ''}</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>รูปหลัก (URL)</label>
+                        <input type="text" id="heroImage-${index}" value="${a.heroImage || ''}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>ลิงก์แผนที่</label>
+                        <input type="text" id="mapUrl-${index}" value="${a.mapUrl || ''}">
+                    </div>
+                </div>
+            `).join('');
+            
+            document.getElementById('attractions').innerHTML = html;
+        }
+
+        function saveAll() {
+            attractions.forEach((a, index) => {
+                a.title.th = document.getElementById(`title-th-${index}`).value;
+                a.title.en = document.getElementById(`title-en-${index}`).value;
+                a.subtitle.th = document.getElementById(`subtitle-th-${index}`).value;
+                a.subtitle.en = document.getElementById(`subtitle-en-${index}`).value;
+                a.desc.th = document.getElementById(`desc-th-${index}`).value;
+                a.desc.en = document.getElementById(`desc-en-${index}`).value;
+                a.heroImage = document.getElementById(`heroImage-${index}`).value;
+                a.mapUrl = document.getElementById(`mapUrl-${index}`).value;
+            });
+
+            document.getElementById('success').style.display = 'block';
+            downloadJSON();
+            
+            setTimeout(() => {
+                document.getElementById('success').style.display = 'none';
+            }, 5000);
+        }
+
+        function downloadJSON() {
+            const blob = new Blob([JSON.stringify(attractions, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'data.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        loadData();
+    </script>
+</body>
+</html>
