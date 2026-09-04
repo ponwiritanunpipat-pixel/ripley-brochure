@@ -7,18 +7,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --primary: #e31e24; --secondary: #1a1a2e; --accent: #ffd700; --dark: #0a0a1a; --card-bg: rgba(255,255,255,0.05); --glass: rgba(255,255,255,0.1); }
+        :root { --primary: #e31e24; --accent: #ffd700; --dark: #0a0a1a; --card-bg: rgba(255,255,255,0.05); --glass: rgba(255,255,255,0.1); }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Prompt', sans-serif; background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0a0a1a 100%); color: #fff; min-height: 100vh; }
-        header { position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(10,10,26,0.9); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        header { position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(10,10,26,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.1); }
         .header-container { max-width: 1400px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.5rem; font-weight: 900; color: var(--accent); }
         .nav-links { display: flex; gap: 1.5rem; align-items: center; }
-        .nav-links a { color: #fff; text-decoration: none; font-weight: 600; cursor: pointer; transition: color 0.3s; }
-        .nav-links a:hover { color: var(--accent); }
+        .nav-links a { color: #fff; text-decoration: none; font-weight: 600; cursor: pointer; }
         .lang-selector { background: var(--glass); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 0.5rem 1rem; border-radius: 25px; cursor: pointer; }
-        .btn-edit { background: var(--accent); color: var(--dark); border: none; padding: 0.5rem 1rem; border-radius: 25px; cursor: pointer; font-weight: 700; text-decoration: none; font-size: 0.9rem; }
-        .btn-edit:hover { transform: scale(1.05); }
+        .btn-admin { background: #4CAF50; color: #fff; padding: 0.5rem 1rem; border-radius: 25px; text-decoration: none; font-weight: 600; }
         main { margin-top: 80px; min-height: calc(100vh - 80px); }
         .page { display: none; animation: fadeIn 0.5s; }
         .page.active { display: block; }
@@ -66,14 +64,13 @@
         <div class="header-container">
             <div class="logo">Ripley's Pattaya</div>
             <nav class="nav-links">
-                <a onclick="showPage('home')">🏠 หน้าแรก</a>
+                <a onclick="showPage('home')"> หน้าแรก</a>
                 <a onclick="showPage('attractions')">🎢 เครื่องเล่น</a>
                 <select class="lang-selector" id="langSelector" onchange="changeLang(this.value)">
-                    <option value="th">🇹🇭 TH</option>
+                    <option value="th">🇹 TH</option>
                     <option value="en">🇬🇧 EN</option>
                 </select>
-                <!-- ปุ่มนี้จะลิงก์ไปหน้าแก้ไขไฟล์ data.json บน GitHub โดยตรง -->
-                <a href="https://github.com/YOUR_GITHUB_USERNAME/ripley-brochure/edit/main/data.json" target="_blank" class="btn-edit">✏️ แก้ไขข้อมูล (Admin)</a>
+                <a href="admin.html" class="btn-admin"> Admin</a>
             </nav>
         </div>
     </header>
@@ -101,28 +98,17 @@
                 </div>
             </div>
             <div class="detail-container">
-                <div class="detail-section">
-                    <h2>📖 เกี่ยวกับ</h2>
-                    <p id="detailDesc"></p>
-                </div>
-                <div class="detail-section">
-                    <h2>📸 แกลเลอรี่ภาพ</h2>
-                    <div class="gallery-grid" id="detailGallery"></div>
-                </div>
-                <div class="detail-section">
-                    <h2>🎬 วิดีโอ</h2>
-                    <div class="video-grid" id="detailVideos"></div>
-                </div>
+                <div class="detail-section"><h2>📖 เกี่ยวกับ</h2><p id="detailDesc"></p></div>
+                <div class="detail-section"><h2>📸 แกลเลอรี่ภาพ</h2><div class="gallery-grid" id="detailGallery"></div></div>
+                <div class="detail-section"><h2>🎬 วิดีโอ</h2><div class="video-grid" id="detailVideos"></div></div>
                 <div class="detail-section">
                     <h2>📍 ที่ตั้ง</h2>
-                    <div class="map-container">
-                        <iframe id="detailMap" src="" allowfullscreen="" loading="lazy"></iframe>
-                    </div>
+                    <div class="map-container"><iframe id="detailMap" src="" allowfullscreen="" loading="lazy"></iframe></div>
                     <button id="mapDirectionBtn" class="btn-directions" onclick="openMapDirection()">
                         <i class="fas fa-directions"></i> ดูเส้นทางใน Google Maps
                     </button>
                 </div>
-                <button class="btn-back" onclick="showPage('attractions')">⬅️ กลับไปหน้าเครื่องเล่น</button>
+                <button class="btn-back" onclick="showPage('attractions')">⬅️ กลับ</button>
             </div>
         </div>
     </main>
@@ -132,19 +118,22 @@
 let currentLang = localStorage.getItem('ripleyLang') || 'th';
 let attractions = [];
 
-// โหลดข้อมูลจากไฟล์ data.json
 async function loadData() {
     try {
-        const response = await fetch('data.json');
-        if (response.ok) {
-            attractions = await response.json();
-            init();
+        // เช็ค localStorage ก่อน (ข้อมูลจาก Admin)
+        const saved = localStorage.getItem('ripleyAttractions');
+        if (saved) {
+            attractions = JSON.parse(saved);
+            console.log('โหลดจาก localStorage:', attractions.length, 'รายการ');
         } else {
-            console.error('ไม่สามารถโหลดไฟล์ data.json ได้');
+            const response = await fetch('data.json');
+            if (response.ok) {
+                attractions = await response.json();
+                console.log('โหลดจาก data.json:', attractions.length, 'รายการ');
+            }
         }
-    } catch (e) {
-        console.error('เกิดข้อผิดพลาด:', e);
-    }
+        init();
+    } catch (e) { console.error(e); }
 }
 
 function init() {
@@ -156,10 +145,6 @@ function changeLang(lang) {
     currentLang = lang;
     localStorage.setItem('ripleyLang', lang);
     renderAttractions();
-    if (document.getElementById('page-detail').classList.contains('active')) {
-        const id = document.getElementById('detailTitle').dataset.id;
-        if (id) showDetail(id);
-    }
 }
 
 function t(obj) { return obj[currentLang] || obj['en'] || obj['th'] || ''; }
@@ -197,22 +182,17 @@ function showDetail(id) {
     document.getElementById('detailSubtitle').textContent = t(a.subtitle);
     document.getElementById('detailDesc').textContent = t(a.desc);
 
-    const galleryHtml = a.images.map((img, i) => `
-        <div class="gallery-item">
-            <img src="${img}" alt="${t(a.title)}" onerror="this.src='https://via.placeholder.com/200?text=Image'">
-        </div>
+    document.getElementById('detailGallery').innerHTML = a.images.map(img => `
+        <div class="gallery-item"><img src="${img}" onerror="this.src='https://via.placeholder.com/200?text=Image'"></div>
     `).join('');
-    document.getElementById('detailGallery').innerHTML = galleryHtml;
 
-    const videoHtml = a.videos.map(v => `
+    document.getElementById('detailVideos').innerHTML = a.videos.map(v => `
         <div class="video-card">
             <div class="video-wrapper"><iframe src="${v.url}" allowfullscreen></iframe></div>
             <div class="video-info"><h4>${t(v.title)}</h4></div>
         </div>
     `).join('');
-    document.getElementById('detailVideos').innerHTML = videoHtml;
 
-    // ตั้งค่าแผนที่
     document.getElementById('detailMap').src = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3885.547499847876!2d100.8767083153126!3d12.928577990346636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310268f0b0b0b0b0%3A0x0!2sRipley\'s%20Believe%20It%20or%20Not!%20Pattaya!5e0!3m2!1sen!2sth!4v1600000000000';
     document.getElementById('mapDirectionBtn').dataset.mapUrl = a.mapUrl || 'https://maps.app.goo.gl/i5tLqWuq5ZeDHFiu5';
 
